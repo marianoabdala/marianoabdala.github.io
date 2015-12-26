@@ -6,35 +6,266 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 26 Dec 2015 20:15:12 -0300</pubDate>
-    <lastBuildDate>Sat, 26 Dec 2015 20:15:12 -0300</lastBuildDate>
+    <pubDate>Sat, 26 Dec 2015 20:23:18 -0300</pubDate>
+    <lastBuildDate>Sat, 26 Dec 2015 20:23:18 -0300</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+        <title>watch keynote</title>
+        <description>&lt;p&gt;As I said before 1, I purposely stayed out of Twitter during today’s Apple’s keynote. I didn’t wanted to contribute polluting with comments that had no elaboration or to be distracted from the keynote itself.&lt;/p&gt;
 
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;p&gt;So here are my thoughts on the keynote. Later, I’ll review Twitter and then, if necessary, update.&lt;/p&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;p&gt;Watch HBO NOW anywhere.2&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Tom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;HBO NOW℠ is accessible only in the U.S. and certain U.S. territories where a high-speed broadband connection is available.&lt;/p&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I hate not being able to get content due to my location, in this case, they are rubbing it in my face.&lt;/p&gt;
+
+&lt;p&gt;Research Kit&lt;/p&gt;
+
+&lt;p&gt;One of the biggest challenges researchers have is recruiting, they often have to pay people to participate, which by the way, doesn’t give you the best cross-section of the population.&lt;/p&gt;
+
+&lt;p&gt;I really dislike the sound of that. In my head it translated immediately as “yuk, people so poor they’d subject themselves to health research for money”. Just awful.&lt;/p&gt;
+
+&lt;p&gt;Are iPhone and watches owners a better cross-section of the population? Absolutely not, but they are wealthier, and Apple’s customers.&lt;/p&gt;
+
+&lt;p&gt;We wanted anybody, anywhere, regardless of the platform they are on to contribute, so we are actually going to make this open source&lt;/p&gt;
+
+&lt;p&gt;Which “this”? The Apps, the framework, the services? Only the services make sense as platform independent open source project, if any.&lt;/p&gt;
+
+&lt;p&gt;Macbook&lt;/p&gt;
+
+&lt;p&gt;Just not sure about the new side arrow keys being as tall as the up and down together3.&lt;/p&gt;
+
+&lt;p&gt;watch&lt;/p&gt;
+
+&lt;p&gt;Really caught my attention the fact that for the collection watch you could spend nearly as much on the band than in the watch itself4, 549 to 1099, “depending on the band selection”.&lt;/p&gt;
+
+&lt;p&gt;https://twitter.com/marianoabdala/status/574957346205614080 ↩&lt;/p&gt;
+
+&lt;p&gt;http://www.apple.com/appletv/hbo-now/ and http://cl.ly/image/0M3t2o2k0k0V ↩&lt;/p&gt;
+
+&lt;p&gt;https://www.apple.com/macbook/ and http://cl.ly/image/3Y3Q3m3Q230J ↩&lt;/p&gt;
+
+&lt;p&gt;http://appleinsider.com/articles/15/03/09/apple-watch-collection-pricing-will-range-from-549-to-1099-depending-on-band-selection ↩&lt;/p&gt;
 
 </description>
-        <pubDate>Sat, 26 Dec 2015 20:14:56 -0300</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2015/12/26/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2015/12/26/welcome-to-jekyll.html</guid>
+        <pubDate>Mon, 09 Mar 2015 18:56:05 -0300</pubDate>
+        <link>http://yourdomain.com/2015/03/09/watch-keynote.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2015/03/09/watch-keynote.html</guid>
         
         
-        <category>jekyll</category>
+      </item>
+    
+      <item>
+        <title>The need of money</title>
+        <description>&lt;p&gt;One of capitalism’s greatest fallacies is that making money is a purpose in itself and that the need for money is such a motivation that without it all business related activities would come to a stop.&lt;/p&gt;
+
+&lt;p&gt;We now have the chance of watching a company with absolutely no need for money.&lt;/p&gt;
+
+&lt;p&gt;Watch Apple closely and see if the lack of need for money deprives them of a purpose or if it stops them.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 28 Jan 2015 09:59:34 -0300</pubDate>
+        <link>http://yourdomain.com/2015/01/28/the-need-of-money.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2015/01/28/the-need-of-money.html</guid>
         
-        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>watch</title>
+        <description>&lt;p&gt;I’ll be surprised if having a computer on your wrist after having one in your pocket for years results in a revolution comparable to having a computer in your pocket after having one in your desk for years.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 01 Dec 2014 15:27:28 -0300</pubDate>
+        <link>http://yourdomain.com/2014/12/01/watch.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2014/12/01/watch.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Best desktop I&#39;ve ever had, yet</title>
+        <description>&lt;p&gt;After having shared a few pics on twitter or with my friends of my new desktop, a good number of them got interested and started asking for some specific details, some trying to build it themselves.
+I wasn’t going to write a post about this one desk, but since it’s incredibly comfortable to me and people shown interest, I decided I’ll share the specs so anyone can build one.
+I have to say I didn’t built this one myself and that it costed me a bit more than 150 U$S (see previous desktop).
+Materials:
+1- 1½” 2,000x800mm solid pine wood panel, with cables hole drilled.
+4- 345x545mm wall brackets.
+Cost: 
+Wood panel and wall brackets: 2890 AR$ (~350 U$S)
+Wood panel polish and lamination: 600 AR$ (~75 U$S)
+Transportation and installation: 470 AR$ (~55 U$S)
+Total: 3960 AR$ (~ 480 U$S)
+Optionally you can add a chest of drawers, as I did. It’s proving to be really useful.
+Finally, you can download the specs here, feel free to share them!
+http://cl.ly/2L0r1I2n2a27&lt;/p&gt;
+</description>
+        <pubDate>Sun, 15 Jun 2014 21:20:00 -0300</pubDate>
+        <link>http://yourdomain.com/2014/06/15/best-desktop-ive-ever-had-yet.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2014/06/15/best-desktop-ive-ever-had-yet.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Best desktop I&#39;ve ever had</title>
+        <description>&lt;p&gt;I built it myself, for just 150 U$S.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 22 Nov 2013 14:35:00 -0300</pubDate>
+        <link>http://yourdomain.com/2013/11/22/best-desktop-ive-ever-had.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2013/11/22/best-desktop-ive-ever-had.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Hosting an NSCoder</title>
+        <description>&lt;p&gt;This coming December the 3rd I’ll be hosting the 17th NSCoder in the lovely city of Buenos Aires1, Argentina. It’ll be on that date that a year and a half ago I hosted the very first one.&lt;/p&gt;
+
+&lt;p&gt;I intend to list here the most important lessons I learnt from this experience and the factors that I think were key to its success (and survival).&lt;/p&gt;
+
+&lt;p&gt;Currently, the group is healthy and the effort that the hosting requires is minimal, most new members return and most members are quite active in the distribution list. We are meeting monthly with an average of 10 to 12 assistants.&lt;/p&gt;
+
+&lt;p&gt;Our member base is diverse: we have indies, full-timers and contractors; pros and amateurs; boys and girls; we, of course, have locals but also people from France, Spain and England; we even had people from nearby cities who had changed their trip plans to Buenos Aires just to attend the NSCoder2.What’s so great about attending an NSCoder?
+I know my good share of iOS developers. The most common project for most of them is just one dev or maybe two, often scattered around the globe. We simply don’t get to know as many people in our industry from just showing up in the office as other people do.&lt;/p&gt;
+
+&lt;p&gt;NSCoders may vary a lot from one another, but if the group is hosted right, no matter what you do in the meetings (coding, keynotes, share experiences or just chat) you are going to meet people, a lot of them. If you enjoy following fellow iOS developers on Twitter try having a cup of coffee with them, it will blow your mind.&lt;/p&gt;
+
+&lt;p&gt;If there’s no NSCoder where you live you should definitely start and host one.&lt;/p&gt;
+
+&lt;p&gt;Here’s how I handled important aspects of starting and hosting an NSCoder myself. I hope you find them useful.Start by attending other NSCoders, if possible
+It’ll give you a general sense of how NSCoders are supposed to be run and you’ll be able to learn from their hosts. Most likely, you’ll have a really good time.Create a profesional internet persona for you cities’ NSCoder
+A Twitter account and a one page website are indispensable. Be sure to tweet only reminders or change in plans and keep your website brief and clear, lots of people don’t know what an NSCoder is and will be shy to attend. Set the mood.&lt;/p&gt;
+
+&lt;p&gt;Check NSCoder Buenos Aires’ twitter account and website for reference, they are in Spanish, but you’ll get the idea.Define location and scheduling
+Convincing people to go to a place other than their houses after a hard day of work isn’t easy. The best location is then, between where most of the attendants work and live. Schedule meetings so that most people can leave their job and arrive into a just started meeting. Meetings of around two hours worked fine for us.&lt;/p&gt;
+
+&lt;p&gt;Try picking a venue where each person can arrive and leave when they want and pay their own check, not everyone will arrive and leave at the same time.Meet once a month, instead of once a week
+Traditionally NSCoder Nights are held once a week. People will simply get tired of it. You need your members to mark the date in their calendars, make this event a priority. If they can skip this one and go to the one next week, they’ll skip it often.
+Have a private distribution list for attendants only
+This will help to keep the conversation going between meetings, it’ll provide with an easy channel for last minute changes or reminders and it’s a great resource in general.Always attend
+Even if nobody confirmed assistance. Worst thing that could happen is that you’ll get a nice coffee or beer at a place you like. Whereas if you don’t attend the worst thing that could happen is that someone shows up and there’s nobody there. That someone will never return, and will probably trash you and the group publicly every time he can.&lt;/p&gt;
+
+&lt;p&gt;Showing up a bit early is not a bad idea.Don’t have an agenda or an organiser
+Just have (be) a host that makes sure to remember and encourage people to attend. Once they’ve attended, allow them to do as they please.Invite new people
+The best way of inviting someone is to start following him on Twitter, absolutely non intrusive. If they are into this sort of things you’ll get their attention with just a nice avatar3 and a bio like:&lt;/p&gt;
+
+&lt;p&gt;We are a bunch of iOS devs in the [your city] area that simply gather for a [coffee | beer] and [talk | code | demo]. Join us!Ask new members to introduce themselves
+About half hour into the meeting ask new members to introduce themselves. Ask them to say who they are, what they’ve done (any apps we might have heard of?) and where they work at now. It’s a nice ice breaker for them and it will avoid some awkward situations.Invest in diversity
+What’s the point in meeting lots of people if they all have had more or less the same experiences? Invest a few extra minutes in trying to convince indies, girls and foreigners to attend. You’ll get tons of local male contractors to attend anyway, don’t worry.Keep an updated list of members
+Make it easy for members to follow each other up. Also, those who are not totally convinced to attend may already know or follow someone in the group, and decide to attend in order to meet them.Prohibit the attendance of recruiters
+This is huge, be as explicit as you see fit. Several members told me that this was key to convince them to join.
+Enjoy.
+Special thanks to Jiva DeVoe, who, by hosting and inviting me to attend his NSCoder+Virtual, not only introduced me to the NSCoder world but also inspired me (among other things) to start one in my own city.&lt;/p&gt;
+
+&lt;p&gt;Buenos Aires is the capital city of Argentina; it’s a huge city, it’s the world’s 12ve most populated city: it’s as big as Washington and London put together. Source ↩&lt;/p&gt;
+
+&lt;p&gt;Which is sadly the only one in Argentina. ↩&lt;/p&gt;
+
+&lt;p&gt;NSCoderBA avatar’s. ↩&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 11 Nov 2013 09:24:00 -0300</pubDate>
+        <link>http://yourdomain.com/2013/11/11/hosting-an-nscoder.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2013/11/11/hosting-an-nscoder.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>App.net</title>
+        <description>&lt;p&gt;When App.net was first introduced to the world I refused to sign in. The premise that because it was paid it was good was plain wrong.&lt;/p&gt;
+
+&lt;p&gt;On the other hand, I’m quite active in twitter and have great followers. I don’t have thousands of followers but a few of iOS’s most known names actually follow me, and I’m quite proud of it. Why would I want to leave?&lt;/p&gt;
+
+&lt;p&gt;The problem is that I have most of my closest friends on twitter too and I hate bugging my technology, english speaking followers with pictures of the “empanadas”1 I had last night near Palermo, local politics or 9gag stuff.&lt;/p&gt;
+
+&lt;p&gt;So I finally signed in on App.net and started posting only iOS related stuff in there. It’s a bit like LinkedIn without the recruiters, it’s great.
+Now guys, would you follow me on App.net?&lt;/p&gt;
+
+&lt;p&gt;Empanadas are so good. You should try them some time. ↩&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 07 Nov 2013 16:31:00 -0300</pubDate>
+        <link>http://yourdomain.com/2013/11/07/appnet.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2013/11/07/appnet.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>A trick for Status Magic users</title>
+        <description>&lt;p&gt;Just a few days ago, I was lucky enough as to be part of the beta testing group of the latest version of Status Magic.&lt;/p&gt;
+
+&lt;p&gt;Status Magic turned my pity, lame, little screenshots into clean, gorgeous, Apple-class ones. All this in a matter of minutes, with an automatic process that gets it right every time.&lt;/p&gt;
+
+&lt;p&gt;The only catch to Status Magic is that for it to work correctly with translucent status bars -and you’ll get a lot of those in iOS 7- you need to remove them from the screenshot yourself. To achieve this the users are provided with a really simple code to insert in their apps.&lt;/p&gt;
+
+&lt;p&gt;https://gist.github.com/marianoabdala/6531378&lt;/p&gt;
+
+&lt;p&gt;This is great since you can call this from wherever you prefer.What would be the best action to trigger saving a screenshot?
+Right, taking a screenshot… by pressing the lock and home buttons.&lt;/p&gt;
+
+&lt;p&gt;The UIApplicationUserDidTakeScreenshotNotification was introduced to iOS 7, which allows us to get notified when the user takes a screenshot on the UIApplication.&lt;/p&gt;
+
+&lt;p&gt;So that’s how we are going to trigger the provided code, but there’s one extra change I’d like to propose: to allow the user to decide what to do with the image (via UIActivityViewController), instead of forcibly saving it to the disk.&lt;/p&gt;
+
+&lt;p&gt;Here’s how I handle it:&lt;/p&gt;
+
+&lt;p&gt;https://gist.github.com/marianoabdala/03cb1b27214ce533d573&lt;/p&gt;
+
+&lt;p&gt;If you were to choose to “Save Image” you’ll end up with two copies on your Photos app per screenshot, one with the status bar and one without it, which is great since you can easily verify that everything worked fine. You will probably then want to import them all together with Image Capture or iPhoto.&lt;/p&gt;
+
+&lt;p&gt;NOTE: This will not work on the simulator, pressing +s will not trigger the notification.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 11 Sep 2013 21:16:00 -0300</pubDate>
+        <link>http://yourdomain.com/2013/09/11/a-trick-for-status-magic-users.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2013/09/11/a-trick-for-status-magic-users.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>best tool for making difficult decisions</title>
+        <description>&lt;p&gt;Best tool for making difficult decisions.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Aug 2013 11:09:16 -0300</pubDate>
+        <link>http://yourdomain.com/2013/08/07/best-tool-for-making-difficult-decisions.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2013/08/07/best-tool-for-making-difficult-decisions.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>A proposed technique for offering users assistance in the event of a crash</title>
+        <description>&lt;p&gt;All apps crash.
+We all know that and we all know that all we can do about it is try to collect information as to why the crash happened and prevent it from happening again.&lt;/p&gt;
+
+&lt;p&gt;But we are not our users -we should all also know that-, and sometimes, in the event of a crash, our users don’t understand what happened or why. Let alone, are they aware of the kind of care we placed into making the app as stable as possible. Sometimes they get confused or even, really upset.&lt;/p&gt;
+
+&lt;p&gt;What are we exactly doing right now to help our users in the event of a crash? What’s stopping a user from going straight into the AppStore to trash our app? Well, nothing. What can we do?&lt;/p&gt;
+
+&lt;p&gt;What we can do is give the user quick access, using local push notifications, to information about what have just happened and means to contact us for help.&lt;/p&gt;
+
+&lt;p&gt;Here’s a video of how this could look like on your app.&lt;/p&gt;
+
+&lt;p&gt;The technique is really simple,
+1. Schedule a local push notification
+2. Cancel it right before it’s due
+3. Repeat.&lt;/p&gt;
+
+&lt;p&gt;If the app crashes, the notification will not be cancelled and thus will be presented to the user. This whole mechanism happens locally, there’s no need for a remote notifications service.&lt;/p&gt;
+
+&lt;p&gt;Here’s the full project on Github.&lt;/p&gt;
+
+&lt;p&gt;As a side effect, you’ll get your bug reporter to collect more info on your crashes. Remember that most crash reporters can report bugs only if the app is re-opened after a crash occurred.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 03 Aug 2013 10:49:00 -0300</pubDate>
+        <link>http://yourdomain.com/2013/08/03/a-proposed-technique-for-offering-users-assistance.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2013/08/03/a-proposed-technique-for-offering-users-assistance.html</guid>
+        
         
       </item>
     

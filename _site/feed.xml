@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Your awesome title</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
-</description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 26 Dec 2015 20:23:18 -0300</pubDate>
-    <lastBuildDate>Sat, 26 Dec 2015 20:23:18 -0300</lastBuildDate>
+    <title>Zerously</title>
+    <description>A blog by Mariano Abdala.</description>
+    <link>http://zerously.com/</link>
+    <atom:link href="http://zerously.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 26 Dec 2015 20:38:23 -0300</pubDate>
+    <lastBuildDate>Sat, 26 Dec 2015 20:38:23 -0300</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
     
       <item>
@@ -52,8 +51,8 @@
 
 </description>
         <pubDate>Mon, 09 Mar 2015 18:56:05 -0300</pubDate>
-        <link>http://yourdomain.com/2015/03/09/watch-keynote.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2015/03/09/watch-keynote.html</guid>
+        <link>http://zerously.com/2015/03/09/watch-keynote.html</link>
+        <guid isPermaLink="true">http://zerously.com/2015/03/09/watch-keynote.html</guid>
         
         
       </item>
@@ -67,8 +66,8 @@
 &lt;p&gt;Watch Apple closely and see if the lack of need for money deprives them of a purpose or if it stops them.&lt;/p&gt;
 </description>
         <pubDate>Wed, 28 Jan 2015 09:59:34 -0300</pubDate>
-        <link>http://yourdomain.com/2015/01/28/the-need-of-money.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2015/01/28/the-need-of-money.html</guid>
+        <link>http://zerously.com/2015/01/28/the-need-of-money.html</link>
+        <guid isPermaLink="true">http://zerously.com/2015/01/28/the-need-of-money.html</guid>
         
         
       </item>
@@ -78,8 +77,8 @@
         <description>&lt;p&gt;I’ll be surprised if having a computer on your wrist after having one in your pocket for years results in a revolution comparable to having a computer in your pocket after having one in your desk for years.&lt;/p&gt;
 </description>
         <pubDate>Mon, 01 Dec 2014 15:27:28 -0300</pubDate>
-        <link>http://yourdomain.com/2014/12/01/watch.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2014/12/01/watch.html</guid>
+        <link>http://zerously.com/2014/12/01/watch.html</link>
+        <guid isPermaLink="true">http://zerously.com/2014/12/01/watch.html</guid>
         
         
       </item>
@@ -102,8 +101,8 @@ Finally, you can download the specs here, feel free to share them!
 http://cl.ly/2L0r1I2n2a27&lt;/p&gt;
 </description>
         <pubDate>Sun, 15 Jun 2014 21:20:00 -0300</pubDate>
-        <link>http://yourdomain.com/2014/06/15/best-desktop-ive-ever-had-yet.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2014/06/15/best-desktop-ive-ever-had-yet.html</guid>
+        <link>http://zerously.com/2014/06/15/best-desktop-ive-ever-had-yet.html</link>
+        <guid isPermaLink="true">http://zerously.com/2014/06/15/best-desktop-ive-ever-had-yet.html</guid>
         
         
       </item>
@@ -114,8 +113,8 @@ http://cl.ly/2L0r1I2n2a27&lt;/p&gt;
 
 </description>
         <pubDate>Fri, 22 Nov 2013 14:35:00 -0300</pubDate>
-        <link>http://yourdomain.com/2013/11/22/best-desktop-ive-ever-had.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2013/11/22/best-desktop-ive-ever-had.html</guid>
+        <link>http://zerously.com/2013/11/22/best-desktop-ive-ever-had.html</link>
+        <guid isPermaLink="true">http://zerously.com/2013/11/22/best-desktop-ive-ever-had.html</guid>
         
         
       </item>
@@ -168,8 +167,8 @@ Special thanks to Jiva DeVoe, who, by hosting and inviting me to attend his NSCo
 
 </description>
         <pubDate>Mon, 11 Nov 2013 09:24:00 -0300</pubDate>
-        <link>http://yourdomain.com/2013/11/11/hosting-an-nscoder.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2013/11/11/hosting-an-nscoder.html</guid>
+        <link>http://zerously.com/2013/11/11/hosting-an-nscoder.html</link>
+        <guid isPermaLink="true">http://zerously.com/2013/11/11/hosting-an-nscoder.html</guid>
         
         
       </item>
@@ -189,8 +188,8 @@ Now guys, would you follow me on App.net?&lt;/p&gt;
 
 </description>
         <pubDate>Thu, 07 Nov 2013 16:31:00 -0300</pubDate>
-        <link>http://yourdomain.com/2013/11/07/appnet.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2013/11/07/appnet.html</guid>
+        <link>http://zerously.com/2013/11/07/appnet.html</link>
+        <guid isPermaLink="true">http://zerously.com/2013/11/07/appnet.html</guid>
         
         
       </item>
@@ -221,8 +220,8 @@ Right, taking a screenshot… by pressing the lock and home buttons.&lt;/p&gt;
 &lt;p&gt;NOTE: This will not work on the simulator, pressing +s will not trigger the notification.&lt;/p&gt;
 </description>
         <pubDate>Wed, 11 Sep 2013 21:16:00 -0300</pubDate>
-        <link>http://yourdomain.com/2013/09/11/a-trick-for-status-magic-users.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2013/09/11/a-trick-for-status-magic-users.html</guid>
+        <link>http://zerously.com/2013/09/11/a-trick-for-status-magic-users.html</link>
+        <guid isPermaLink="true">http://zerously.com/2013/09/11/a-trick-for-status-magic-users.html</guid>
         
         
       </item>
@@ -232,8 +231,8 @@ Right, taking a screenshot… by pressing the lock and home buttons.&lt;/p&gt;
         <description>&lt;p&gt;Best tool for making difficult decisions.&lt;/p&gt;
 </description>
         <pubDate>Wed, 07 Aug 2013 11:09:16 -0300</pubDate>
-        <link>http://yourdomain.com/2013/08/07/best-tool-for-making-difficult-decisions.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2013/08/07/best-tool-for-making-difficult-decisions.html</guid>
+        <link>http://zerously.com/2013/08/07/best-tool-for-making-difficult-decisions.html</link>
+        <guid isPermaLink="true">http://zerously.com/2013/08/07/best-tool-for-making-difficult-decisions.html</guid>
         
         
       </item>
@@ -263,8 +262,8 @@ We all know that and we all know that all we can do about it is try to collect i
 &lt;p&gt;As a side effect, you’ll get your bug reporter to collect more info on your crashes. Remember that most crash reporters can report bugs only if the app is re-opened after a crash occurred.&lt;/p&gt;
 </description>
         <pubDate>Sat, 03 Aug 2013 10:49:00 -0300</pubDate>
-        <link>http://yourdomain.com/2013/08/03/a-proposed-technique-for-offering-users-assistance.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2013/08/03/a-proposed-technique-for-offering-users-assistance.html</guid>
+        <link>http://zerously.com/2013/08/03/a-proposed-technique-for-offering-users-assistance.html</link>
+        <guid isPermaLink="true">http://zerously.com/2013/08/03/a-proposed-technique-for-offering-users-assistance.html</guid>
         
         
       </item>

@@ -3,7 +3,7 @@ layout: post
 title:  "Hello"
 date:   2016-03-19 18:59:52 -0300
 ---
-I know, I know. I shouldn't switch my blog's url and name so often.
+I know, I know. I shouldn't be switching my blog's url and name so often.
 
 But Tumblr wasn't doing such a great job at hosting my posts... and I just decided I'd go lean, start over, hell, _why not_?
 
@@ -11,9 +11,9 @@ You can find my previous writings here:
 [mariano.zerously.com](http://mariano.zerously.com) (2013-2015)  
 [mythirdblog](http://mythirdblog.wordpress.com) (2007-2010)
 
-I tried importing them, redirecting them, and honestly, it isn't wasn't it.
+I tried importing them, redirecting them, renaming them and honestly, it isn't wasn't worth it.
 
-I'll save you some time, here are a my **favorite posts** from them:  
+I'll save you some time, here are my **favorite posts** from my past blogs:  
 [Planning to get rid of my PC](https://mythirdblog.wordpress.com/2009/04/25/planning-to-get-rid-of-my-pc/)  
 [5 phases to become a happy programmer](https://mythirdblog.wordpress.com/2009/11/18/5-phases-to-become-a-happy-programer/)  
 [iOS push notifications sends user-untraceable sounds](http://mariano.zerously.com/post/18906826372/ios-push-notifications-sends-user-untraceable)  
@@ -24,3 +24,5 @@ I'll save you some time, here are a my **favorite posts** from them:
 [Hosting an NSCoder](http://mariano.zerously.com/post/66670579060/hosting-an-nscoder)  
 [Best desktop I’ve ever had](http://mariano.zerously.com/post/67763971947/best-desktop-ive-ever-had)  
 [Best desktop I’ve ever had, yet](http://mariano.zerously.com/post/88906173465/best-desktop-ive-ever-had-yet)
+
+Have fun.

@@ -1,14 +1,8 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'jekyll serve'. If you change this file, please restart the server process.
-
 # Site settings
-title: Zerously
+title: Mariano Abdala
 email: mariano@zerously.com
-description: A blog by Mariano Abdala.
+description: >
+  Writings of Mariano Abdala. iOS Developer, host at @NSCoderBA and organizer at @NSConfArg.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://zerously.com" # the base hostname & protocol for your site
 twitter_username: marianoabdala

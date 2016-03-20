@@ -6,15 +6,103 @@
 </description>
     <link>http://zerously.com/</link>
     <atom:link href="http://zerously.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 19 Mar 2016 20:56:01 -0300</pubDate>
-    <lastBuildDate>Sat, 19 Mar 2016 20:56:01 -0300</lastBuildDate>
+    <pubDate>Sun, 20 Mar 2016 20:34:30 -0300</pubDate>
+    <lastBuildDate>Sun, 20 Mar 2016 20:34:30 -0300</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>Introduction to FRP (part 1)</title>
+        <description>&lt;p&gt;Not long ago, I started working on a project that is built around &lt;em&gt;Functional Reactive Programming&lt;/em&gt;. Even with a strong programming background I found it hard at first to even grasp its most fundamental concepts. To make things worst, just as I was starting, &lt;a href=&quot;https://github.com/ReactiveCocoa/ReactiveCocoa&quot;&gt;ReactiveCocoa&lt;/a&gt; 4 -the FRP framework of choice for said project- was launched with &lt;strong&gt;major&lt;/strong&gt; changes, making it really hard to find good reference material. The ones I found were mostly about making a transition from &lt;code class=&quot;highlighter-rouge&quot;&gt;2.5&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;4.0&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here goes some key lessons I learnt the hard way, in the hope that someone in a similar situation as me will find it useful or someone who knows more will correct me if I’m wrong in my understanding of FRP under ReactiveCocoa.&lt;/p&gt;
+
+&lt;h2 id=&quot;frp&quot;&gt;FRP&lt;/h2&gt;
+&lt;p&gt;Funcional Reactive Programming is a programming paradigm like many others. The main result of its adoption is more readable code via the sustitution of state by higher level instructions.&lt;/p&gt;
+
+&lt;p&gt;The most common example for state is a register button that will be enabled when both the username and the password are valid, as long as the register button hasn’t been pressed already and we are registering the user via API.&lt;/p&gt;
+
+&lt;p&gt;What imperative programming will normally do is:&lt;br /&gt;
+1. Hook into the textfields’ &lt;code class=&quot;highlighter-rouge&quot;&gt;shouldChangeCharactersInRange:replacementString:&lt;/code&gt; delegate method.&lt;br /&gt;
+2. Every time the text changes, check whether it’s valid or not.&lt;br /&gt;
+3. Check if the counterpart textfield’s text is valid.&lt;br /&gt;
+4. Check the &lt;code class=&quot;highlighter-rouge&quot;&gt;isRegistering&lt;/code&gt; property is &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;.&lt;br /&gt;
+5. Enable the register button.&lt;br /&gt;
+6. Hook into the register button &lt;code class=&quot;highlighter-rouge&quot;&gt;UIControlEventTouchUpInside&lt;/code&gt; event.&lt;br /&gt;
+7. When the register button is tapped collect the username and password values, call the register API and set the &lt;code class=&quot;highlighter-rouge&quot;&gt;isRegistering&lt;/code&gt; property to &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, this is what FRP programming will normally do:&lt;br /&gt;
+1. Bind the register button’s enabled property to &lt;em&gt;when both the username and the password are valid, as long as the register button hasn’t been pressed already and we aren’t registering the user via API&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;It sounds like I’m just repeating myself but that’s exactly what FRP lets you do, define each component’s behaviour in a very similar way to which you think about behaviour.&lt;/p&gt;
+
+&lt;p&gt;A different way to think about this is a spreadsheet. All a spreadsheet needs from the user is that each cell has either values or formulas. If a cell’s formula is &lt;code class=&quot;highlighter-rouge&quot;&gt;=A1+(AVG(B1:B10))&lt;/code&gt; you don’t care about how or when you get the result. You can focus on &lt;em&gt;the formula&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This has two main benefits:&lt;br /&gt;
+1. You write code in the same way as you think of it, as previously mentioned.&lt;br /&gt;
+2. Once the code is written, the behaviour is contained and complete in a few lines of code. Could be more -much more-, but it’ll be all at one place.&lt;/p&gt;
+
+&lt;p&gt;Let’s go over the components in FRP that will enable us to do such a thing.&lt;/p&gt;
+
+&lt;h1 id=&quot;stream&quot;&gt;Stream&lt;/h1&gt;
+&lt;p&gt;A &lt;em&gt;cell&lt;/em&gt; in FRP is called a “Stream”.&lt;/p&gt;
+
+&lt;p&gt;You can think of a stream as the history, past, present and future of a property in the sense that they are self contained and inmutable in time; like a river with all it’s water, but you are seeing just one part of it.&lt;/p&gt;
+
+&lt;p&gt;What triggers the river to move? Events.&lt;/p&gt;
+
+&lt;p&gt;Those events are mostly changes, like temperature was 21º and now it’s 25º but could also be something like finishing serving a customer and wanting the next to come to the counter.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;NOTE: Streams are often called or represented by Signals, which is a terrible name since they get easily confused with events. You could think of a signal as a semaphore’s light changing&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; from green to red, but in FRP a signal is the semaphore itself.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;bindings&quot;&gt;Bindings&lt;/h1&gt;
+&lt;p&gt;What’s the use of a stream if we can’t bind it somewhere?&lt;/p&gt;
+
+&lt;p&gt;What can we bind to a stream? Almost any property, and you know what’s cool? FRP Properties have streams themselves. So you can bind a stream into a property and another property to the first property’s stream.&lt;/p&gt;
+
+&lt;h1 id=&quot;tranformations&quot;&gt;Tranformations&lt;/h1&gt;
+&lt;p&gt;A big component of FRP is transformations, they are the &lt;em&gt;formula&lt;/em&gt; in our cell.&lt;/p&gt;
+
+&lt;p&gt;We may have a stream of &lt;code class=&quot;highlighter-rouge&quot;&gt;string&lt;/code&gt;s but need to bind them to a &lt;code class=&quot;highlighter-rouge&quot;&gt;bool&lt;/code&gt; property, for instance, enabling a button if a property’s text is larger than 4 chars.&lt;/p&gt;
+
+&lt;p&gt;Transformations transform streams into streams, not into values.&lt;/p&gt;
+
+&lt;h1 id=&quot;chaining&quot;&gt;Chaining&lt;/h1&gt;
+&lt;p&gt;This is the &lt;em&gt;Functional&lt;/em&gt; part in Functional Reactive Programming. And it’s available all accorss frameworks that you can chain as many streams, streams transformations and streams combinations (which is a kind of transformation) as you want.&lt;/p&gt;
+
+&lt;p&gt;If you are comfortable with Functional Programming there’s not much more explanation needed.&lt;/p&gt;
+
+&lt;h1 id=&quot;hot-and-cold-signals&quot;&gt;Hot and Cold signals&lt;/h1&gt;
+&lt;p&gt;This is a fairly important difference, ignoring it could trigger lots of issues.&lt;/p&gt;
+
+&lt;p&gt;You’ll find many &lt;em&gt;fancy&lt;/em&gt; and more correct definitions than this one, but the key part is what happens when you bind a stream to a property:&lt;br /&gt;
+If you get the current value (which was set in the past) alongside with whichever new values are set in the future binded into your property then you are using a &lt;strong&gt;cold signal&lt;/strong&gt;.&lt;br /&gt;
+If you only start getting the new values (whichever are set in the future) binded into your property then you are using a &lt;strong&gt;hot signal&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;This also applies to &lt;em&gt;events&lt;/em&gt;. A cold signal could be a bank queue that opens up and right away gets a new customer, if any. Whereas a hot signal could be a catastrophe prevention system, you only want to start the siren when the next warning comes in, regardless of whether there was one in the past.&lt;/p&gt;
+
+&lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Part 2 of this series will be coming out soon and it will cover how to implement this concepts in ReactiveCocoa 4. Stay tuned.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;New Oxford American Dictionary: &lt;strong&gt;signal&lt;/strong&gt; |ˈsiɡnəl| (noun) • an event or statement that provides the impulse or occasion for something specified to happen: the champion’s announcement that he was retiring was the signal for scores of journalists to gather at his last match. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sun, 20 Mar 2016 11:33:20 -0300</pubDate>
+        <link>http://zerously.com/2016/03/20/introduction-to-frp-pt1.html</link>
+        <guid isPermaLink="true">http://zerously.com/2016/03/20/introduction-to-frp-pt1.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Hello</title>
         <description>&lt;p&gt;I know, I know. I shouldn’t be switching my blog’s url and name so often.&lt;/p&gt;
 
-&lt;p&gt;But Tumblr wasn’t doing such a great job at hosting my posts… and I just decided I’d go lean, start over, hell, &lt;em&gt;why not&lt;/em&gt;?&lt;/p&gt;
+&lt;p&gt;But Tumblr wasn’t doing such a great job at hosting my posts… and I just decided I’d go lean with &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; and &lt;a href=&quot;https://pages.github.com&quot;&gt;Github Pages&lt;/a&gt;, start over, hell, &lt;em&gt;why not&lt;/em&gt;?&lt;/p&gt;
 
 &lt;p&gt;You can find my previous writings here:&lt;br /&gt;
 &lt;a href=&quot;http://mariano.zerously.com&quot;&gt;mariano.zerously.com&lt;/a&gt; (2013-2015)&lt;br /&gt;

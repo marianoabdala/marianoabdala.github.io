@@ -5,7 +5,7 @@ date:   2016-03-19 18:59:52 -0300
 ---
 I know, I know. I shouldn't be switching my blog's url and name so often.
 
-But Tumblr wasn't doing such a great job at hosting my posts... and I just decided I'd go lean, start over, hell, _why not_?
+But Tumblr wasn't doing such a great job at hosting my posts... and I just decided I'd go lean with [Jekyll](http://jekyllrb.com) and [Github Pages](https://pages.github.com), start over, hell, _why not_?
 
 You can find my previous writings here:  
 [mariano.zerously.com](http://mariano.zerously.com) (2013-2015)  

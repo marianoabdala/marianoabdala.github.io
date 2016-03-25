@@ -6,8 +6,8 @@
 </description>
     <link>http://zerously.com/</link>
     <atom:link href="http://zerously.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 25 Mar 2016 11:58:59 -0300</pubDate>
-    <lastBuildDate>Fri, 25 Mar 2016 11:58:59 -0300</lastBuildDate>
+    <pubDate>Fri, 25 Mar 2016 17:33:03 -0300</pubDate>
+    <lastBuildDate>Fri, 25 Mar 2016 17:33:03 -0300</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -374,7 +374,7 @@ If you only start getting the new values (whichever are set in the future) binde
 &lt;p&gt;This also applies to &lt;em&gt;events&lt;/em&gt;. A cold signal could be a bank queue that opens up and right away gets a new customer, if any. Whereas a hot signal could be a catastrophe prevention system, you only want to start the siren when the next warning comes in, regardless of whether there was one in the past.&lt;/p&gt;
 
 &lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;/2016/03/24/introduction-to-frp-pt2.html&quot;&gt;Part 2&lt;/a&gt;: How to implement this concepts in ReactiveCocoa 4.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/2016/03/24/introduction-to-frp-pt2.html&quot;&gt;Part 2&lt;/a&gt;: How to implement these concepts in ReactiveCocoa 4.&lt;/p&gt;
 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;

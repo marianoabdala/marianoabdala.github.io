@@ -6,9 +6,302 @@
 </description>
     <link>http://zerously.com/</link>
     <atom:link href="http://zerously.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 20 Mar 2016 21:00:08 -0300</pubDate>
-    <lastBuildDate>Sun, 20 Mar 2016 21:00:08 -0300</lastBuildDate>
+    <pubDate>Fri, 25 Mar 2016 11:58:59 -0300</pubDate>
+    <lastBuildDate>Fri, 25 Mar 2016 11:58:59 -0300</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>Introduction to FRP (part 2)</title>
+        <description>&lt;p&gt;This is the second part of the Introduction to FRP series. Here’s the &lt;a href=&quot;/2016/03/20/introduction-to-frp-pt1.html&quot;&gt;first&lt;/a&gt; part.&lt;/p&gt;
+
+&lt;p&gt;As mentioned on the first part of this series, we are going to focus on ReactiveCocoa 4 for showing examples on how to implement FRP concepts. I’ll assume you already installed it on your project. If you haven’t you may want to read &lt;a href=&quot;https://github.com/ReactiveCocoa/ReactiveCocoa#getting-started&quot;&gt;this&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s use the example of the register button that will be enabled when both the username and the password are valid, as long as the register button hasn’t been pressed already and we are registering the user via API.&lt;/p&gt;
+
+&lt;p&gt;If you recall, this is what we’ve said:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Now, this is what FRP programming will normally do:&lt;br /&gt;
+1. &lt;strong&gt;Bind&lt;/strong&gt; the register button’s enabled property to when both the username and the password are valid, as long as the register button hasn’t been pressed already and we aren’t registering the user via API.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So let start with the bind.&lt;/p&gt;
+
+&lt;h1 id=&quot;bindings&quot;&gt;Bindings&lt;/h1&gt;
+
+&lt;p&gt;ReactiveCocoa has a really cool, smart and practical way of binding things via the use of the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;~&lt;/code&gt; operator. Let’s see an example.&lt;/p&gt;
+
+&lt;p&gt;Let’s assume we have a &lt;code class=&quot;highlighter-rouge&quot;&gt;UserViewModel&lt;/code&gt; that looks more less like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class UserViewModel {
+
+	var name = MutableProperty&amp;lt;String?&amp;gt;(nil)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then, this test would pass without issues:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class ReactiveTests: XCTestCase {
+    
+    func testSimpleBind() {
+        
+        let newName = &quot;Mariano Abdala&quot;
+        let userViewModel = UserViewModel()
+        let nameBindedProperty = MutableProperty&amp;lt;String?&amp;gt;(nil)
+        
+        nameBindedProperty &amp;lt;~ userViewModel.name
+
+        userViewModel.name.value = newName
+
+        XCTAssertEqual(userViewModel.name.value, newName)
+        XCTAssertEqual(nameBindedProperty.value, newName)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We will, of course, want to bind a &lt;code class=&quot;highlighter-rouge&quot;&gt;ViewModel&lt;/code&gt; to a &lt;code class=&quot;highlighter-rouge&quot;&gt;UIView&lt;/code&gt;’s property. In this case, the user’s name would probably end up being bounded to a &lt;code class=&quot;highlighter-rouge&quot;&gt;userNameLabel&lt;/code&gt;’s &lt;code class=&quot;highlighter-rouge&quot;&gt;text&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the past you’d do something like&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;RAC(self.userNameLabel, text) = userViewModel.name;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;But that won’t work in RAC 4. In RAC 4 you can only bind, using the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;~&lt;/code&gt; operator, to a &lt;code class=&quot;highlighter-rouge&quot;&gt;MutableProperty&amp;lt;T&amp;gt;&lt;/code&gt;. But worry not, because &lt;a href=&quot;http://blog.scottlogic.com/ceberhardt/&quot;&gt;Colin Eberhardt&lt;/a&gt; came up with an &lt;a href=&quot;https://github.com/ColinEberhardt/ReactiveTwitterSearch/blob/master/ReactiveTwitterSearch/Util/UIKitExtensions.swift&quot;&gt;easy way&lt;/a&gt; to turn almost any property (including &lt;code class=&quot;highlighter-rouge&quot;&gt;UIKit&lt;/code&gt;’s) into a RAC 4 &lt;code class=&quot;highlighter-rouge&quot;&gt;MutableProperty&amp;lt;T&amp;gt;&lt;/code&gt;. You’ll most likely want to add that file&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; to any project that uses RAC 4.&lt;/p&gt;
+
+&lt;p&gt;Let’s see how this looks like with a &lt;code class=&quot;highlighter-rouge&quot;&gt;UILabel&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class ReactiveTests: XCTestCase {
+    
+    func testLabelBind() {
+        
+        let newName = &quot;Mariano Abdala&quot;
+        let userViewModel = UserViewModel()
+        let userNameLabel = UILabel()
+        
+        userNameLabel.rac_text &amp;lt;~ userViewModel.name
+
+        userViewModel.name.value = newName
+
+        XCTAssertEqual(userViewModel.name.value, newName)
+        XCTAssertEqual(userNameLabel.text, newName)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This may not look like much, but once your View Controllers start looking like just a bunch of simple bindings to your models, that’s when this starts to pay out. And isn’t that what one of the View Controller’s main responsibility is, to bind the View to the Model’s data?&lt;/p&gt;
+
+&lt;p&gt;Let’s then…&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;strong&gt;Bind the register button’s enabled property to when both the username and the password are valid&lt;/strong&gt;, as long as the register button hasn’t been pressed already and we aren’t registering the user via API.&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is going to take a few steps, we’ll need to cover hot and cold signals, signal aggregation, transformations and chaining (!), so hang tight.&lt;/p&gt;
+
+&lt;h1 id=&quot;signal-transformations&quot;&gt;Signal transformations&lt;/h1&gt;
+&lt;p&gt;The easiest way to validate that the username, or the password or any other text, are valid is via a transformation. We will transform the user name text into a &lt;code class=&quot;highlighter-rouge&quot;&gt;Bool&lt;/code&gt; that will indicate whether the username is valid or not.&lt;/p&gt;
+
+&lt;p&gt;To do that we need a signal. Luckily, all &lt;code class=&quot;highlighter-rouge&quot;&gt;MutableProperty&amp;lt;T&amp;gt;&lt;/code&gt; have one. The prefered method to transform one thing into another is &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;We won’t be covering all other transformations, but what’s important is that RAC 4 &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt;’s &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; doesn’t return a new value, but a new &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt;. Which allows us to do both, biding &lt;em&gt;and&lt;/em&gt; chaining.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class ReactiveTests: XCTestCase {
+    
+    func testCompoundBind() {
+        
+        let registerButton = UIButton()
+        let usernameTextField = UITextField()
+        
+        registerButton.rac_enabled &amp;lt;~ usernameTextField.rac_text.signal.map { (text) -&amp;gt; Bool in
+            
+            return text.characters.count &amp;gt;= 8
+        }
+
+        XCTAssertFalse(registerButton.enabled)
+
+        usernameTextField.text = &quot;mariano@zerously.com&quot;
+        usernameTextField.sendActionsForControlEvents(.EditingChanged)
+        
+        XCTAssertTrue(registerButton.enabled)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see here, what we are doing is mapping the text of the username to whether it’s valid or not. This is what we meant by a stream being &lt;em&gt;a river with all it’s water&lt;/em&gt;: we can fully define whether the register button is enabled or not, across time and across values.&lt;/p&gt;
+
+&lt;p&gt;There’s a couple new concepts in this test though.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;usernameTextField.sendActionsForControlEvents(.EditingChanged)&lt;/code&gt; is there so that the proper event’s will be triggered when setting the text by hand. You won’t have to worry about this with a live &lt;code class=&quot;highlighter-rouge&quot;&gt;UITextField&lt;/code&gt; on a &lt;code class=&quot;highlighter-rouge&quot;&gt;UIViewController&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;And then there’s the &lt;code class=&quot;highlighter-rouge&quot;&gt;rac_enabled&lt;/code&gt; property that isn’t present on the &lt;code class=&quot;highlighter-rouge&quot;&gt;Util.swift&lt;/code&gt; file we mentioned before.&lt;/p&gt;
+
+&lt;p&gt;To add new &lt;code class=&quot;highlighter-rouge&quot;&gt;UIKit&lt;/code&gt; properties simply add to that file something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;extension UIControl {
+    public var rac_enabled: MutableProperty&amp;lt;Bool&amp;gt; {
+        return lazyMutableProperty(self, key: &amp;amp;AssociationKey.enabled, setter: { self.enabled = $0 }, getter: { self.enabled })
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;But there’s one last a catch here. This test will fail on the first assert. Which brings us to hot and cold signals.&lt;/p&gt;
+
+&lt;h1 id=&quot;hot-and-cold-signals&quot;&gt;Hot and cold signals&lt;/h1&gt;
+&lt;p&gt;So, why did that test fail on the first assert?&lt;/p&gt;
+
+&lt;p&gt;Since we were using a hot signal, the binding will only be set once the value of the textfield changes for the first time. Remember that:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;If you get the current value (which was set in the past) alongside with whichever new values are set in the future binded into your property then you are using a &lt;strong&gt;cold signal&lt;/strong&gt;.&lt;br /&gt;
+If you only start getting the new values (whichever are set in the future) binded into your property then you are using a &lt;strong&gt;hot signal&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In this particular case, if we want the enabled to be “computed” false, we need to consider the preexisting username text value, which is &lt;code class=&quot;highlighter-rouge&quot;&gt;nil&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;How do we get a cold signal? Using the property’s &lt;code class=&quot;highlighter-rouge&quot;&gt;SignalProducer&lt;/code&gt; instead of the &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt;. It’s that easy.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func testCompoundBind() {
+    
+    let registerButton = UIButton()
+    let userNameTextField = UITextField()
+    
+    registerButton.rac_enabled &amp;lt;~ userNameTextField.rac_text.producer.map { (text) -&amp;gt; Bool in
+        
+        return text.characters.count &amp;gt;= 8
+    }
+
+    XCTAssertFalse(registerButton.enabled)
+
+    userNameTextField.text = &quot;mariano@zerously.com&quot;
+    userNameTextField.sendActionsForControlEvents(.EditingChanged)
+    
+    XCTAssertTrue(registerButton.enabled)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;All tests passing, now we need to validate the password as well, how do we do that?&lt;/p&gt;
+
+&lt;h1 id=&quot;signal-aggregation&quot;&gt;Signal Aggregation&lt;/h1&gt;
+
+&lt;p&gt;Have you noticed the name of the test? Exactly, “compound”, what we need to do is combine both signals, the username’s and the password’s.&lt;/p&gt;
+
+&lt;p&gt;And here we go, we have the first part of the goal resolved.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func testCompoundBind() {
+    
+    let registerButton = UIButton()
+    let usernameTextField = UITextField()
+    let passwordTextField = UITextField()
+    
+    registerButton.rac_enabled &amp;lt;~
+        combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
+        .map { (username, password) -&amp;gt; Bool in
+        
+        return username.characters.count &amp;gt;= 8 &amp;amp;&amp;amp;
+                password.characters.count &amp;gt;= 8
+        }
+
+    XCTAssertFalse(registerButton.enabled)
+
+    usernameTextField.text = &quot;mariano@zerously.com&quot;
+    usernameTextField.sendActionsForControlEvents(.EditingChanged)
+
+    XCTAssertFalse(registerButton.enabled)
+
+    passwordTextField.text = &quot;pa55worD&quot;
+    passwordTextField.sendActionsForControlEvents(.EditingChanged)
+    
+    XCTAssertTrue(registerButton.enabled)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I’m sure you used apps with &lt;a href=&quot;https://www.reddit.com/r/Jokes/comments/1v4bpa/passwords/&quot;&gt;way more creative algorithms&lt;/a&gt;. ;-)&lt;/p&gt;
+
+&lt;p&gt;There are other kinds of signal aggregation and operations, but we aren’t going to cover that here.&lt;/p&gt;
+
+&lt;h1 id=&quot;chaining&quot;&gt;Chaining&lt;/h1&gt;
+&lt;p&gt;While we were dealing with our goal of enabling the register button when both the username and the password are valid, we were unadvertedly using chaining already. &lt;code class=&quot;highlighter-rouge&quot;&gt;combineLatest&lt;/code&gt; returns a &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt; (or &lt;code class=&quot;highlighter-rouge&quot;&gt;SignalProducer&lt;/code&gt;) to which we can perform other transformations (like mapping) and that’s exactly what chaining is all about.&lt;/p&gt;
+
+&lt;p&gt;But, this is awful, shall we move this into a View Model?&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class RegisterViewModel {
+    
+    let username = MutableProperty&amp;lt;String?&amp;gt;(nil)
+    let password = MutableProperty&amp;lt;String?&amp;gt;(nil)
+    let registerEnabledSignalProducer: SignalProducer&amp;lt;Bool, NoError&amp;gt;
+    
+    init() {
+
+        self.registerEnabledSignalProducer = combineLatest(self.username.producer, self.password.producer)
+            .map { (username, password) -&amp;gt; Bool in
+
+                return username?.characters.count &amp;gt;= 8 &amp;amp;&amp;amp;
+                        password?.characters.count &amp;gt;= 8
+            }
+    }
+}
+
+class ReactiveTests: XCTestCase {
+    
+    func testModelBind() {
+        
+        let registerViewModel = RegisterViewModel()
+        let registerButton = UIButton()
+        let usernameTextField = UITextField()
+        let passwordTextField = UITextField()
+        
+        registerViewModel.username &amp;lt;~ usernameTextField.rac_text
+        registerViewModel.password &amp;lt;~ passwordTextField.rac_text
+        registerButton.rac_enabled &amp;lt;~ registerViewModel.registerEnabledSignalProducer
+
+        XCTAssertFalse(registerButton.enabled)
+
+        usernameTextField.text = &quot;mariano@zerously.com&quot;
+        usernameTextField.sendActionsForControlEvents(.EditingChanged)
+
+        XCTAssertFalse(registerButton.enabled)
+
+        passwordTextField.text = &quot;pa55worD&quot;
+        passwordTextField.sendActionsForControlEvents(.EditingChanged)
+        
+        XCTAssertTrue(registerButton.enabled)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;That’s better!&lt;/strong&gt; See how all our code starts looking like simple bindings?&lt;/p&gt;
+
+&lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Part 3 of this series will be coming out soon and it will cover the last part of the goal, binding this to an API service. Stay tuned.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;Notice that this is Objc. RAC 4 is mostly built around Swift. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;If you do that, I’d suggest that you change the &lt;code class=&quot;highlighter-rouge&quot;&gt;rac_text&lt;/code&gt; type to &lt;code class=&quot;highlighter-rouge&quot;&gt;MutableProperty&amp;lt;String?&amp;gt;&lt;/code&gt;. Since that’s the type of &lt;code class=&quot;highlighter-rouge&quot;&gt;UILabel&lt;/code&gt;’s text property, so should be the type of the &lt;code class=&quot;highlighter-rouge&quot;&gt;rac_text&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;MutableProperty&lt;/code&gt;. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 24 Mar 2016 21:26:45 -0300</pubDate>
+        <link>http://zerously.com/2016/03/24/introduction-to-frp-pt2.html</link>
+        <guid isPermaLink="true">http://zerously.com/2016/03/24/introduction-to-frp-pt2.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Introduction to FRP (part 1)</title>
@@ -81,7 +374,7 @@ If you only start getting the new values (whichever are set in the future) binde
 &lt;p&gt;This also applies to &lt;em&gt;events&lt;/em&gt;. A cold signal could be a bank queue that opens up and right away gets a new customer, if any. Whereas a hot signal could be a catastrophe prevention system, you only want to start the siren when the next warning comes in, regardless of whether there was one in the past.&lt;/p&gt;
 
 &lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Part 2 of this series will be coming out soon and it will cover how to implement this concepts in ReactiveCocoa 4. Stay tuned.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/2016/03/24/introduction-to-frp-pt2.html&quot;&gt;Part 2&lt;/a&gt;: How to implement this concepts in ReactiveCocoa 4.&lt;/p&gt;
 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;

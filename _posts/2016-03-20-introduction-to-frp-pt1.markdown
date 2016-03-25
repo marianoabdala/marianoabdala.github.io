@@ -73,7 +73,7 @@ If you only start getting the new values (whichever are set in the future) binde
 This also applies to _events_. A cold signal could be a bank queue that opens up and right away gets a new customer, if any. Whereas a hot signal could be a catastrophe prevention system, you only want to start the siren when the next warning comes in, regardless of whether there was one in the past.
 
 # Next
-**Part 2 of this series will be coming out soon and it will cover how to implement this concepts in ReactiveCocoa 4. Stay tuned.**
+[Part 2]({% post_url 2016-03-24-introduction-to-frp-pt2 %}): How to implement this concepts in ReactiveCocoa 4.
 
 [^1]: New Oxford American Dictionary: **signal** \|ˈsiɡnəl\| (noun) • an event or statement that provides the impulse or occasion for something specified to happen: the champion's announcement that he was retiring was the signal for scores of journalists to gather at his last match.
 

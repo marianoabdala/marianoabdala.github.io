@@ -140,24 +140,26 @@ In this particular case, if we want the enabled to be "computed" false, we need 
 
 How do we get a cold signal? Using the property's `SignalProducer` instead of the `Signal`. It's that easy.
 
-    func testCompoundBind() {
-        
-        let registerButton = UIButton()
-        let userNameTextField = UITextField()
-        
-        registerButton.rac_enabled <~ userNameTextField.rac_text.producer.map { (text) -> Bool in
-            
-            return text.characters.count >= 8
-        }
+	class ReactiveTests: XCTestCase {
 
-        XCTAssertFalse(registerButton.enabled)
+	    func testCompoundBind() {
+	        
+	        let registerButton = UIButton()
+	        let userNameTextField = UITextField()
+	        
+	        registerButton.rac_enabled <~ userNameTextField.rac_text.producer.map { (text) -> Bool in
+	            
+	            return text.characters.count >= 8
+	        }
 
-        userNameTextField.text = "mariano@zerously.com"
-        userNameTextField.sendActionsForControlEvents(.EditingChanged)
-        
-        XCTAssertTrue(registerButton.enabled)
-    }
+	        XCTAssertFalse(registerButton.enabled)
 
+	        userNameTextField.text = "mariano@zerously.com"
+	        userNameTextField.sendActionsForControlEvents(.EditingChanged)
+	        
+	        XCTAssertTrue(registerButton.enabled)
+	    }
+	}
 
 All tests passing, now we need to validate the password as well, how do we do that?
 
@@ -167,32 +169,35 @@ Have you noticed the name of the test? Exactly, "compound", what we need to do i
 
 And here we go, we have the first part of the goal resolved.
 
-    func testCompoundBind() {
-        
-        let registerButton = UIButton()
-        let usernameTextField = UITextField()
-        let passwordTextField = UITextField()
-        
-        registerButton.rac_enabled <~
-            combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
-            .map { (username, password) -> Bool in
-            
-            return username.characters.count >= 8 &&
-                    password.characters.count >= 8
-            }
+	class ReactiveTests: XCTestCase {
 
-        XCTAssertFalse(registerButton.enabled)
+	    func testCompoundBind() {
+	        
+	        let registerButton = UIButton()
+	        let usernameTextField = UITextField()
+	        let passwordTextField = UITextField()
+	        
+	        registerButton.rac_enabled <~
+	            combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
+	            .map { (username, password) -> Bool in
+	            
+	            return username.characters.count >= 8 &&
+	                    password.characters.count >= 8
+	            }
 
-        usernameTextField.text = "mariano@zerously.com"
-        usernameTextField.sendActionsForControlEvents(.EditingChanged)
+	        XCTAssertFalse(registerButton.enabled)
 
-        XCTAssertFalse(registerButton.enabled)
+	        usernameTextField.text = "mariano@zerously.com"
+	        usernameTextField.sendActionsForControlEvents(.EditingChanged)
 
-        passwordTextField.text = "pa55worD"
-        passwordTextField.sendActionsForControlEvents(.EditingChanged)
-        
-        XCTAssertTrue(registerButton.enabled)
-    }
+	        XCTAssertFalse(registerButton.enabled)
+
+	        passwordTextField.text = "pa55worD"
+	        passwordTextField.sendActionsForControlEvents(.EditingChanged)
+	        
+	        XCTAssertTrue(registerButton.enabled)
+	    }
+	}
 
 I'm sure you used apps with [way more creative algorithms](https://www.reddit.com/r/Jokes/comments/1v4bpa/passwords/). ;-)
 

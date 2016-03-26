@@ -6,8 +6,8 @@
 </description>
     <link>http://zerously.com/</link>
     <atom:link href="http://zerously.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 25 Mar 2016 17:33:03 -0300</pubDate>
-    <lastBuildDate>Fri, 25 Mar 2016 17:33:03 -0300</lastBuildDate>
+    <pubDate>Sat, 26 Mar 2016 11:29:02 -0300</pubDate>
+    <lastBuildDate>Sat, 26 Mar 2016 11:29:02 -0300</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -168,22 +168,25 @@ If you only start getting the new values (whichever are set in the future) binde
 
 &lt;p&gt;How do we get a cold signal? Using the property’s &lt;code class=&quot;highlighter-rouge&quot;&gt;SignalProducer&lt;/code&gt; instead of the &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt;. It’s that easy.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func testCompoundBind() {
-    
-    let registerButton = UIButton()
-    let userNameTextField = UITextField()
-    
-    registerButton.rac_enabled &amp;lt;~ userNameTextField.rac_text.producer.map { (text) -&amp;gt; Bool in
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class ReactiveTests: XCTestCase {
+
+    func testCompoundBind() {
         
-        return text.characters.count &amp;gt;= 8
+        let registerButton = UIButton()
+        let userNameTextField = UITextField()
+        
+        registerButton.rac_enabled &amp;lt;~ userNameTextField.rac_text.producer.map { (text) -&amp;gt; Bool in
+            
+            return text.characters.count &amp;gt;= 8
+        }
+
+        XCTAssertFalse(registerButton.enabled)
+
+        userNameTextField.text = &quot;mariano@zerously.com&quot;
+        userNameTextField.sendActionsForControlEvents(.EditingChanged)
+        
+        XCTAssertTrue(registerButton.enabled)
     }
-
-    XCTAssertFalse(registerButton.enabled)
-
-    userNameTextField.text = &quot;mariano@zerously.com&quot;
-    userNameTextField.sendActionsForControlEvents(.EditingChanged)
-    
-    XCTAssertTrue(registerButton.enabled)
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -196,31 +199,34 @@ If you only start getting the new values (whichever are set in the future) binde
 
 &lt;p&gt;And here we go, we have the first part of the goal resolved.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func testCompoundBind() {
-    
-    let registerButton = UIButton()
-    let usernameTextField = UITextField()
-    let passwordTextField = UITextField()
-    
-    registerButton.rac_enabled &amp;lt;~
-        combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
-        .map { (username, password) -&amp;gt; Bool in
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class ReactiveTests: XCTestCase {
+
+    func testCompoundBind() {
         
-        return username.characters.count &amp;gt;= 8 &amp;amp;&amp;amp;
-                password.characters.count &amp;gt;= 8
-        }
+        let registerButton = UIButton()
+        let usernameTextField = UITextField()
+        let passwordTextField = UITextField()
+        
+        registerButton.rac_enabled &amp;lt;~
+            combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
+            .map { (username, password) -&amp;gt; Bool in
+            
+            return username.characters.count &amp;gt;= 8 &amp;amp;&amp;amp;
+                    password.characters.count &amp;gt;= 8
+            }
 
-    XCTAssertFalse(registerButton.enabled)
+        XCTAssertFalse(registerButton.enabled)
 
-    usernameTextField.text = &quot;mariano@zerously.com&quot;
-    usernameTextField.sendActionsForControlEvents(.EditingChanged)
+        usernameTextField.text = &quot;mariano@zerously.com&quot;
+        usernameTextField.sendActionsForControlEvents(.EditingChanged)
 
-    XCTAssertFalse(registerButton.enabled)
+        XCTAssertFalse(registerButton.enabled)
 
-    passwordTextField.text = &quot;pa55worD&quot;
-    passwordTextField.sendActionsForControlEvents(.EditingChanged)
-    
-    XCTAssertTrue(registerButton.enabled)
+        passwordTextField.text = &quot;pa55worD&quot;
+        passwordTextField.sendActionsForControlEvents(.EditingChanged)
+        
+        XCTAssertTrue(registerButton.enabled)
+    }
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;

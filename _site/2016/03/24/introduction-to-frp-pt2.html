@@ -221,22 +221,25 @@ If you only start getting the new values (whichever are set in the future) binde
 
 <p>How do we get a cold signal? Using the property’s <code class="highlighter-rouge">SignalProducer</code> instead of the <code class="highlighter-rouge">Signal</code>. It’s that easy.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>func testCompoundBind() {
-    
-    let registerButton = UIButton()
-    let userNameTextField = UITextField()
-    
-    registerButton.rac_enabled &lt;~ userNameTextField.rac_text.producer.map { (text) -&gt; Bool in
+<div class="highlighter-rouge"><pre class="highlight"><code>class ReactiveTests: XCTestCase {
+
+    func testCompoundBind() {
         
-        return text.characters.count &gt;= 8
+        let registerButton = UIButton()
+        let userNameTextField = UITextField()
+        
+        registerButton.rac_enabled &lt;~ userNameTextField.rac_text.producer.map { (text) -&gt; Bool in
+            
+            return text.characters.count &gt;= 8
+        }
+
+        XCTAssertFalse(registerButton.enabled)
+
+        userNameTextField.text = "mariano@zerously.com"
+        userNameTextField.sendActionsForControlEvents(.EditingChanged)
+        
+        XCTAssertTrue(registerButton.enabled)
     }
-
-    XCTAssertFalse(registerButton.enabled)
-
-    userNameTextField.text = "mariano@zerously.com"
-    userNameTextField.sendActionsForControlEvents(.EditingChanged)
-    
-    XCTAssertTrue(registerButton.enabled)
 }
 </code></pre>
 </div>
@@ -249,31 +252,34 @@ If you only start getting the new values (whichever are set in the future) binde
 
 <p>And here we go, we have the first part of the goal resolved.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>func testCompoundBind() {
-    
-    let registerButton = UIButton()
-    let usernameTextField = UITextField()
-    let passwordTextField = UITextField()
-    
-    registerButton.rac_enabled &lt;~
-        combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
-        .map { (username, password) -&gt; Bool in
+<div class="highlighter-rouge"><pre class="highlight"><code>class ReactiveTests: XCTestCase {
+
+    func testCompoundBind() {
         
-        return username.characters.count &gt;= 8 &amp;&amp;
-                password.characters.count &gt;= 8
-        }
+        let registerButton = UIButton()
+        let usernameTextField = UITextField()
+        let passwordTextField = UITextField()
+        
+        registerButton.rac_enabled &lt;~
+            combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
+            .map { (username, password) -&gt; Bool in
+            
+            return username.characters.count &gt;= 8 &amp;&amp;
+                    password.characters.count &gt;= 8
+            }
 
-    XCTAssertFalse(registerButton.enabled)
+        XCTAssertFalse(registerButton.enabled)
 
-    usernameTextField.text = "mariano@zerously.com"
-    usernameTextField.sendActionsForControlEvents(.EditingChanged)
+        usernameTextField.text = "mariano@zerously.com"
+        usernameTextField.sendActionsForControlEvents(.EditingChanged)
 
-    XCTAssertFalse(registerButton.enabled)
+        XCTAssertFalse(registerButton.enabled)
 
-    passwordTextField.text = "pa55worD"
-    passwordTextField.sendActionsForControlEvents(.EditingChanged)
-    
-    XCTAssertTrue(registerButton.enabled)
+        passwordTextField.text = "pa55worD"
+        passwordTextField.sendActionsForControlEvents(.EditingChanged)
+        
+        XCTAssertTrue(registerButton.enabled)
+    }
 }
 </code></pre>
 </div>

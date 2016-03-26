@@ -193,6 +193,19 @@
 
 <p><code class="highlighter-rouge">usernameTextField.sendActionsForControlEvents(.EditingChanged)</code> is there so that the proper event’s will be triggered when setting the text by hand. You won’t have to worry about this with a live <code class="highlighter-rouge">UITextField</code> on a <code class="highlighter-rouge">UIViewController</code>.</p>
 
+<p>For the sake of clariry, let’s wrap that into an <code class="highlighter-rouge">extension</code> and assume it’s present in future code.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>extension UITextField {
+    
+    func inputText(text: String) {
+        
+        self.text = text
+        self.sendActionsForControlEvents(.EditingChanged)
+    }
+}
+</code></pre>
+</div>
+
 <p>And then there’s the <code class="highlighter-rouge">rac_enabled</code> property that isn’t present on the <code class="highlighter-rouge">Util.swift</code> file we mentioned before.</p>
 
 <p>To add new <code class="highlighter-rouge">UIKit</code> properties simply add to that file something like this:</p>
@@ -234,10 +247,7 @@ If you only start getting the new values (whichever are set in the future) binde
         }
 
         XCTAssertFalse(registerButton.enabled)
-
-        userNameTextField.text = "mariano@zerously.com"
-        userNameTextField.sendActionsForControlEvents(.EditingChanged)
-        
+        userNameTextField.inputText("mariano@zerously.com")
         XCTAssertTrue(registerButton.enabled)
     }
 }
@@ -264,20 +274,14 @@ If you only start getting the new values (whichever are set in the future) binde
             combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
             .map { (username, password) -&gt; Bool in
             
-            return username.characters.count &gt;= 8 &amp;&amp;
-                    password.characters.count &gt;= 8
+	            return username.characters.count &gt;= 8 &amp;&amp;
+	                    password.characters.count &gt;= 8
             }
 
         XCTAssertFalse(registerButton.enabled)
-
-        usernameTextField.text = "mariano@zerously.com"
-        usernameTextField.sendActionsForControlEvents(.EditingChanged)
-
+        usernameTextField.inputText("mariano@zerously.com")
         XCTAssertFalse(registerButton.enabled)
-
-        passwordTextField.text = "pa55worD"
-        passwordTextField.sendActionsForControlEvents(.EditingChanged)
-        
+        passwordTextField.inputText("pa55worD")
         XCTAssertTrue(registerButton.enabled)
     }
 }
@@ -324,15 +328,9 @@ class ReactiveTests: XCTestCase {
         registerButton.rac_enabled &lt;~ registerViewModel.registerEnabledSignalProducer
 
         XCTAssertFalse(registerButton.enabled)
-
-        usernameTextField.text = "mariano@zerously.com"
-        usernameTextField.sendActionsForControlEvents(.EditingChanged)
-
+        usernameTextField.inputText("mariano@zerously.com")
         XCTAssertFalse(registerButton.enabled)
-
-        passwordTextField.text = "pa55worD"
-        passwordTextField.sendActionsForControlEvents(.EditingChanged)
-        
+        passwordTextField.inputText("pa55worD")
         XCTAssertTrue(registerButton.enabled)
     }
 }

@@ -6,8 +6,8 @@
 </description>
     <link>http://zerously.com/</link>
     <atom:link href="http://zerously.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 26 Mar 2016 11:29:02 -0300</pubDate>
-    <lastBuildDate>Sat, 26 Mar 2016 11:29:02 -0300</lastBuildDate>
+    <pubDate>Sat, 26 Mar 2016 11:45:48 -0300</pubDate>
+    <lastBuildDate>Sat, 26 Mar 2016 11:45:48 -0300</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -140,6 +140,19 @@
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;usernameTextField.sendActionsForControlEvents(.EditingChanged)&lt;/code&gt; is there so that the proper event’s will be triggered when setting the text by hand. You won’t have to worry about this with a live &lt;code class=&quot;highlighter-rouge&quot;&gt;UITextField&lt;/code&gt; on a &lt;code class=&quot;highlighter-rouge&quot;&gt;UIViewController&lt;/code&gt;.&lt;/p&gt;
 
+&lt;p&gt;For the sake of clariry, let’s wrap that into an &lt;code class=&quot;highlighter-rouge&quot;&gt;extension&lt;/code&gt; and assume it’s present in future code.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;extension UITextField {
+    
+    func inputText(text: String) {
+        
+        self.text = text
+        self.sendActionsForControlEvents(.EditingChanged)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
 &lt;p&gt;And then there’s the &lt;code class=&quot;highlighter-rouge&quot;&gt;rac_enabled&lt;/code&gt; property that isn’t present on the &lt;code class=&quot;highlighter-rouge&quot;&gt;Util.swift&lt;/code&gt; file we mentioned before.&lt;/p&gt;
 
 &lt;p&gt;To add new &lt;code class=&quot;highlighter-rouge&quot;&gt;UIKit&lt;/code&gt; properties simply add to that file something like this:&lt;/p&gt;
@@ -181,10 +194,7 @@ If you only start getting the new values (whichever are set in the future) binde
         }
 
         XCTAssertFalse(registerButton.enabled)
-
-        userNameTextField.text = &quot;mariano@zerously.com&quot;
-        userNameTextField.sendActionsForControlEvents(.EditingChanged)
-        
+        userNameTextField.inputText(&quot;mariano@zerously.com&quot;)
         XCTAssertTrue(registerButton.enabled)
     }
 }
@@ -211,20 +221,14 @@ If you only start getting the new values (whichever are set in the future) binde
             combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
             .map { (username, password) -&amp;gt; Bool in
             
-            return username.characters.count &amp;gt;= 8 &amp;amp;&amp;amp;
-                    password.characters.count &amp;gt;= 8
+	            return username.characters.count &amp;gt;= 8 &amp;amp;&amp;amp;
+	                    password.characters.count &amp;gt;= 8
             }
 
         XCTAssertFalse(registerButton.enabled)
-
-        usernameTextField.text = &quot;mariano@zerously.com&quot;
-        usernameTextField.sendActionsForControlEvents(.EditingChanged)
-
+        usernameTextField.inputText(&quot;mariano@zerously.com&quot;)
         XCTAssertFalse(registerButton.enabled)
-
-        passwordTextField.text = &quot;pa55worD&quot;
-        passwordTextField.sendActionsForControlEvents(.EditingChanged)
-        
+        passwordTextField.inputText(&quot;pa55worD&quot;)
         XCTAssertTrue(registerButton.enabled)
     }
 }
@@ -271,15 +275,9 @@ class ReactiveTests: XCTestCase {
         registerButton.rac_enabled &amp;lt;~ registerViewModel.registerEnabledSignalProducer
 
         XCTAssertFalse(registerButton.enabled)
-
-        usernameTextField.text = &quot;mariano@zerously.com&quot;
-        usernameTextField.sendActionsForControlEvents(.EditingChanged)
-
+        usernameTextField.inputText(&quot;mariano@zerously.com&quot;)
         XCTAssertFalse(registerButton.enabled)
-
-        passwordTextField.text = &quot;pa55worD&quot;
-        passwordTextField.sendActionsForControlEvents(.EditingChanged)
-        
+        passwordTextField.inputText(&quot;pa55worD&quot;)
         XCTAssertTrue(registerButton.enabled)
     }
 }

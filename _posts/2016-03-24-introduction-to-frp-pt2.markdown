@@ -116,6 +116,17 @@ There's a couple new concepts in this test though.
 
 `usernameTextField.sendActionsForControlEvents(.EditingChanged)` is there so that the proper event's will be triggered when setting the text by hand. You won't have to worry about this with a live `UITextField` on a `UIViewController`.
 
+For the sake of clariry, let's wrap that into an `extension` and assume it's present in future code.
+
+	extension UITextField {
+	    
+	    func inputText(text: String) {
+	        
+	        self.text = text
+	        self.sendActionsForControlEvents(.EditingChanged)
+	    }
+	}
+
 And then there's the `rac_enabled` property that isn't present on the `Util.swift` file we mentioned before.
 
 To add new `UIKit` properties simply add to that file something like this:
@@ -153,10 +164,7 @@ How do we get a cold signal? Using the property's `SignalProducer` instead of th
 	        }
 
 	        XCTAssertFalse(registerButton.enabled)
-
-	        userNameTextField.text = "mariano@zerously.com"
-	        userNameTextField.sendActionsForControlEvents(.EditingChanged)
-	        
+	        userNameTextField.inputText("mariano@zerously.com")
 	        XCTAssertTrue(registerButton.enabled)
 	    }
 	}
@@ -181,20 +189,14 @@ And here we go, we have the first part of the goal resolved.
 	            combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
 	            .map { (username, password) -> Bool in
 	            
-	            return username.characters.count >= 8 &&
-	                    password.characters.count >= 8
+		            return username.characters.count >= 8 &&
+		                    password.characters.count >= 8
 	            }
 
 	        XCTAssertFalse(registerButton.enabled)
-
-	        usernameTextField.text = "mariano@zerously.com"
-	        usernameTextField.sendActionsForControlEvents(.EditingChanged)
-
+	        usernameTextField.inputText("mariano@zerously.com")
 	        XCTAssertFalse(registerButton.enabled)
-
-	        passwordTextField.text = "pa55worD"
-	        passwordTextField.sendActionsForControlEvents(.EditingChanged)
-	        
+	        passwordTextField.inputText("pa55worD")
 	        XCTAssertTrue(registerButton.enabled)
 	    }
 	}
@@ -239,15 +241,9 @@ But, this is awful, shall we move this into a View Model?
 	        registerButton.rac_enabled <~ registerViewModel.registerEnabledSignalProducer
 
 	        XCTAssertFalse(registerButton.enabled)
-
-	        usernameTextField.text = "mariano@zerously.com"
-	        usernameTextField.sendActionsForControlEvents(.EditingChanged)
-
+	        usernameTextField.inputText("mariano@zerously.com")
 	        XCTAssertFalse(registerButton.enabled)
-
-	        passwordTextField.text = "pa55worD"
-	        passwordTextField.sendActionsForControlEvents(.EditingChanged)
-	        
+	        passwordTextField.inputText("pa55worD")
 	        XCTAssertTrue(registerButton.enabled)
 	    }
 	}

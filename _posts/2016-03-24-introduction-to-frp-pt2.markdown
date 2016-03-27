@@ -210,7 +210,7 @@ While we were dealing with our goal of enabling the register button when both th
 
 But, this is awful, shall we move this into a View Model?
 
-	class RegisterViewModel {
+	struct RegisterViewModel {
 	    
 	    let username = MutableProperty<String?>(nil)
 	    let password = MutableProperty<String?>(nil)

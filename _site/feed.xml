@@ -6,9 +6,103 @@
 </description>
     <link>http://zerously.com/</link>
     <atom:link href="http://zerously.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 03 Apr 2016 13:24:53 -0300</pubDate>
-    <lastBuildDate>Sun, 03 Apr 2016 13:24:53 -0300</lastBuildDate>
+    <pubDate>Sun, 03 Apr 2016 20:23:19 -0300</pubDate>
+    <lastBuildDate>Sun, 03 Apr 2016 20:23:19 -0300</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>Introduction to FRP (part 4)</title>
+        <description>&lt;p&gt;This is the fourth part of the Introduction to FRP series. Here’s the &lt;a href=&quot;/2016/03/20/introduction-to-frp-pt1.html&quot;&gt;first&lt;/a&gt;, &lt;a href=&quot;/2016/03/24/introduction-to-frp-pt2.html&quot;&gt;second&lt;/a&gt; and &lt;a href=&quot;/2016/04/03/introduction-to-frp-pt3.html&quot;&gt;third&lt;/a&gt; parts.&lt;/p&gt;
+
+&lt;p&gt;Believe it or not, this is the easy part, implementing this on a ViewController to use it on an app.&lt;/p&gt;
+
+&lt;p&gt;Let’s do just that, let’s create a ViewController on a Storyboard with the same UI elements as the tests and simply copy the bindings into the new ViewController.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class ViewController: UIViewController {
+
+    @IBOutlet private weak var errorLabel: UILabel!
+    @IBOutlet private weak var usernameTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var registerButton: UIButton!
+    
+    private let registerService: RegisterServiceProtocol
+    private let registerViewModel: RegisterViewModel
+
+    required init?(coder aDecoder: NSCoder) {
+
+        self.registerService = RegisterService(urlSession: NSURLSession.sharedSession())
+        self.registerViewModel = RegisterViewModel(registerService: self.registerService)
+
+        super.init(coder: aDecoder)
+    }
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        self.setupBindings()
+    }
+    
+    private func setupBindings() {
+        
+        self.errorLabel.rac_text &amp;lt;~ registerViewModel.registryError
+        self.registerViewModel.username &amp;lt;~ self.usernameTextField.rac_text
+        self.registerViewModel.password &amp;lt;~ self.passwordTextField.rac_text
+        self.activityIndicatorView.rac_animating &amp;lt;~ registerViewModel.isRegistering
+        self.registerButton.rac_enabled &amp;lt;~ self.registerViewModel.registerEnabledSignalProducer
+    }
+    
+    @IBAction private func registerButtonTapped(sender: AnyObject) {
+        
+        self.registerViewModel.register().observeCompleted { [weak self] in
+            
+            guard let strongSelf = self else {
+                
+                return
+            }
+            
+            strongSelf.performSegueWithIdentifier(&quot;registerIdentifier&quot;, sender: strongSelf)
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is not a excerp. This is &lt;strong&gt;the whole thing&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;This code covers all of this:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Hook into the textfields’ &lt;code class=&quot;highlighter-rouge&quot;&gt;shouldChangeCharactersInRange:replacementString:&lt;/code&gt; delegate method.&lt;/li&gt;
+    &lt;li&gt;Every time the text changes, check whether it’s valid or not.&lt;/li&gt;
+    &lt;li&gt;Check if the counterpart textfield’s text is valid.&lt;/li&gt;
+    &lt;li&gt;Check the &lt;code class=&quot;highlighter-rouge&quot;&gt;isRegistering&lt;/code&gt; property is &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;.&lt;/li&gt;
+    &lt;li&gt;Enable the register button.&lt;/li&gt;
+    &lt;li&gt;Hook into the register button &lt;code class=&quot;highlighter-rouge&quot;&gt;UIControlEventTouchUpInside&lt;/code&gt; event.&lt;/li&gt;
+    &lt;li&gt;When the register button is tapped collect the username and password values, call the register API and set the &lt;code class=&quot;highlighter-rouge&quot;&gt;isRegistering&lt;/code&gt; property to &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;.&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;And more! It also makes the actual API call, handles errors and pushes a new ViewController when succeded.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;FRP leads us to structure our code in such a way that the effort required to implement dependency injection, separation of concerns, testing and other good practices is marginal.&lt;/p&gt;
+
+&lt;p&gt;The amount of code that’s not testable is minimal and will rarely fail.&lt;/p&gt;
+
+&lt;p&gt;FRP is &lt;em&gt;intrusive&lt;/em&gt;, meaning that it influences the domain design as well as its implementation and that removing it would require a great amount of time and effort, but there’s a big enough community to support and prevent scenarios where you’d have to do so.&lt;/p&gt;
+
+&lt;h1 id=&quot;more&quot;&gt;More&lt;/h1&gt;
+&lt;p&gt;A sample project with all the code and working app can be found in &lt;a href=&quot;https://github.com/marianoabdala/Introduction-to-FRP&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 03 Apr 2016 19:55:06 -0300</pubDate>
+        <link>http://zerously.com/2016/04/03/introduction-to-frp-pt4.html</link>
+        <guid isPermaLink="true">http://zerously.com/2016/04/03/introduction-to-frp-pt4.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Introduction to FRP (part 3)</title>
@@ -509,7 +603,7 @@ class ReactiveTests: XCTestCase {
 &lt;p&gt;This is all great. We have things working the way we want, and reasonable test coverage. Shall we move this into a ViewController and see how it looks on an app rather than on tests?&lt;/p&gt;
 
 &lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Final part (4) of this series will be coming out soon and it will cover how this would look like on an actual app. Stay tuned.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/2016/04/03/introduction-to-frp-pt4.html&quot;&gt;Part 4&lt;/a&gt;: Using ReactiveCocoa 4 on an app.&lt;/p&gt;
 </description>
         <pubDate>Sun, 03 Apr 2016 10:22:32 -0300</pubDate>
         <link>http://zerously.com/2016/04/03/introduction-to-frp-pt3.html</link>
@@ -795,7 +889,8 @@ class ReactiveTests: XCTestCase {
 &lt;p&gt;&lt;strong&gt;That’s better!&lt;/strong&gt; See how all our code starts looking like simple bindings?&lt;/p&gt;
 
 &lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;/2016/04/03/introduction-to-frp-pt3.html&quot;&gt;Part 3&lt;/a&gt;: Applied networking with ReactiveCocoa 4.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/2016/04/03/introduction-to-frp-pt3.html&quot;&gt;Part 3&lt;/a&gt;: Applied networking with ReactiveCocoa 4.&lt;br /&gt;
+&lt;a href=&quot;/2016/04/03/introduction-to-frp-pt4.html&quot;&gt;Part 4&lt;/a&gt;: Using ReactiveCocoa 4 on an app.&lt;/p&gt;
 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
@@ -887,7 +982,8 @@ If you only start getting the new values (whichever are set in the future) binde
 
 &lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;/2016/03/24/introduction-to-frp-pt2.html&quot;&gt;Part 2&lt;/a&gt;: How to implement these concepts in ReactiveCocoa 4.&lt;br /&gt;
-&lt;a href=&quot;/2016/04/03/introduction-to-frp-pt3.html&quot;&gt;Part 3&lt;/a&gt;: Applied networking with ReactiveCocoa 4.&lt;/p&gt;
+&lt;a href=&quot;/2016/04/03/introduction-to-frp-pt3.html&quot;&gt;Part 3&lt;/a&gt;: Applied networking with ReactiveCocoa 4.&lt;br /&gt;
+&lt;a href=&quot;/2016/04/03/introduction-to-frp-pt4.html&quot;&gt;Part 4&lt;/a&gt;: Using ReactiveCocoa 4 on an app.&lt;/p&gt;
 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;

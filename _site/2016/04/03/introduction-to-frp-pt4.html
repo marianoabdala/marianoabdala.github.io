@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Mariano Abdala</title>
-  <meta name="description" content="Writings of Mariano Abdala. iOS Developer, host at @NSCoderBA and organizer at @NSConfArg.
-">
+  <title>Introduction to FRP (part 4)</title>
+  <meta name="description" content="This is the fourth part of the Introduction to FRP series. Here’s the first, second and third parts.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://zerously.com/">
+  <link rel="canonical" href="http://zerously.com/2016/04/03/introduction-to-frp-pt4.html">
   <link rel="alternate" type="application/rss+xml" title="Mariano Abdala" href="http://zerously.com/feed.xml">
 
   <link rel="icon" type="image/png" href="/images/favicon_32.png" sizes="32x32" />
@@ -58,55 +57,102 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Introduction to FRP (part 4)</h1>
+    <p class="post-meta"><time datetime="2016-04-03T19:55:06-03:00" itemprop="datePublished">Apr 3, 2016</time></p>
+  </header>
 
-  <ul class="post-list">
+  <div class="post-content" itemprop="articleBody">
+    <p>This is the fourth part of the Introduction to FRP series. Here’s the <a href="/2016/03/20/introduction-to-frp-pt1.html">first</a>, <a href="/2016/03/24/introduction-to-frp-pt2.html">second</a> and <a href="/2016/04/03/introduction-to-frp-pt3.html">third</a> parts.</p>
+
+<p>Believe it or not, this is the easy part, implementing this on a ViewController to use it on an app.</p>
+
+<p>Let’s do just that, let’s create a ViewController on a Storyboard with the same UI elements as the tests and simply copy the bindings into the new ViewController.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class ViewController: UIViewController {
+
+    @IBOutlet private weak var errorLabel: UILabel!
+    @IBOutlet private weak var usernameTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var registerButton: UIButton!
     
-      <li>
-        <span class="post-meta">Apr 3, 2016</span>
+    private let registerService: RegisterServiceProtocol
+    private let registerViewModel: RegisterViewModel
 
-        <h2>
-          <a class="post-link" href="/2016/04/03/introduction-to-frp-pt4.html">Introduction to FRP (part 4)</a>
-        </h2>
-      </li>
+    required init?(coder aDecoder: NSCoder) {
+
+        self.registerService = RegisterService(urlSession: NSURLSession.sharedSession())
+        self.registerViewModel = RegisterViewModel(registerService: self.registerService)
+
+        super.init(coder: aDecoder)
+    }
     
-      <li>
-        <span class="post-meta">Apr 3, 2016</span>
-
-        <h2>
-          <a class="post-link" href="/2016/04/03/introduction-to-frp-pt3.html">Introduction to FRP (part 3)</a>
-        </h2>
-      </li>
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        self.setupBindings()
+    }
     
-      <li>
-        <span class="post-meta">Mar 24, 2016</span>
-
-        <h2>
-          <a class="post-link" href="/2016/03/24/introduction-to-frp-pt2.html">Introduction to FRP (part 2)</a>
-        </h2>
-      </li>
+    private func setupBindings() {
+        
+        self.errorLabel.rac_text &lt;~ registerViewModel.registryError
+        self.registerViewModel.username &lt;~ self.usernameTextField.rac_text
+        self.registerViewModel.password &lt;~ self.passwordTextField.rac_text
+        self.activityIndicatorView.rac_animating &lt;~ registerViewModel.isRegistering
+        self.registerButton.rac_enabled &lt;~ self.registerViewModel.registerEnabledSignalProducer
+    }
     
-      <li>
-        <span class="post-meta">Mar 20, 2016</span>
-
-        <h2>
-          <a class="post-link" href="/2016/03/20/introduction-to-frp-pt1.html">Introduction to FRP (part 1)</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Mar 19, 2016</span>
-
-        <h2>
-          <a class="post-link" href="/2016/03/19/hello.html">Hello</a>
-        </h2>
-      </li>
-    
-  </ul>
-
+    @IBAction private func registerButtonTapped(sender: AnyObject) {
+        
+        self.registerViewModel.register().observeCompleted { [weak self] in
+            
+            guard let strongSelf = self else {
+                
+                return
+            }
+            
+            strongSelf.performSegueWithIdentifier("registerIdentifier", sender: strongSelf)
+        }
+    }
+}
+</code></pre>
 </div>
+
+<p>This is not a excerp. This is <strong>the whole thing</strong>.</p>
+
+<p>This code covers all of this:</p>
+
+<blockquote>
+  <ol>
+    <li>Hook into the textfields’ <code class="highlighter-rouge">shouldChangeCharactersInRange:replacementString:</code> delegate method.</li>
+    <li>Every time the text changes, check whether it’s valid or not.</li>
+    <li>Check if the counterpart textfield’s text is valid.</li>
+    <li>Check the <code class="highlighter-rouge">isRegistering</code> property is <code class="highlighter-rouge">false</code>.</li>
+    <li>Enable the register button.</li>
+    <li>Hook into the register button <code class="highlighter-rouge">UIControlEventTouchUpInside</code> event.</li>
+    <li>When the register button is tapped collect the username and password values, call the register API and set the <code class="highlighter-rouge">isRegistering</code> property to <code class="highlighter-rouge">true</code>.</li>
+  </ol>
+</blockquote>
+
+<p>And more! It also makes the actual API call, handles errors and pushes a new ViewController when succeded.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>FRP leads us to structure our code in such a way that the effort required to implement dependency injection, separation of concerns, testing and other good practices is marginal.</p>
+
+<p>The amount of code that’s not testable is minimal and will rarely fail.</p>
+
+<p>FRP is <em>intrusive</em>, meaning that it influences the domain design as well as its implementation and that removing it would require a great amount of time and effort, but there’s a big enough community to support and prevent scenarios where you’d have to do so.</p>
+
+<h1 id="more">More</h1>
+<p>A sample project with all the code and working app can be found in <a href="https://github.com/marianoabdala/Introduction-to-FRP">GitHub</a>.</p>
+
+  </div>
+
+</article>
 
       </div>
     </div>

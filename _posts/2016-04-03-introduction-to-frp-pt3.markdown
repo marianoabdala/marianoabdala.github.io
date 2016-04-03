@@ -465,4 +465,4 @@ And here's the `ErrorRegisterService` and its test:
 This is all great. We have things working the way we want, and reasonable test coverage. Shall we move this into a ViewController and see how it looks on an app rather than on tests?
 
 # Next
-**Final part (4) of this series will be coming out soon and it will cover how this would look like on an actual app. Stay tuned.**
+[Part 4]({% post_url 2016-04-03-introduction-to-frp-pt4 %}): Using ReactiveCocoa 4 on an app.

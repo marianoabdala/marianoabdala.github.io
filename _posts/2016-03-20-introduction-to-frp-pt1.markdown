@@ -74,8 +74,8 @@ This also applies to _events_. A cold signal could be a bank queue that opens up
 
 # Next
 [Part 2]({% post_url 2016-03-24-introduction-to-frp-pt2 %}): How to implement these concepts in ReactiveCocoa 4.  
-[Part 3]({% post_url 2016-04-03-introduction-to-frp-pt3 %}): Applied networking with ReactiveCocoa 4.
-
+[Part 3]({% post_url 2016-04-03-introduction-to-frp-pt3 %}): Applied networking with ReactiveCocoa 4.  
+[Part 4]({% post_url 2016-04-03-introduction-to-frp-pt4 %}): Using ReactiveCocoa 4 on an app.
 
 [^1]: New Oxford American Dictionary: **signal** \|ˈsiɡnəl\| (noun) • an event or statement that provides the impulse or occasion for something specified to happen: the champion's announcement that he was retiring was the signal for scores of journalists to gather at his last match.
 

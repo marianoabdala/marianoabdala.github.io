@@ -251,8 +251,7 @@ But, this is awful, shall we move this into a View Model?
 **That's better!** See how all our code starts looking like simple bindings?
 
 # Next
-**Part 3 of this series will be coming out soon and it will cover the last part of the goal, binding this to an API service. Stay tuned.**
-
+[Part 3]({% post_url 2016-04-03-introduction-to-frp-pt3 %}): Applied networking with ReactiveCocoa 4.
 
 [^1]: Notice that this is Objc. RAC 4 is mostly built around Swift.
 [^2]: If you do that, I'd suggest that you change the `rac_text` type to `MutableProperty<String?>`. Since that's the type of `UILabel`'s text property, so should be the type of the `rac_text` `MutableProperty`.

@@ -6,9 +6,517 @@
 </description>
     <link>http://zerously.com/</link>
     <atom:link href="http://zerously.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 27 Mar 2016 12:26:24 -0300</pubDate>
-    <lastBuildDate>Sun, 27 Mar 2016 12:26:24 -0300</lastBuildDate>
+    <pubDate>Sun, 03 Apr 2016 13:24:53 -0300</pubDate>
+    <lastBuildDate>Sun, 03 Apr 2016 13:24:53 -0300</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>Introduction to FRP (part 3)</title>
+        <description>&lt;p&gt;This is the third part of the Introduction to FRP series. Here’s the &lt;a href=&quot;/2016/03/20/introduction-to-frp-pt1.html&quot;&gt;first&lt;/a&gt; and &lt;a href=&quot;/2016/03/24/introduction-to-frp-pt2.html&quot;&gt;second&lt;/a&gt; parts.&lt;/p&gt;
+
+&lt;p&gt;Here, we’ll be covering networking. In itself, networking with FRP isn’t a long subject, but it provides us with an excuse to cover many generic FRP concepts that normally happen (and are easier to explain and grasp) when you use it to manage networking.&lt;/p&gt;
+
+&lt;p&gt;Let’s pick it up where we left it and focus on the second part of the statement:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Bind the register button’s enabled property to when both the username and the password are valid, &lt;strong&gt;as long as the register button hasn’t been pressed already and we aren’t registering the user via API&lt;/strong&gt;.&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To achieve this we’ll add a &lt;code class=&quot;highlighter-rouge&quot;&gt;isRegistering&lt;/code&gt; property on the &lt;code class=&quot;highlighter-rouge&quot;&gt;RegisterViewModel&lt;/code&gt; and update the &lt;code class=&quot;highlighter-rouge&quot;&gt;registerEnabledSignalProducer&lt;/code&gt; that drives whether the register button is enabled:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct RegisterViewModel {
+
+    let username = MutableProperty&amp;lt;String?&amp;gt;(nil)
+    let password = MutableProperty&amp;lt;String?&amp;gt;(nil)
+    let registerEnabledSignalProducer: SignalProducer&amp;lt;Bool, NoError&amp;gt;
+    let isRegistering = MutableProperty(false)
+
+    init() {
+
+        self.registerEnabledSignalProducer = combineLatest(self.username.producer, self.password.producer, self.isRegistering.producer)
+            .map { (username, password, isRegistering) -&amp;gt; Bool in
+
+              return username?.characters.count &amp;gt;= 8 &amp;amp;&amp;amp;
+                      password?.characters.count &amp;gt;= 8 &amp;amp;&amp;amp;
+                      isRegistering == false
+            }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now all we need to do is set the value of the &lt;code class=&quot;highlighter-rouge&quot;&gt;isRegistering&lt;/code&gt; property when we call the API and when the API responds. Notice Also that we combined username, password and isRegistering using &lt;code class=&quot;highlighter-rouge&quot;&gt;combineLatest&lt;/code&gt;, which allows us to combine up to 10 &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt;s/&lt;code class=&quot;highlighter-rouge&quot;&gt;SignalProducer&lt;/code&gt;s!!&lt;/p&gt;
+
+&lt;p&gt;So, let’s get our hands dirty, shall we? Let’s make and actual API call and handle it, even though &lt;strong&gt;we already covered the original requirements&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;simple-service&quot;&gt;Simple Service&lt;/h1&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct RegisterService {
+    
+    private let urlSession: NSURLSession
+    
+    init(urlSession: NSURLSession) {
+        
+        self.urlSession = urlSession
+    }
+    
+    func register(username username: String, password: String) -&amp;gt; SignalProducer&amp;lt;(NSData, NSURLResponse), NSError&amp;gt; {
+
+        // Let&#39;s assume we are inserting username and password to the request.
+        guard let url = NSURL(string: &quot;http://zerously.com/misc/register.json&quot;) else {
+            
+            return SignalProducer&amp;lt;(NSData, NSURLResponse), NSError&amp;gt;(error: NSError(domain: &quot;RegisterService&quot;, code: -1, userInfo: [&quot;Reason&quot;: &quot;Invalid URL.&quot;]))
+        }
+        
+        let request = NSURLRequest(URL: url)
+        return self.urlSession.rac_dataWithRequest(request)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The key to this service is that we aren’t returning a value or a model, we are returning a SignalProducer, for the consumer to transform, manage and handle; and ReactiveCocoa has a very handy method to achieve that right of from a &lt;code class=&quot;highlighter-rouge&quot;&gt;NSURLSession&lt;/code&gt;, the &lt;code class=&quot;highlighter-rouge&quot;&gt;rac_dataWithRequest(_:)&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;p&gt;For simplicity sake we aren’t adding username and password to the request, but we could verify if they are valid and return a &lt;code class=&quot;highlighter-rouge&quot;&gt;SignalProducer&lt;/code&gt; that will produce an error immediately in a similary way as the one shown in the code, for verifying the URL is valid.&lt;/p&gt;
+
+&lt;h1 id=&quot;usage-from-the-view-model&quot;&gt;Usage from the View Model&lt;/h1&gt;
+
+&lt;p&gt;Here’s how a rough call to this would look like from the ViewModel:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct RegisterViewModel {
+
+    let registerService: RegisterService
+
+    init(registerService: RegisterService) {
+
+        self.registerService = registerService
+        ...
+    }
+
+    func register() {
+
+        guard let username = self.username.value,
+                    password = self.password.value else {
+
+                return
+        }
+
+        self.isRegistering.value = true
+
+        self.registerService.register(username: username, password: password)
+            .observeOn(UIScheduler())
+            .startWithNext {
+
+                self.isRegistering.value = false
+            }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A few things to note here:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We are injecting the &lt;code class=&quot;highlighter-rouge&quot;&gt;RegisterService&lt;/code&gt; into the ViewModel, we’ll see how that’s useful later.&lt;/li&gt;
+  &lt;li&gt;We are handling the happy path for the &lt;code class=&quot;highlighter-rouge&quot;&gt;isRegistering&lt;/code&gt; property we created previously.&lt;/li&gt;
+  &lt;li&gt;We are calling &lt;code class=&quot;highlighter-rouge&quot;&gt;.observeOn(UIScheduler())&lt;/code&gt; to make sure we are working on the main thread from here on since the changes in &lt;code class=&quot;highlighter-rouge&quot;&gt;isRegistering&lt;/code&gt; will affect UI.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Seems like we are forgetting something? We aren’t doing anything with the result of the API call! We need to inform the ViewController that we finished registering the user successfully, so…&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func register() -&amp;gt; Bool {
+
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;What? &lt;strong&gt;No!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;By now, we know much more expresive and rective ways of doing this… It’ll require us not to consume, but to create a &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func register() -&amp;gt; Signal&amp;lt;Void, NoError&amp;gt; {
+
+    var didRegisterSink: Observer&amp;lt;Void, NoError&amp;gt;?
+    let didRegisterSignal = Signal&amp;lt;Void, NoError&amp;gt; { (sink) -&amp;gt; Disposable? in
+        
+        didRegisterSink = sink
+        return nil
+    }
+    
+    self.isRegistering.value = true
+
+    self.registerService.register(username: username, password: password)
+        .observeOn(UIScheduler())
+        .startWithNext {
+
+            self.isRegistering.value = false
+            didRegisterSink?.sendCompleted()
+    	}
+    
+    return didRegisterSignal
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;So, how does this work?&lt;/p&gt;
+
+&lt;p&gt;Every time you create a &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt; or a &lt;code class=&quot;highlighter-rouge&quot;&gt;SignalProducer&lt;/code&gt; you’ll get a &lt;code class=&quot;highlighter-rouge&quot;&gt;sink&lt;/code&gt; that’s going to be the reciever of the events. Just like to &lt;code class=&quot;highlighter-rouge&quot;&gt;observeNext&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;observeCompleted&lt;/code&gt; you can &lt;code class=&quot;highlighter-rouge&quot;&gt;sendNext&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;sendCompleted&lt;/code&gt; on the other side, on the sink.&lt;/p&gt;
+
+&lt;p&gt;We can now bind this to our test.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func testAPICall() {
+    
+    let registerService = RegisterService(urlSession: NSURLSession.sharedSession())
+    let registerViewModel = RegisterViewModel(registerService: registerService)
+    let registerButton = UIButton()
+    let usernameTextField = UITextField()
+    let passwordTextField = UITextField()
+    
+    registerViewModel.username &amp;lt;~ usernameTextField.rac_text
+    registerViewModel.password &amp;lt;~ passwordTextField.rac_text
+    registerButton.rac_enabled &amp;lt;~ registerViewModel.registerEnabledSignalProducer
+
+    XCTAssertFalse(registerButton.enabled)
+    
+    usernameTextField.inputText(&quot;mariano@zerously.com&quot;)
+    
+    XCTAssertFalse(registerButton.enabled)
+    
+    passwordTextField.inputText(&quot;pa55worD&quot;)
+    
+    XCTAssertTrue(registerButton.enabled)
+    
+    let expectation = expectationWithDescription(&quot;Wait for register to return&quot;)
+
+    registerViewModel.register().observeCompleted {
+
+        XCTAssertTrue(registerButton.enabled)
+
+        // On a View Controller, we&#39;d probably move to the onboarding screen.
+        // Since this is a test, we&#39;ll simply mark the expectation as fulfilled.
+        expectation.fulfill()
+    }
+    
+    XCTAssertFalse(registerButton.enabled)
+    
+    waitForExpectationsWithTimeout(10) { (error) in
+        
+        if error != nil {
+
+            XCTFail()
+        }
+    }
+ }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;non-trivial-behaviour&quot;&gt;Non-trivial behaviour&lt;/h1&gt;
+
+&lt;p&gt;As we add non-trivial behaviour to this example, we have to make sure we have errors handled too, so let’s add a &lt;code class=&quot;highlighter-rouge&quot;&gt;registryError&lt;/code&gt; property and bind it in our tests to a &lt;code class=&quot;highlighter-rouge&quot;&gt;errorLabel&lt;/code&gt;. While we are here, let’s add an &lt;code class=&quot;highlighter-rouge&quot;&gt;activityIndicatorView&lt;/code&gt; and bind it to the &lt;code class=&quot;highlighter-rouge&quot;&gt;isRegistering&lt;/code&gt; property.&lt;/p&gt;
+
+&lt;p&gt;To achieve bindablity on a &lt;code class=&quot;highlighter-rouge&quot;&gt;UIActivityIndicatorView&lt;/code&gt; we need to add the following to the &lt;code class=&quot;highlighter-rouge&quot;&gt;Util.swift&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;extension UIActivityIndicatorView {
+    public var rac_animating: MutableProperty&amp;lt;Bool&amp;gt; {
+        return lazyMutableProperty(self, key: &amp;amp;AssociationKey.animated, setter: { if $0 { self.startAnimating() } else { self.stopAnimating() } }, getter: { self.isAnimating() })
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Expanding the test would look like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func testAPICall() {
+    
+    let registerService = RegisterService(urlSession: NSURLSession.sharedSession())
+    let registerViewModel = RegisterViewModel(registerService: registerService)
+    let registerButton = UIButton()
+    let usernameTextField = UITextField()
+    let passwordTextField = UITextField()
+    
+    registerViewModel.username &amp;lt;~ usernameTextField.rac_text
+    registerViewModel.password &amp;lt;~ passwordTextField.rac_text
+    registerButton.rac_enabled &amp;lt;~ registerViewModel.registerEnabledSignalProducer
+
+    XCTAssertFalse(registerButton.enabled)
+    
+    usernameTextField.inputText(&quot;mariano@zerously.com&quot;)
+    
+    XCTAssertFalse(registerButton.enabled)
+    
+    passwordTextField.inputText(&quot;pa55worD&quot;)
+    
+    XCTAssertTrue(registerButton.enabled)
+    
+    let activityIndicatorView = UIActivityIndicatorView()
+    let errorLabel = UILabel()
+    
+    errorLabel.rac_text &amp;lt;~ registerViewModel.registryError
+    activityIndicatorView.rac_animating &amp;lt;~ registerViewModel.isRegistering
+    
+    let expectation = expectationWithDescription(&quot;Wait for register to return&quot;)
+
+    registerViewModel.register().observeCompleted {
+
+        XCTAssertTrue(registerButton.enabled)
+        XCTAssertFalse(activityIndicatorView.isAnimating())
+
+        // On a View Controller, we&#39;d probably move to the onboarding screen.
+        // Since this is a test, we&#39;ll simply mark the expectation as fulfilled.
+        expectation.fulfill()
+    }
+    
+    XCTAssertFalse(registerButton.enabled)
+    XCTAssertTrue(activityIndicatorView.isAnimating())
+    
+    waitForExpectationsWithTimeout(10) { (error) in
+        
+        if error != nil {
+
+            XCTFail()
+        }
+    }
+ }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And this is how the expanded &lt;code class=&quot;highlighter-rouge&quot;&gt;register&lt;/code&gt; fuction would look like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func register() -&amp;gt; Signal&amp;lt;Void, NoError&amp;gt; {
+
+    var didRegisterSink: Observer&amp;lt;Void, NoError&amp;gt;?
+    let didRegisterSignal = Signal&amp;lt;Void, NoError&amp;gt; { (sink) -&amp;gt; Disposable? in
+        
+        didRegisterSink = sink
+        return nil
+    }
+    
+    guard let username = self.username.value,
+                password = self.password.value else {
+
+            self.registryError.value = &quot;Invalid username or password&quot;
+            self.isRegistering.value = false
+            
+            return didRegisterSignal
+    }
+
+    self.isRegistering.value = true
+
+    self.registerService.register(username: username, password: password)
+        .map { (data, urlResponse) -&amp;gt; String? in
+    
+            self.isRegistering.value = false
+            
+            if let responseDictionary = try? NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as! [String: AnyObject] {
+                
+                return responseDictionary[&quot;token&quot;] as? String
+                
+            } else {
+                
+                return nil
+            }
+        }
+        .mapError { (error) -&amp;gt; NSError in
+
+            self.registryError.value = error.userInfo[&quot;Reason&quot;] as? String
+            self.isRegistering.value = false
+
+            return error
+        }
+        .observeOn(UIScheduler())
+        .startWithNext { (token) in
+
+            if let token = token {
+                
+                // Let&#39;s assume that the token should go into some sort of
+                // local authentication store for later use.
+                print(token)
+                
+                self.isRegistering.value = false
+                didRegisterSink?.sendCompleted()
+                
+            } else {
+                
+                self.registryError.value = &quot;Invalid token&quot;
+                self.isRegistering.value = false
+            }
+    }
+    
+    return didRegisterSignal
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This exemplifies non-trivial usage of mapping, chanining, binding and signal creation. Just like &lt;code class=&quot;highlighter-rouge&quot;&gt;observeNext&lt;/code&gt; is triggered when the observer does a &lt;code class=&quot;highlighter-rouge&quot;&gt;sendNext&lt;/code&gt;, and the &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; transforms the data a &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt; sends, the &lt;code class=&quot;highlighter-rouge&quot;&gt;mapError&lt;/code&gt; transforms the data a &lt;code class=&quot;highlighter-rouge&quot;&gt;Signal&lt;/code&gt; sends when there’s been an error.&lt;/p&gt;
+
+&lt;h1 id=&quot;testing-error-handling&quot;&gt;Testing Error handling&lt;/h1&gt;
+
+&lt;p&gt;Our tests didn’t include the error handling, so let’s make sure that works as we expect. For doing so, we’ll need our RegisterService to fail, in a few different ways.&lt;/p&gt;
+
+&lt;p&gt;Luckily we already are injecting the RegisterService and we can choose to inject a failing RegisterService instead.&lt;/p&gt;
+
+&lt;p&gt;To achieve that, we’ll need to standardize the &lt;code class=&quot;highlighter-rouge&quot;&gt;RegisterService&lt;/code&gt; the ViewModel uses into a protocol:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;protocol RegisterServiceProtocol {
+    
+    func register(username username: String, password: String) -&amp;gt; SignalProducer&amp;lt;(NSData, NSURLResponse), NSError&amp;gt;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Have &lt;code class=&quot;highlighter-rouge&quot;&gt;RegisterService&lt;/code&gt; inherite from it:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct RegisterService: RegisterServiceProtocol {
+
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And have the &lt;code class=&quot;highlighter-rouge&quot;&gt;RegisterViewModel&lt;/code&gt; taking that as a valid initializer:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct RegisterViewModel {
+    
+    let registerService: RegisterServiceProtocol
+
+    init(registerService: RegisterServiceProtocol) {
+
+        self.registerService = registerService
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Our tests should still be passing, but they aren’t considering any failure. Let’s create a new test that will address that. Notice that we are using the &lt;code class=&quot;highlighter-rouge&quot;&gt;NoTokenRegisterService&lt;/code&gt; this time, to force an issue and test how we handle it.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func testAPICallDataFailure() {
+    
+    let registerService = NoTokenRegisterService(urlSession: NSURLSession.sharedSession())
+    let registerViewModel = RegisterViewModel(registerService: registerService)
+    let registerButton = UIButton()
+    let usernameTextField = UITextField()
+    let passwordTextField = UITextField()
+    
+    registerViewModel.username &amp;lt;~ usernameTextField.rac_text
+    registerViewModel.password &amp;lt;~ passwordTextField.rac_text
+    registerButton.rac_enabled &amp;lt;~ registerViewModel.registerEnabledSignalProducer
+
+    usernameTextField.inputText(&quot;mariano@zerously.com&quot;)
+    passwordTextField.inputText(&quot;pa55worD&quot;)
+
+    let activityIndicatorView = UIActivityIndicatorView()
+    let errorLabel = UILabel()
+    
+    errorLabel.rac_text &amp;lt;~ registerViewModel.registryError
+    activityIndicatorView.rac_animating &amp;lt;~ registerViewModel.isRegistering
+    
+    registerViewModel.register().observeCompleted {
+
+        XCTFail(&quot;Should fail and not call sendCompleted&quot;)
+    }
+    
+    XCTAssertTrue(registerButton.enabled)
+    XCTAssertFalse(activityIndicatorView.isAnimating())
+    XCTAssertEqual(errorLabel.text, &quot;Invalid token&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here’s the NoTokenRegisterService code:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct NoTokenRegisterService: RegisterServiceProtocol {
+
+    private let urlSession: NSURLSession
+    
+    init(urlSession: NSURLSession) {
+        
+        self.urlSession = urlSession
+    }
+
+    func register(username username: String, password: String) -&amp;gt; SignalProducer&amp;lt;(NSData, NSURLResponse), NSError&amp;gt; {
+        
+        let signalProducer = SignalProducer&amp;lt;(NSData, NSURLResponse), NSError&amp;gt; { (sink, compositeDisposable) in
+            
+            let data = try! NSJSONSerialization.dataWithJSONObject([&quot;Hello&quot;: &quot;No Token Here&quot;], options: .PrettyPrinted)
+            let urlResponse = NSURLResponse()
+            
+            sink.sendNext((data, urlResponse))
+        }
+        
+        return signalProducer
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And here’s the &lt;code class=&quot;highlighter-rouge&quot;&gt;ErrorRegisterService&lt;/code&gt; and its test:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct ErrorRegisterService: RegisterServiceProtocol {
+    
+    private let urlSession: NSURLSession
+    
+    init(urlSession: NSURLSession) {
+        
+        self.urlSession = urlSession
+    }
+    
+    func register(username username: String, password: String) -&amp;gt; SignalProducer&amp;lt;(NSData, NSURLResponse), NSError&amp;gt; {
+        
+        return SignalProducer&amp;lt;(NSData, NSURLResponse), NSError&amp;gt;(error: NSError(domain: &quot;RegisterService&quot;, code: -1, userInfo: [&quot;Reason&quot;: &quot;Dunno.&quot;]))
+    }
+}
+
+class ReactiveTests: XCTestCase {
+    
+    func testAPICallError() {
+        
+        let registerService = ErrorRegisterService(urlSession: NSURLSession.sharedSession())
+        let registerViewModel = RegisterViewModel(registerService: registerService)
+        let registerButton = UIButton()
+        let usernameTextField = UITextField()
+        let passwordTextField = UITextField()
+        
+        registerViewModel.username &amp;lt;~ usernameTextField.rac_text
+        registerViewModel.password &amp;lt;~ passwordTextField.rac_text
+        registerButton.rac_enabled &amp;lt;~ registerViewModel.registerEnabledSignalProducer
+        
+        usernameTextField.inputText(&quot;mariano@zerously.com&quot;)
+        passwordTextField.inputText(&quot;pa55worD&quot;)
+        
+        let activityIndicatorView = UIActivityIndicatorView()
+        let errorLabel = UILabel()
+        
+        errorLabel.rac_text &amp;lt;~ registerViewModel.registryError
+        activityIndicatorView.rac_animating &amp;lt;~ registerViewModel.isRegistering
+        
+        registerViewModel.register().observeCompleted {
+            
+            XCTFail(&quot;Should fail and not call sendCompleted&quot;)
+        }
+        
+        XCTAssertTrue(registerButton.enabled)
+        XCTAssertFalse(activityIndicatorView.isAnimating())
+        XCTAssertEqual(errorLabel.text, &quot;Dunno.&quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is all great. We have things working the way we want, and reasonable test coverage. Shall we move this into a ViewController and see how it looks on an app rather than on tests?&lt;/p&gt;
+
+&lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Final part (4) of this series will be coming out soon and it will cover how this would look like on an actual app. Stay tuned.&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 03 Apr 2016 10:22:32 -0300</pubDate>
+        <link>http://zerously.com/2016/04/03/introduction-to-frp-pt3.html</link>
+        <guid isPermaLink="true">http://zerously.com/2016/04/03/introduction-to-frp-pt3.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Introduction to FRP (part 2)</title>
@@ -287,7 +795,7 @@ class ReactiveTests: XCTestCase {
 &lt;p&gt;&lt;strong&gt;That’s better!&lt;/strong&gt; See how all our code starts looking like simple bindings?&lt;/p&gt;
 
 &lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Part 3 of this series will be coming out soon and it will cover the last part of the goal, binding this to an API service. Stay tuned.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/2016/04/03/introduction-to-frp-pt3.html&quot;&gt;Part 3&lt;/a&gt;: Applied networking with ReactiveCocoa 4.&lt;/p&gt;
 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
@@ -378,7 +886,8 @@ If you only start getting the new values (whichever are set in the future) binde
 &lt;p&gt;This also applies to &lt;em&gt;events&lt;/em&gt;. A cold signal could be a bank queue that opens up and right away gets a new customer, if any. Whereas a hot signal could be a catastrophe prevention system, you only want to start the siren when the next warning comes in, regardless of whether there was one in the past.&lt;/p&gt;
 
 &lt;h1 id=&quot;next&quot;&gt;Next&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;/2016/03/24/introduction-to-frp-pt2.html&quot;&gt;Part 2&lt;/a&gt;: How to implement these concepts in ReactiveCocoa 4.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/2016/03/24/introduction-to-frp-pt2.html&quot;&gt;Part 2&lt;/a&gt;: How to implement these concepts in ReactiveCocoa 4.&lt;br /&gt;
+&lt;a href=&quot;/2016/04/03/introduction-to-frp-pt3.html&quot;&gt;Part 3&lt;/a&gt;: Applied networking with ReactiveCocoa 4.&lt;/p&gt;
 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;

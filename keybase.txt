@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/marianoabdala
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://zerously.com
+  * I am marianoabdala (https://keybase.io/marianoabdala) on keybase.
+  * I have a public key with fingerprint 0CA2 71D2 DA79 21E0 5483  A477 23D6 68AB 1A5A AB48
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0101d7c30ed97e253c2c2c0ba0c523d43eaebe35e219532648a48d098cc704c67f0a0a",
+            "fingerprint": "0ca271d2da7921e05483a47723d668ab1a5aab48",
+            "host": "keybase.io",
+            "key_id": "23d668ab1a5aab48",
+            "kid": "0101d7c30ed97e253c2c2c0ba0c523d43eaebe35e219532648a48d098cc704c67f0a0a",
+            "uid": "e1f214acd2c88a3581ecfe142d5b0819",
+            "username": "marianoabdala"
+        },
+        "service": {
+            "hostname": "zerously.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1460401991,
+    "expire_in": 157680000,
+    "prev": "b8d74b5ac7f58aacf99be3955be1c06264955f0c1da63e267a5ccba0dea1947a",
+    "seqno": 4,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.53
+Comment: https://keybase.io/crypto
+
+yMIpAnicrVI7TBRBGD5EjJ7BV4wCUTAbIwQJzux7D02EBm3UaJSYqOfszCws99hj
+bzk5CIViQWGMsTFglEILoEAkPkBNQEXCQywMRpGCSDCKcpFHYQ4LnSXYWTpTzOP/
+vm+++fL3p6d6vCnBnGdNdKHvfMrI85vVnrL1P0vrON0icc5XxwXo8kKDhEYdf8Ak
+nI8DEECiYAFQoimUlwTMswl0BLDEC0QUKKI6FSTKQ00SeFlUkagSoKkYK0DEsmIA
+BBBXwBlmuJzaEdsMO64sRrwCCU+QovGQAklUBSQqCpOUZRXpEEkI6aLKiBVW1GUw
+czqK0kLTYnfs4F+29w/8f/ZdvSxHocFDEWHCY1VFgqRCig0KRZ5IOlCh5gKj1A6j
+EGXoELJNFLaQTlAQcfUFHCvFTEzddN3vrMBqqW1VR4PxQmyFmEDEthwLW0FWqXCc
+iM8lOvGIi7xAdf+Khl83w4RlyQgxakdNK8z5IENix3RFoSgDEUBNgwUcrYmYNvWb
+LkJSZBWw4T5DY0xSV4ki6hLCiiGpCGFD01gemiTpFGIgs0TY3gAYEiQLlJcVJGHM
+4iMUQU1U3GiitCpscT6R2UTlTDJqloeRU21Trv5F35nVnhSvZ03aKrfHPN51m/52
+XlP+Ws8ro7OkpmrVw8zeyxWpeU0lG65PlgS9+2u25C52CiC/KzC0c+aoOf5py8bm
++eGZW3lZ3YtLE/2Dx5eGWwZrdz94G2vc96Wwb+h96a/Z9O60sXOn1AVPRuhc8uWT
+ZO7mtdmVaxp68NmZxNTGqdG2CXLnQGLP3vG7cvLItXfFld+mJ4X2hbT0luaGRO14
+09iP1wMNB1t7cNnFDQ+KEtOtt8RTJ/152db2pcO9rbHQ10fTxbPzxo2F3/eOeet2
+ZDXWJFNmHqcGui7FpfunRyzcUTnXfvJQC+5JXu3Kz4qLRY2ped8HMj+PZjwdWPr4
+IWfbidtbnV9n2nxX7oz0F8117NLvvvkDjSlKxw==
+=EzMu
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/marianoabdala
+
+==================================================================

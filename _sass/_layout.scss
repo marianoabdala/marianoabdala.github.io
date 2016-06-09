@@ -234,6 +234,7 @@
 
     h4 {
         font-size: 20px;
+        margin-top: 40px;
 
         @include media-query($on-laptop) {
             font-size: 18px;

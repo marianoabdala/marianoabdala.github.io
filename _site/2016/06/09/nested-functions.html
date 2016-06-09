@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Mariano Abdala</title>
-  <meta name="description" content="Writings of Mariano Abdala. iOS Developer, host at @NSCoderBA and organizer at @NSConfArg.
-">
+  <title>Nested Functions</title>
+  <meta name="description" content="I came across a neat Swift feature today that I wasn’t aware of: you can nest functions.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://zerously.com/">
+  <link rel="canonical" href="http://zerously.com/2016/06/09/nested-functions.html">
   <link rel="alternate" type="application/rss+xml" title="Mariano Abdala" href="http://zerously.com/feed.xml">
 
   <link rel="icon" type="image/png" href="/images/favicon_32.png" sizes="32x32" />
@@ -58,63 +57,92 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Nested Functions</h1>
+    <p class="post-meta"><time datetime="2016-06-09T16:18:06-03:00" itemprop="datePublished">Jun 9, 2016</time></p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Jun 9, 2016</span>
+  <div class="post-content" itemprop="articleBody">
+    <p>I came across a neat Swift feature today that I wasn’t aware of: you can nest functions.</p>
 
-        <h2>
-          <a class="post-link" href="/2016/06/09/nested-functions.html">Nested Functions</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 3, 2016</span>
+<p>Nesting functions work great for typically large functions that you want to split into smaller chunks but that make no sense if called from anywhere else, not even from <code class="highlighter-rouge">self</code>.</p>
 
-        <h2>
-          <a class="post-link" href="/2016/04/03/introduction-to-frp-pt4.html">Introduction to FRP (part 4)</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 3, 2016</span>
+<p>A good example of this kind of functions would be one that serves to configure some views in a view controller. In a very common scenario, each of said views would required some 4 or 5 lines of code.</p>
 
-        <h2>
-          <a class="post-link" href="/2016/04/03/introduction-to-frp-pt3.html">Introduction to FRP (part 3)</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Mar 24, 2016</span>
+<h4 id="the-comment-approach">The comment approach</h4>
+<p>One aproach is to have comments signaling the beginning of each section, like this:</p>
 
-        <h2>
-          <a class="post-link" href="/2016/03/24/introduction-to-frp-pt2.html">Introduction to FRP (part 2)</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Mar 20, 2016</span>
+<div class="highlighter-rouge"><pre class="highlight"><code>// Username label
+self.usernameLabel.accessibilityHint = "User name"
+self.usernameLabel.shadowColor = UIColor.cyanColor()
+self.usernameLabel.textAlignment = .Justified
 
-        <h2>
-          <a class="post-link" href="/2016/03/20/introduction-to-frp-pt1.html">Introduction to FRP (part 1)</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Mar 19, 2016</span>
-
-        <h2>
-          <a class="post-link" href="/2016/03/19/hello.html">Hello</a>
-        </h2>
-      </li>
-    
-  </ul>
-
+// Next button
+self.nextButton.layer.cornerRadius = 4
+...
+</code></pre>
 </div>
+
+<p>But you may end up with a hundred lines long method. <strong>Nobody wants that.</strong></p>
+
+<h4 id="the-private-function-approach">The private function approach</h4>
+<p>A different approach (the one I used up until now) was to wrap those little sections into functions and call them one at a time, so that my function would like somewhat like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>private func configureViews() {
+    
+  self.configureAvatarImageView()
+  self.configureUsernameLabel()
+  self.configureNextButton()
+}
+
+private func configureAvatarImageView() {
+
+  ...
+}
+</code></pre>
+</div>
+
+<p>The downside with this approach is that we could call <code class="highlighter-rouge">configureAvatarImageView</code> from any other part of our view controller, when, in most cases, it doesn’t make any sense. Given that having it accessible means polluting our auto-completion and allowing us to mistakingly call it from somewhere we aren’t supposed to… <strong>Nobody wants that.</strong></p>
+
+<h4 id="the-nested-function-approach">The nested function approach</h4>
+
+<p>Nested functions allows us to define functions inside other functions. Those inner functions are only accessible from whithin the outer function. Making our code much more organised and tidy. Inner functions also have access to variables defined in the outer function.</p>
+
+<p>Let’s see how our <code class="highlighter-rouge">configureViews</code> would look like using nested functions:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>private func configureViews() {
+	
+  func configureAvatarImageView() {
+
+    ...
+  }
+
+  func configureUsernameLabel() {
+
+    ...
+  }
+
+  configureNextButton() {
+  
+    ...
+  }
+
+  configureAvatarImageView()
+  configureUsernameLabel()
+  configureNextButton()
+}
+</code></pre>
+</div>
+
+<p>This is how you’d probably want to do it. Simple, tidy and thanks to nested functions <strong>contained</strong>.</p>
+
+<p>Note: Ideally, you’d be able to call the inner functions on top of the function, to serve as a sort of summary, but today that’s not available. For that matter, I created a <a href="https://bugs.swift.org/browse/SR-1721">bug report</a>.</p>
+
+  </div>
+
+</article>
 
       </div>
     </div>

@@ -64,7 +64,7 @@ private func configureViews() {
     ...
   }
 
-  configureNextButton() {
+  func configureNextButton() {
   
     ...
   }

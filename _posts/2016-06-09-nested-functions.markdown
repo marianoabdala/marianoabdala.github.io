@@ -13,7 +13,7 @@ A good example of this kind of functions would be one that serves to configure s
 #### The comment approach
 One aproach is to have comments signaling the beginning of each section, like this:
 
-```
+```swift
 // Username label
 self.usernameLabel.accessibilityHint = "User name"
 self.usernameLabel.shadowColor = UIColor.cyanColor()
@@ -29,7 +29,7 @@ But you may end up with a hundred lines long method. **Nobody wants that.**
 #### The private function approach
 A different approach (the one I used up until now) was to wrap those little sections into functions and call them one at a time, so that my function would like somewhat like this:
 
-```
+```swift
 private func configureViews() {
     
   self.configureAvatarImageView()
@@ -51,7 +51,7 @@ Nested functions allows us to define functions inside other functions. Those inn
 
 Let's see how our `configureViews` would look like using nested functions:
 
-```
+```swift
 private func configureViews() {
 	
   func configureAvatarImageView() {

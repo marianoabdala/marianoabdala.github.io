@@ -24,7 +24,7 @@ You can use your view models as a guide. The `FollowedUsersListViewModel` may us
 
 Create a protocol for such purpose:
 
-```
+```swift
 protocol UserListingClient {
 
     func fetchUsers() -> [UserModel]
@@ -35,7 +35,7 @@ protocol UserListingClient {
 
 And change the view model to initialize with such a client, as opposed to giving it access to the whole _Client_.
 
-```
+```swift
 class FollowedUsersListViewModel {
 
     init(withClient client: UserListingClient) {
@@ -50,7 +50,7 @@ Now, your view model will only be able to access the right functions on your cli
 #### Next step
 Let's see how the `UserDetailViewModel`'s client may look like:
 
-```
+```swift
 protocol UserDetailsClient {
 
     func fetchUserDetails(for user: UserModel) -> UserDetailsModel
@@ -61,7 +61,7 @@ protocol UserDetailsClient {
 
 And change the view model to initialize with such a client.
 
-```
+```swift
 class UserDetailsViewModel {
 
     init(withUser user: UserModel, client: UserDetailsClient) {
@@ -76,7 +76,7 @@ Have you noticied that both `UserListingClient` and `UserDetailsClient` use `fol
 
 Let's extract those into a `UserFollowingClient` and add that protocol to the `UserListingClient` and `UserDetailsClient` protocols.
 
-```
+```swift
 protocol UserFollowingClient {
     
     func follow(_ user: UserModel)
@@ -97,7 +97,7 @@ protocol UserDetailsClient: UserFollowingClient {
 #### A bit deeper
 Let's say we add a the ability to report a user from both the list and the user details for misbheaviour. We can simply define the `UserReportingClient` protocol and add it to the `UserListingClient` and the `UserDetailsClient`, like this:
 
-```
+```swift
 enum UserReportingReason {
     
     case ...
@@ -126,7 +126,7 @@ By doing this you not only restrict the functions that each of your view models 
 
 One way of doing this is moving the functions into independent extensions of their smaller grouping.
 
-```
+```swift
 extension Client: UserFollowingClient {
     
     func follow(_ user: UserModel) {
@@ -152,7 +152,7 @@ Say we want to test the `FollowedUsersListViewModel` and we want to test error h
 
 Let's modify `UserListingClient` and its protocols to have all methods `throw`:
 
-```
+```swift
 protocol UserFollowingClient {
     
     func follow(_ user: UserModel) throws
@@ -172,7 +172,7 @@ protocol UserListingClient: UserFollowingClient, UserReportingClient {
 
 And make a simple mock class to test exactly that.
 
-```
+```swift
 enum MyError: ErrorProtocol {
     
     case SomeError

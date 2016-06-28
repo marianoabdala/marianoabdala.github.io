@@ -85,24 +85,24 @@
 
 <p>Create a protocol for such purpose:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>protocol UserListingClient {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">UserListingClient</span> <span class="p">{</span>
 
-    func fetchUsers() -&gt; [UserModel]
-    func follow(_ user: UserModel)
-    func unfollow(_ user: UserModel)
-}
+    <span class="kd">func</span> <span class="nf">fetchUsers</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UserModel</span><span class="p">]</span>
+    <span class="kd">func</span> <span class="nf">follow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">unfollow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>And change the view model to initialize with such a client, as opposed to giving it access to the whole <em>Client</em>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class FollowedUsersListViewModel {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">FollowedUsersListViewModel</span> <span class="p">{</span>
 
-    init(withClient client: UserListingClient) {
+    <span class="nf">init</span><span class="p">(</span><span class="n">withClient</span> <span class="nv">client</span><span class="p">:</span> <span class="kt">UserListingClient</span><span class="p">)</span> <span class="p">{</span>
 
-        ...
-    }
-}
+        <span class="o">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -111,24 +111,24 @@
 <h4 id="next-step">Next step</h4>
 <p>Let’s see how the <code class="highlighter-rouge">UserDetailViewModel</code>’s client may look like:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>protocol UserDetailsClient {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">UserDetailsClient</span> <span class="p">{</span>
 
-    func fetchUserDetails(for user: UserModel) -&gt; UserDetailsModel
-    func follow(_ user: UserModel)
-    func unfollow(_ user: UserModel)
-}
+    <span class="kd">func</span> <span class="nf">fetchUserDetails</span><span class="p">(</span><span class="k">for</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UserDetailsModel</span>
+    <span class="kd">func</span> <span class="nf">follow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">unfollow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>And change the view model to initialize with such a client.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class UserDetailsViewModel {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">UserDetailsViewModel</span> <span class="p">{</span>
 
-    init(withUser user: UserModel, client: UserDetailsClient) {
+    <span class="nf">init</span><span class="p">(</span><span class="n">withUser</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">,</span> <span class="nv">client</span><span class="p">:</span> <span class="kt">UserDetailsClient</span><span class="p">)</span> <span class="p">{</span>
 
-        ...
-    }
-}
+        <span class="o">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -136,46 +136,46 @@
 
 <p>Let’s extract those into a <code class="highlighter-rouge">UserFollowingClient</code> and add that protocol to the <code class="highlighter-rouge">UserListingClient</code> and <code class="highlighter-rouge">UserDetailsClient</code> protocols.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>protocol UserFollowingClient {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">UserFollowingClient</span> <span class="p">{</span>
     
-    func follow(_ user: UserModel)
-    func unfollow(_ user: UserModel)
-}
+    <span class="kd">func</span> <span class="nf">follow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">unfollow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span>
+<span class="p">}</span>
 
-protocol UserListingClient: UserFollowingClient {
+<span class="kd">protocol</span> <span class="kt">UserListingClient</span><span class="p">:</span> <span class="kt">UserFollowingClient</span> <span class="p">{</span>
  
-    func fetchUsers() -&gt; [UserModel]
-}
+    <span class="kd">func</span> <span class="nf">fetchUsers</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UserModel</span><span class="p">]</span>
+<span class="p">}</span>
 
-protocol UserDetailsClient: UserFollowingClient {
+<span class="kd">protocol</span> <span class="kt">UserDetailsClient</span><span class="p">:</span> <span class="kt">UserFollowingClient</span> <span class="p">{</span>
     
-    func fetchUserDetails(for user: UserModel) -&gt; UserDetailsModel
-}
+    <span class="kd">func</span> <span class="nf">fetchUserDetails</span><span class="p">(</span><span class="k">for</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UserDetailsModel</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <h4 id="a-bit-deeper">A bit deeper</h4>
 <p>Let’s say we add a the ability to report a user from both the list and the user details for misbheaviour. We can simply define the <code class="highlighter-rouge">UserReportingClient</code> protocol and add it to the <code class="highlighter-rouge">UserListingClient</code> and the <code class="highlighter-rouge">UserDetailsClient</code>, like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>enum UserReportingReason {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">enum</span> <span class="kt">UserReportingReason</span> <span class="p">{</span>
     
-    case ...
-}
+    <span class="k">case</span> <span class="o">...</span>
+<span class="p">}</span>
 
-protocol UserReportingClient {
+<span class="kd">protocol</span> <span class="kt">UserReportingClient</span> <span class="p">{</span>
     
-    func report(_ user: UserModel, for reason: UserReportingReason)
-}
+    <span class="kd">func</span> <span class="nf">report</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">,</span> <span class="k">for</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt">UserReportingReason</span><span class="p">)</span>
+<span class="p">}</span>
 
-protocol UserListingClient: UserFollowingClient, UserReportingClient {
+<span class="kd">protocol</span> <span class="kt">UserListingClient</span><span class="p">:</span> <span class="kt">UserFollowingClient</span><span class="p">,</span> <span class="kt">UserReportingClient</span> <span class="p">{</span>
     
-    func fetchUsers() -&gt; [UserModel]
-}
+    <span class="kd">func</span> <span class="nf">fetchUsers</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UserModel</span><span class="p">]</span>
+<span class="p">}</span>
 
-protocol UserDetailsClient: UserFollowingClient, UserReportingClient {
+<span class="kd">protocol</span> <span class="kt">UserDetailsClient</span><span class="p">:</span> <span class="kt">UserFollowingClient</span><span class="p">,</span> <span class="kt">UserReportingClient</span> <span class="p">{</span>
     
-    func fetchUserDetails(for user: UserModel) -&gt; UserDetailsModel
-}
+    <span class="kd">func</span> <span class="nf">fetchUserDetails</span><span class="p">(</span><span class="k">for</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UserDetailsModel</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -186,18 +186,18 @@ protocol UserDetailsClient: UserFollowingClient, UserReportingClient {
 
 <p>One way of doing this is moving the functions into independent extensions of their smaller grouping.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>extension Client: UserFollowingClient {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">extension</span> <span class="kt">Client</span><span class="p">:</span> <span class="kt">UserFollowingClient</span> <span class="p">{</span>
     
-    func follow(_ user: UserModel) {
+    <span class="kd">func</span> <span class="nf">follow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span> <span class="p">{</span>
         
-        ...
-    }
+        <span class="o">...</span>
+    <span class="p">}</span>
     
-    func unfollow(_ user: UserModel) {
+    <span class="kd">func</span> <span class="nf">unfollow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span> <span class="p">{</span>
         
-        ...    
-    }
-}
+        <span class="o">...</span>    
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -212,53 +212,53 @@ protocol UserDetailsClient: UserFollowingClient, UserReportingClient {
 
 <p>Let’s modify <code class="highlighter-rouge">UserListingClient</code> and its protocols to have all methods <code class="highlighter-rouge">throw</code>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>protocol UserFollowingClient {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">UserFollowingClient</span> <span class="p">{</span>
     
-    func follow(_ user: UserModel) throws
-    func unfollow(_ user: UserModel) throws
-}
+    <span class="kd">func</span> <span class="nf">follow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span> <span class="k">throws</span>
+    <span class="kd">func</span> <span class="nf">unfollow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span> <span class="k">throws</span>
+<span class="p">}</span>
 
-protocol UserReportingClient {
+<span class="kd">protocol</span> <span class="kt">UserReportingClient</span> <span class="p">{</span>
     
-    func report(_ user: UserModel, for reason: UserReportingReason) throws
-}
+    <span class="kd">func</span> <span class="nf">report</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">,</span> <span class="k">for</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt">UserReportingReason</span><span class="p">)</span> <span class="k">throws</span>
+<span class="p">}</span>
 
-protocol UserListingClient: UserFollowingClient, UserReportingClient {
+<span class="kd">protocol</span> <span class="kt">UserListingClient</span><span class="p">:</span> <span class="kt">UserFollowingClient</span><span class="p">,</span> <span class="kt">UserReportingClient</span> <span class="p">{</span>
     
-    func fetchUsers() throws -&gt; [UserModel]
-}
+    <span class="kd">func</span> <span class="nf">fetchUsers</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UserModel</span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>And make a simple mock class to test exactly that.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>enum MyError: ErrorProtocol {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">enum</span> <span class="kt">MyError</span><span class="p">:</span> <span class="kt">ErrorProtocol</span> <span class="p">{</span>
     
-    case SomeError
-}
+    <span class="k">case</span> <span class="kt">SomeError</span>
+<span class="p">}</span>
 
-class ThrowingUserListingClient: UserListingClient {
+<span class="kd">class</span> <span class="kt">ThrowingUserListingClient</span><span class="p">:</span> <span class="kt">UserListingClient</span> <span class="p">{</span>
     
-    func follow(_ user: UserModel) throws {
+    <span class="kd">func</span> <span class="nf">follow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span> <span class="k">throws</span> <span class="p">{</span>
         
-        throw MyError.SomeError
-    }
+        <span class="k">throw</span> <span class="kt">MyError</span><span class="o">.</span><span class="kt">SomeError</span>
+    <span class="p">}</span>
     
-    func unfollow(_ user: UserModel) throws {
+    <span class="kd">func</span> <span class="nf">unfollow</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">)</span> <span class="k">throws</span> <span class="p">{</span>
         
-        throw MyError.SomeError
-    }
+        <span class="k">throw</span> <span class="kt">MyError</span><span class="o">.</span><span class="kt">SomeError</span>
+    <span class="p">}</span>
     
-    func report(_ user: UserModel, for reason: UserReportingReason) throws {
+    <span class="kd">func</span> <span class="nf">report</span><span class="p">(</span><span class="n">_</span> <span class="nv">user</span><span class="p">:</span> <span class="kt">UserModel</span><span class="p">,</span> <span class="k">for</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt">UserReportingReason</span><span class="p">)</span> <span class="k">throws</span> <span class="p">{</span>
         
-        throw MyError.SomeError
-    }
+        <span class="k">throw</span> <span class="kt">MyError</span><span class="o">.</span><span class="kt">SomeError</span>
+    <span class="p">}</span>
     
-    func fetchUsers() throws -&gt; [UserModel] {
+    <span class="kd">func</span> <span class="nf">fetchUsers</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UserModel</span><span class="p">]</span> <span class="p">{</span>
         
-        throw MyError.SomeError
-    }
-}
+        <span class="k">throw</span> <span class="kt">MyError</span><span class="o">.</span><span class="kt">SomeError</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 

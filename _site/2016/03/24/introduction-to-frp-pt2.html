@@ -86,31 +86,31 @@
 
 <p>Let’s assume we have a <code class="highlighter-rouge">UserViewModel</code> that looks more less like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class UserViewModel {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">UserViewModel</span> <span class="p">{</span>
 
-	var name = MutableProperty&lt;String?&gt;(nil)
-}
+	<span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="kt">MutableProperty</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?</span><span class="o">&gt;</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>Then, this test would pass without issues:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class ReactiveTests: XCTestCase {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ReactiveTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
     
-    func testSimpleBind() {
+    <span class="kd">func</span> <span class="nf">testSimpleBind</span><span class="p">()</span> <span class="p">{</span>
         
-        let newName = "Mariano Abdala"
-        let userViewModel = UserViewModel()
-        let nameBindedProperty = MutableProperty&lt;String?&gt;(nil)
+        <span class="k">let</span> <span class="nv">newName</span> <span class="o">=</span> <span class="s">"Mariano Abdala"</span>
+        <span class="k">let</span> <span class="nv">userViewModel</span> <span class="o">=</span> <span class="kt">UserViewModel</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">nameBindedProperty</span> <span class="o">=</span> <span class="kt">MutableProperty</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?</span><span class="o">&gt;</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
         
-        nameBindedProperty &lt;~ userViewModel.name
+        <span class="n">nameBindedProperty</span> <span class="o">&lt;~</span> <span class="n">userViewModel</span><span class="o">.</span><span class="n">name</span>
 
-        userViewModel.name.value = newName
+        <span class="n">userViewModel</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">newName</span>
 
-        XCTAssertEqual(userViewModel.name.value, newName)
-        XCTAssertEqual(nameBindedProperty.value, newName)
-    }
-}
+        <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">userViewModel</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">newName</span><span class="p">)</span>
+        <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">nameBindedProperty</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">newName</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -118,7 +118,7 @@
 
 <p>In the past you’d do something like<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>RAC(self.userNameLabel, text) = userViewModel.name;
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kt">RAC</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">userNameLabel</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">=</span> <span class="n">userViewModel</span><span class="o">.</span><span class="n">name</span><span class="p">;</span>
 </code></pre>
 </div>
 
@@ -126,22 +126,22 @@
 
 <p>Let’s see how this looks like with a <code class="highlighter-rouge">UILabel</code>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class ReactiveTests: XCTestCase {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ReactiveTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
     
-    func testLabelBind() {
+    <span class="kd">func</span> <span class="nf">testLabelBind</span><span class="p">()</span> <span class="p">{</span>
         
-        let newName = "Mariano Abdala"
-        let userViewModel = UserViewModel()
-        let userNameLabel = UILabel()
+        <span class="k">let</span> <span class="nv">newName</span> <span class="o">=</span> <span class="s">"Mariano Abdala"</span>
+        <span class="k">let</span> <span class="nv">userViewModel</span> <span class="o">=</span> <span class="kt">UserViewModel</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">userNameLabel</span> <span class="o">=</span> <span class="kt">UILabel</span><span class="p">()</span>
         
-        userNameLabel.rac_text &lt;~ userViewModel.name
+        <span class="n">userNameLabel</span><span class="o">.</span><span class="n">rac_text</span> <span class="o">&lt;~</span> <span class="n">userViewModel</span><span class="o">.</span><span class="n">name</span>
 
-        userViewModel.name.value = newName
+        <span class="n">userViewModel</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">newName</span>
 
-        XCTAssertEqual(userViewModel.name.value, newName)
-        XCTAssertEqual(userNameLabel.text, newName)
-    }
-}
+        <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">userViewModel</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">newName</span><span class="p">)</span>
+        <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">userNameLabel</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">newName</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -164,26 +164,26 @@
 
 <p>We won’t be covering all other transformations, but what’s important is that RAC 4 <code class="highlighter-rouge">Signal</code>’s <code class="highlighter-rouge">map</code> doesn’t return a new value, but a new <code class="highlighter-rouge">Signal</code>. Which allows us to do both, biding <em>and</em> chaining.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class ReactiveTests: XCTestCase {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ReactiveTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
     
-    func testCompoundBind() {
+    <span class="kd">func</span> <span class="nf">testCompoundBind</span><span class="p">()</span> <span class="p">{</span>
         
-        let registerButton = UIButton()
-        let usernameTextField = UITextField()
+        <span class="k">let</span> <span class="nv">registerButton</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">usernameTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
         
-        registerButton.rac_enabled &lt;~ usernameTextField.rac_text.signal.map { (text) -&gt; Bool in
+        <span class="n">registerButton</span><span class="o">.</span><span class="n">rac_enabled</span> <span class="o">&lt;~</span> <span class="n">usernameTextField</span><span class="o">.</span><span class="n">rac_text</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">in</span>
             
-            return text.characters.count &gt;= 8
-        }
+            <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">characters</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">8</span>
+        <span class="p">}</span>
 
-        XCTAssertFalse(registerButton.enabled)
+        <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
 
-        usernameTextField.text = "mariano@zerously.com"
-        usernameTextField.sendActionsForControlEvents(.EditingChanged)
+        <span class="n">usernameTextField</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">"mariano@zerously.com"</span>
+        <span class="n">usernameTextField</span><span class="o">.</span><span class="nf">sendActionsForControlEvents</span><span class="p">(</span><span class="o">.</span><span class="kt">EditingChanged</span><span class="p">)</span>
         
-        XCTAssertTrue(registerButton.enabled)
-    }
-}
+        <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -195,14 +195,14 @@
 
 <p>For the sake of clariry, let’s wrap that into an <code class="highlighter-rouge">extension</code> and assume it’s present in future code.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>extension UITextField {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">extension</span> <span class="kt">UITextField</span> <span class="p">{</span>
     
-    func inputText(text: String) {
+    <span class="kd">func</span> <span class="nf">inputText</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
         
-        self.text = text
-        self.sendActionsForControlEvents(.EditingChanged)
-    }
-}
+        <span class="k">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="k">self</span><span class="o">.</span><span class="nf">sendActionsForControlEvents</span><span class="p">(</span><span class="o">.</span><span class="kt">EditingChanged</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -210,11 +210,11 @@
 
 <p>To add new <code class="highlighter-rouge">UIKit</code> properties simply add to that file something like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>extension UIControl {
-    public var rac_enabled: MutableProperty&lt;Bool&gt; {
-        return lazyMutableProperty(self, key: &amp;AssociationKey.enabled, setter: { self.enabled = $0 }, getter: { self.enabled })
-    }
-}
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">extension</span> <span class="kt">UIControl</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">rac_enabled</span><span class="p">:</span> <span class="kt">MutableProperty</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">lazyMutableProperty</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="o">&amp;</span><span class="kt">AssociationKey</span><span class="o">.</span><span class="n">enabled</span><span class="p">,</span> <span class="nv">setter</span><span class="p">:</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="nv">$0</span> <span class="p">},</span> <span class="nv">getter</span><span class="p">:</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="n">enabled</span> <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -234,23 +234,23 @@ If you only start getting the new values (whichever are set in the future) binde
 
 <p>How do we get a cold signal? Using the property’s <code class="highlighter-rouge">SignalProducer</code> instead of the <code class="highlighter-rouge">Signal</code>. It’s that easy.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class ReactiveTests: XCTestCase {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ReactiveTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
 
-    func testCompoundBind() {
+    <span class="kd">func</span> <span class="nf">testCompoundBind</span><span class="p">()</span> <span class="p">{</span>
         
-        let registerButton = UIButton()
-        let userNameTextField = UITextField()
+        <span class="k">let</span> <span class="nv">registerButton</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">userNameTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
         
-        registerButton.rac_enabled &lt;~ userNameTextField.rac_text.producer.map { (text) -&gt; Bool in
+        <span class="n">registerButton</span><span class="o">.</span><span class="n">rac_enabled</span> <span class="o">&lt;~</span> <span class="n">userNameTextField</span><span class="o">.</span><span class="n">rac_text</span><span class="o">.</span><span class="n">producer</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">in</span>
             
-            return text.characters.count &gt;= 8
-        }
+            <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">characters</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">8</span>
+        <span class="p">}</span>
 
-        XCTAssertFalse(registerButton.enabled)
-        userNameTextField.inputText("mariano@zerously.com")
-        XCTAssertTrue(registerButton.enabled)
-    }
-}
+        <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+        <span class="n">userNameTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"mariano@zerously.com"</span><span class="p">)</span>
+        <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -262,29 +262,29 @@ If you only start getting the new values (whichever are set in the future) binde
 
 <p>And here we go, we have the first part of the goal resolved.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class ReactiveTests: XCTestCase {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ReactiveTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
 
-    func testCompoundBind() {
+    <span class="kd">func</span> <span class="nf">testCompoundBind</span><span class="p">()</span> <span class="p">{</span>
         
-        let registerButton = UIButton()
-        let usernameTextField = UITextField()
-        let passwordTextField = UITextField()
+        <span class="k">let</span> <span class="nv">registerButton</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">usernameTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">passwordTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
         
-        registerButton.rac_enabled &lt;~
-            combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
-            .map { (username, password) -&gt; Bool in
+        <span class="n">registerButton</span><span class="o">.</span><span class="n">rac_enabled</span> <span class="o">&lt;~</span>
+            <span class="nf">combineLatest</span><span class="p">(</span><span class="n">usernameTextField</span><span class="o">.</span><span class="n">rac_text</span><span class="o">.</span><span class="n">producer</span><span class="p">,</span> <span class="n">passwordTextField</span><span class="o">.</span><span class="n">rac_text</span><span class="o">.</span><span class="n">producer</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">in</span>
             
-	            return username.characters.count &gt;= 8 &amp;&amp;
-	                    password.characters.count &gt;= 8
-            }
+	            <span class="k">return</span> <span class="n">username</span><span class="o">.</span><span class="n">characters</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="o">&amp;&amp;</span>
+	                    <span class="n">password</span><span class="o">.</span><span class="n">characters</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">8</span>
+            <span class="p">}</span>
 
-        XCTAssertFalse(registerButton.enabled)
-        usernameTextField.inputText("mariano@zerously.com")
-        XCTAssertFalse(registerButton.enabled)
-        passwordTextField.inputText("pa55worD")
-        XCTAssertTrue(registerButton.enabled)
-    }
-}
+        <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+        <span class="n">usernameTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"mariano@zerously.com"</span><span class="p">)</span>
+        <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+        <span class="n">passwordTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"pa55worD"</span><span class="p">)</span>
+        <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -297,43 +297,43 @@ If you only start getting the new values (whichever are set in the future) binde
 
 <p>But, this is awful, shall we move this into a View Model?</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>struct RegisterViewModel {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">RegisterViewModel</span> <span class="p">{</span>
     
-    let username = MutableProperty&lt;String?&gt;(nil)
-    let password = MutableProperty&lt;String?&gt;(nil)
-    let registerEnabledSignalProducer: SignalProducer&lt;Bool, NoError&gt;
+    <span class="k">let</span> <span class="nv">username</span> <span class="o">=</span> <span class="kt">MutableProperty</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?</span><span class="o">&gt;</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">password</span> <span class="o">=</span> <span class="kt">MutableProperty</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?</span><span class="o">&gt;</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">registerEnabledSignalProducer</span><span class="p">:</span> <span class="kt">SignalProducer</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="p">,</span> <span class="kt">NoError</span><span class="o">&gt;</span>
     
-    init() {
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
 
-        self.registerEnabledSignalProducer = combineLatest(self.username.producer, self.password.producer)
-            .map { (username, password) -&gt; Bool in
+        <span class="k">self</span><span class="o">.</span><span class="n">registerEnabledSignalProducer</span> <span class="o">=</span> <span class="nf">combineLatest</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">producer</span><span class="p">,</span> <span class="k">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">producer</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">in</span>
 
-                return username?.characters.count &gt;= 8 &amp;&amp;
-                        password?.characters.count &gt;= 8
-            }
-    }
-}
+                <span class="k">return</span> <span class="n">username</span><span class="p">?</span><span class="o">.</span><span class="n">characters</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="o">&amp;&amp;</span>
+                        <span class="n">password</span><span class="p">?</span><span class="o">.</span><span class="n">characters</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">8</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-class ReactiveTests: XCTestCase {
+<span class="kd">class</span> <span class="kt">ReactiveTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
     
-    func testModelBind() {
+    <span class="kd">func</span> <span class="nf">testModelBind</span><span class="p">()</span> <span class="p">{</span>
         
-        let registerViewModel = RegisterViewModel()
-        let registerButton = UIButton()
-        let usernameTextField = UITextField()
-        let passwordTextField = UITextField()
+        <span class="k">let</span> <span class="nv">registerViewModel</span> <span class="o">=</span> <span class="kt">RegisterViewModel</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">registerButton</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">usernameTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">passwordTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
         
-        registerViewModel.username &lt;~ usernameTextField.rac_text
-        registerViewModel.password &lt;~ passwordTextField.rac_text
-        registerButton.rac_enabled &lt;~ registerViewModel.registerEnabledSignalProducer
+        <span class="n">registerViewModel</span><span class="o">.</span><span class="n">username</span> <span class="o">&lt;~</span> <span class="n">usernameTextField</span><span class="o">.</span><span class="n">rac_text</span>
+        <span class="n">registerViewModel</span><span class="o">.</span><span class="n">password</span> <span class="o">&lt;~</span> <span class="n">passwordTextField</span><span class="o">.</span><span class="n">rac_text</span>
+        <span class="n">registerButton</span><span class="o">.</span><span class="n">rac_enabled</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">registerEnabledSignalProducer</span>
 
-        XCTAssertFalse(registerButton.enabled)
-        usernameTextField.inputText("mariano@zerously.com")
-        XCTAssertFalse(registerButton.enabled)
-        passwordTextField.inputText("pa55worD")
-        XCTAssertTrue(registerButton.enabled)
-    }
-}
+        <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+        <span class="n">usernameTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"mariano@zerously.com"</span><span class="p">)</span>
+        <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+        <span class="n">passwordTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"pa55worD"</span><span class="p">)</span>
+        <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 

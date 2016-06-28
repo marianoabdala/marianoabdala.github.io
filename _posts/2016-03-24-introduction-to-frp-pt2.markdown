@@ -23,56 +23,64 @@ ReactiveCocoa has a really cool, smart and practical way of binding things via t
 
 Let's assume we have a `UserViewModel` that looks more less like this:
 
-    class UserViewModel {
-    
-    	var name = MutableProperty<String?>(nil)
-	}
+```swift
+class UserViewModel {
+
+	var name = MutableProperty<String?>(nil)
+}
+```
 
 Then, this test would pass without issues:
 
-	class ReactiveTests: XCTestCase {
-	    
-	    func testSimpleBind() {
-	        
-	        let newName = "Mariano Abdala"
-	        let userViewModel = UserViewModel()
-	        let nameBindedProperty = MutableProperty<String?>(nil)
-	        
-	        nameBindedProperty <~ userViewModel.name
+```swift
+class ReactiveTests: XCTestCase {
+    
+    func testSimpleBind() {
+        
+        let newName = "Mariano Abdala"
+        let userViewModel = UserViewModel()
+        let nameBindedProperty = MutableProperty<String?>(nil)
+        
+        nameBindedProperty <~ userViewModel.name
 
-	        userViewModel.name.value = newName
+        userViewModel.name.value = newName
 
-	        XCTAssertEqual(userViewModel.name.value, newName)
-	        XCTAssertEqual(nameBindedProperty.value, newName)
-	    }
-	}
+        XCTAssertEqual(userViewModel.name.value, newName)
+        XCTAssertEqual(nameBindedProperty.value, newName)
+    }
+}
+```
 
 We will, of course, want to bind a `ViewModel` to a `UIView`'s property. In this case, the user's name would probably end up being bounded to a `userNameLabel`'s `text`.
 
 In the past you'd do something like[^1]:
 
-	RAC(self.userNameLabel, text) = userViewModel.name;
+```swift
+RAC(self.userNameLabel, text) = userViewModel.name;
+```
 
 But that won't work in RAC 4. In RAC 4 you can only bind, using the `<~` operator, to a `MutableProperty<T>`. But worry not, because [Colin Eberhardt](http://blog.scottlogic.com/ceberhardt/) came up with an [easy way](https://github.com/ColinEberhardt/ReactiveTwitterSearch/blob/master/ReactiveTwitterSearch/Util/UIKitExtensions.swift) to turn almost any property (including `UIKit`'s) into a RAC 4 `MutableProperty<T>`. You'll most likely want to add that file[^2] to any project that uses RAC 4.
 
 Let's see how this looks like with a `UILabel`:
 
-	class ReactiveTests: XCTestCase {
-	    
-	    func testLabelBind() {
-	        
-	        let newName = "Mariano Abdala"
-	        let userViewModel = UserViewModel()
-	        let userNameLabel = UILabel()
-	        
-	        userNameLabel.rac_text <~ userViewModel.name
+```swift
+class ReactiveTests: XCTestCase {
+    
+    func testLabelBind() {
+        
+        let newName = "Mariano Abdala"
+        let userViewModel = UserViewModel()
+        let userNameLabel = UILabel()
+        
+        userNameLabel.rac_text <~ userViewModel.name
 
-	        userViewModel.name.value = newName
+        userViewModel.name.value = newName
 
-	        XCTAssertEqual(userViewModel.name.value, newName)
-	        XCTAssertEqual(userNameLabel.text, newName)
-	    }
-	}
+        XCTAssertEqual(userViewModel.name.value, newName)
+        XCTAssertEqual(userNameLabel.text, newName)
+    }
+}
+```
 
 This may not look like much, but once your View Controllers start looking like just a bunch of simple bindings to your models, that's when this starts to pay out. And isn't that what one of the View Controller's main responsibility is, to bind the View to the Model's data?
 
@@ -89,26 +97,28 @@ To do that we need a signal. Luckily, all `MutableProperty<T>` have one. The pre
 
 We won't be covering all other transformations, but what's important is that RAC 4 `Signal`'s `map` doesn't return a new value, but a new `Signal`. Which allows us to do both, biding *and* chaining.
 
-	class ReactiveTests: XCTestCase {
-	    
-	    func testCompoundBind() {
-	        
-	        let registerButton = UIButton()
-	        let usernameTextField = UITextField()
-	        
-	        registerButton.rac_enabled <~ usernameTextField.rac_text.signal.map { (text) -> Bool in
-	            
-	            return text.characters.count >= 8
-	        }
+```swift
+class ReactiveTests: XCTestCase {
+    
+    func testCompoundBind() {
+        
+        let registerButton = UIButton()
+        let usernameTextField = UITextField()
+        
+        registerButton.rac_enabled <~ usernameTextField.rac_text.signal.map { (text) -> Bool in
+            
+            return text.characters.count >= 8
+        }
 
-	        XCTAssertFalse(registerButton.enabled)
+        XCTAssertFalse(registerButton.enabled)
 
-	        usernameTextField.text = "mariano@zerously.com"
-	        usernameTextField.sendActionsForControlEvents(.EditingChanged)
-	        
-	        XCTAssertTrue(registerButton.enabled)
-	    }
-	}
+        usernameTextField.text = "mariano@zerously.com"
+        usernameTextField.sendActionsForControlEvents(.EditingChanged)
+        
+        XCTAssertTrue(registerButton.enabled)
+    }
+}
+```
 
 As you can see here, what we are doing is mapping the text of the username to whether it's valid or not. This is what we meant by a stream being *a river with all it’s water*: we can fully define whether the register button is enabled or not, across time and across values.
 
@@ -118,24 +128,28 @@ There's a couple new concepts in this test though.
 
 For the sake of clariry, let's wrap that into an `extension` and assume it's present in future code.
 
-	extension UITextField {
-	    
-	    func inputText(text: String) {
-	        
-	        self.text = text
-	        self.sendActionsForControlEvents(.EditingChanged)
-	    }
-	}
+```swift
+extension UITextField {
+    
+    func inputText(text: String) {
+        
+        self.text = text
+        self.sendActionsForControlEvents(.EditingChanged)
+    }
+}
+```
 
 And then there's the `rac_enabled` property that isn't present on the `Util.swift` file we mentioned before.
 
 To add new `UIKit` properties simply add to that file something like this:
 
-	extension UIControl {
-	    public var rac_enabled: MutableProperty<Bool> {
-	        return lazyMutableProperty(self, key: &AssociationKey.enabled, setter: { self.enabled = $0 }, getter: { self.enabled })
-	    }
-	}
+```swift
+extension UIControl {
+    public var rac_enabled: MutableProperty<Bool> {
+        return lazyMutableProperty(self, key: &AssociationKey.enabled, setter: { self.enabled = $0 }, getter: { self.enabled })
+    }
+}
+```
 
 But there's one last a catch here. This test will fail on the first assert. Which brings us to hot and cold signals.
 
@@ -151,23 +165,25 @@ In this particular case, if we want the enabled to be "computed" false, we need 
 
 How do we get a cold signal? Using the property's `SignalProducer` instead of the `Signal`. It's that easy.
 
-	class ReactiveTests: XCTestCase {
+```swift
+class ReactiveTests: XCTestCase {
 
-	    func testCompoundBind() {
-	        
-	        let registerButton = UIButton()
-	        let userNameTextField = UITextField()
-	        
-	        registerButton.rac_enabled <~ userNameTextField.rac_text.producer.map { (text) -> Bool in
-	            
-	            return text.characters.count >= 8
-	        }
+    func testCompoundBind() {
+        
+        let registerButton = UIButton()
+        let userNameTextField = UITextField()
+        
+        registerButton.rac_enabled <~ userNameTextField.rac_text.producer.map { (text) -> Bool in
+            
+            return text.characters.count >= 8
+        }
 
-	        XCTAssertFalse(registerButton.enabled)
-	        userNameTextField.inputText("mariano@zerously.com")
-	        XCTAssertTrue(registerButton.enabled)
-	    }
-	}
+        XCTAssertFalse(registerButton.enabled)
+        userNameTextField.inputText("mariano@zerously.com")
+        XCTAssertTrue(registerButton.enabled)
+    }
+}
+```
 
 All tests passing, now we need to validate the password as well, how do we do that?
 
@@ -177,29 +193,31 @@ Have you noticed the name of the test? Exactly, "compound", what we need to do i
 
 And here we go, we have the first part of the goal resolved.
 
-	class ReactiveTests: XCTestCase {
+```swift
+class ReactiveTests: XCTestCase {
 
-	    func testCompoundBind() {
-	        
-	        let registerButton = UIButton()
-	        let usernameTextField = UITextField()
-	        let passwordTextField = UITextField()
-	        
-	        registerButton.rac_enabled <~
-	            combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
-	            .map { (username, password) -> Bool in
-	            
-		            return username.characters.count >= 8 &&
-		                    password.characters.count >= 8
-	            }
+    func testCompoundBind() {
+        
+        let registerButton = UIButton()
+        let usernameTextField = UITextField()
+        let passwordTextField = UITextField()
+        
+        registerButton.rac_enabled <~
+            combineLatest(usernameTextField.rac_text.producer, passwordTextField.rac_text.producer)
+            .map { (username, password) -> Bool in
+            
+	            return username.characters.count >= 8 &&
+	                    password.characters.count >= 8
+            }
 
-	        XCTAssertFalse(registerButton.enabled)
-	        usernameTextField.inputText("mariano@zerously.com")
-	        XCTAssertFalse(registerButton.enabled)
-	        passwordTextField.inputText("pa55worD")
-	        XCTAssertTrue(registerButton.enabled)
-	    }
-	}
+        XCTAssertFalse(registerButton.enabled)
+        usernameTextField.inputText("mariano@zerously.com")
+        XCTAssertFalse(registerButton.enabled)
+        passwordTextField.inputText("pa55worD")
+        XCTAssertTrue(registerButton.enabled)
+    }
+}
+```
 
 I'm sure you used apps with [way more creative algorithms](https://www.reddit.com/r/Jokes/comments/1v4bpa/passwords/). ;-)
 
@@ -210,43 +228,45 @@ While we were dealing with our goal of enabling the register button when both th
 
 But, this is awful, shall we move this into a View Model?
 
-	struct RegisterViewModel {
-	    
-	    let username = MutableProperty<String?>(nil)
-	    let password = MutableProperty<String?>(nil)
-	    let registerEnabledSignalProducer: SignalProducer<Bool, NoError>
-	    
-	    init() {
+```swift
+struct RegisterViewModel {
+    
+    let username = MutableProperty<String?>(nil)
+    let password = MutableProperty<String?>(nil)
+    let registerEnabledSignalProducer: SignalProducer<Bool, NoError>
+    
+    init() {
 
-	        self.registerEnabledSignalProducer = combineLatest(self.username.producer, self.password.producer)
-	            .map { (username, password) -> Bool in
+        self.registerEnabledSignalProducer = combineLatest(self.username.producer, self.password.producer)
+            .map { (username, password) -> Bool in
 
-	                return username?.characters.count >= 8 &&
-	                        password?.characters.count >= 8
-	            }
-	    }
-	}
+                return username?.characters.count >= 8 &&
+                        password?.characters.count >= 8
+            }
+    }
+}
 
-	class ReactiveTests: XCTestCase {
-	    
-	    func testModelBind() {
-	        
-	        let registerViewModel = RegisterViewModel()
-	        let registerButton = UIButton()
-	        let usernameTextField = UITextField()
-	        let passwordTextField = UITextField()
-	        
-	        registerViewModel.username <~ usernameTextField.rac_text
-	        registerViewModel.password <~ passwordTextField.rac_text
-	        registerButton.rac_enabled <~ registerViewModel.registerEnabledSignalProducer
+class ReactiveTests: XCTestCase {
+    
+    func testModelBind() {
+        
+        let registerViewModel = RegisterViewModel()
+        let registerButton = UIButton()
+        let usernameTextField = UITextField()
+        let passwordTextField = UITextField()
+        
+        registerViewModel.username <~ usernameTextField.rac_text
+        registerViewModel.password <~ passwordTextField.rac_text
+        registerButton.rac_enabled <~ registerViewModel.registerEnabledSignalProducer
 
-	        XCTAssertFalse(registerButton.enabled)
-	        usernameTextField.inputText("mariano@zerously.com")
-	        XCTAssertFalse(registerButton.enabled)
-	        passwordTextField.inputText("pa55worD")
-	        XCTAssertTrue(registerButton.enabled)
-	    }
-	}
+        XCTAssertFalse(registerButton.enabled)
+        usernameTextField.inputText("mariano@zerously.com")
+        XCTAssertFalse(registerButton.enabled)
+        passwordTextField.inputText("pa55worD")
+        XCTAssertTrue(registerButton.enabled)
+    }
+}
+```
 
 **That's better!** See how all our code starts looking like simple bindings?
 

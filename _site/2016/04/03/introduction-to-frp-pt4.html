@@ -71,53 +71,53 @@
 
 <p>Let’s do just that, let’s create a ViewController on a Storyboard with the same UI elements as the tests and simply copy the bindings into the new ViewController.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class ViewController: UIViewController {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
 
-    @IBOutlet private weak var errorLabel: UILabel!
-    @IBOutlet private weak var usernameTextField: UITextField!
-    @IBOutlet private weak var passwordTextField: UITextField!
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet private weak var registerButton: UIButton!
+    <span class="kd">@IBOutlet</span> <span class="kd">private</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">errorLabel</span><span class="p">:</span> <span class="kt">UILabel</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="kd">private</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">usernameTextField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="kd">private</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">passwordTextField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="kd">private</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">activityIndicatorView</span><span class="p">:</span> <span class="kt">UIActivityIndicatorView</span><span class="o">!</span>
+    <span class="kd">@IBOutlet</span> <span class="kd">private</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">registerButton</span><span class="p">:</span> <span class="kt">UIButton</span><span class="o">!</span>
     
-    private let registerService: RegisterServiceProtocol
-    private let registerViewModel: RegisterViewModel
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">registerService</span><span class="p">:</span> <span class="kt">RegisterServiceProtocol</span>
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">registerViewModel</span><span class="p">:</span> <span class="kt">RegisterViewModel</span>
 
-    required init?(coder aDecoder: NSCoder) {
+    <span class="kd">required</span> <span class="nf">init</span><span class="p">?(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span> <span class="p">{</span>
 
-        self.registerService = RegisterService(urlSession: NSURLSession.sharedSession())
-        self.registerViewModel = RegisterViewModel(registerService: self.registerService)
+        <span class="k">self</span><span class="o">.</span><span class="n">registerService</span> <span class="o">=</span> <span class="kt">RegisterService</span><span class="p">(</span><span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span><span class="o">.</span><span class="nf">sharedSession</span><span class="p">())</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">registerViewModel</span> <span class="o">=</span> <span class="kt">RegisterViewModel</span><span class="p">(</span><span class="nv">registerService</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">registerService</span><span class="p">)</span>
 
-        super.init(coder: aDecoder)
-    }
+        <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">coder</span><span class="p">:</span> <span class="n">aDecoder</span><span class="p">)</span>
+    <span class="p">}</span>
     
-    override func viewDidLoad() {
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
         
-        super.viewDidLoad()
-        self.setupBindings()
-    }
+        <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+        <span class="k">self</span><span class="o">.</span><span class="nf">setupBindings</span><span class="p">()</span>
+    <span class="p">}</span>
     
-    private func setupBindings() {
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">setupBindings</span><span class="p">()</span> <span class="p">{</span>
         
-        self.errorLabel.rac_text &lt;~ registerViewModel.registryError
-        self.registerViewModel.username &lt;~ self.usernameTextField.rac_text
-        self.registerViewModel.password &lt;~ self.passwordTextField.rac_text
-        self.activityIndicatorView.rac_animating &lt;~ registerViewModel.isRegistering
-        self.registerButton.rac_enabled &lt;~ self.registerViewModel.registerEnabledSignalProducer
-    }
+        <span class="k">self</span><span class="o">.</span><span class="n">errorLabel</span><span class="o">.</span><span class="n">rac_text</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">registryError</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">registerViewModel</span><span class="o">.</span><span class="n">username</span> <span class="o">&lt;~</span> <span class="k">self</span><span class="o">.</span><span class="n">usernameTextField</span><span class="o">.</span><span class="n">rac_text</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">registerViewModel</span><span class="o">.</span><span class="n">password</span> <span class="o">&lt;~</span> <span class="k">self</span><span class="o">.</span><span class="n">passwordTextField</span><span class="o">.</span><span class="n">rac_text</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">activityIndicatorView</span><span class="o">.</span><span class="n">rac_animating</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">isRegistering</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">registerButton</span><span class="o">.</span><span class="n">rac_enabled</span> <span class="o">&lt;~</span> <span class="k">self</span><span class="o">.</span><span class="n">registerViewModel</span><span class="o">.</span><span class="n">registerEnabledSignalProducer</span>
+    <span class="p">}</span>
     
-    @IBAction private func registerButtonTapped(sender: AnyObject) {
+    <span class="kd">@IBAction</span> <span class="kd">private</span> <span class="kd">func</span> <span class="nf">registerButtonTapped</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="p">{</span>
         
-        self.registerViewModel.register().observeCompleted { [weak self] in
+        <span class="k">self</span><span class="o">.</span><span class="n">registerViewModel</span><span class="o">.</span><span class="nf">register</span><span class="p">()</span><span class="o">.</span><span class="n">observeCompleted</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
             
-            guard let strongSelf = self else {
+            <span class="k">guard</span> <span class="k">let</span> <span class="nv">strongSelf</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span>
                 
-                return
-            }
+                <span class="k">return</span>
+            <span class="p">}</span>
             
-            strongSelf.performSegueWithIdentifier("registerIdentifier", sender: strongSelf)
-        }
-    }
-}
+            <span class="n">strongSelf</span><span class="o">.</span><span class="nf">performSegueWithIdentifier</span><span class="p">(</span><span class="s">"registerIdentifier"</span><span class="p">,</span> <span class="nv">sender</span><span class="p">:</span> <span class="n">strongSelf</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 

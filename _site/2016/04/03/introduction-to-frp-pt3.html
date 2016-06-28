@@ -79,24 +79,24 @@
 
 <p>To achieve this we’ll add a <code class="highlighter-rouge">isRegistering</code> property on the <code class="highlighter-rouge">RegisterViewModel</code> and update the <code class="highlighter-rouge">registerEnabledSignalProducer</code> that drives whether the register button is enabled:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>struct RegisterViewModel {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">RegisterViewModel</span> <span class="p">{</span>
 
-    let username = MutableProperty&lt;String?&gt;(nil)
-    let password = MutableProperty&lt;String?&gt;(nil)
-    let registerEnabledSignalProducer: SignalProducer&lt;Bool, NoError&gt;
-    let isRegistering = MutableProperty(false)
+    <span class="k">let</span> <span class="nv">username</span> <span class="o">=</span> <span class="kt">MutableProperty</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?</span><span class="o">&gt;</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">password</span> <span class="o">=</span> <span class="kt">MutableProperty</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?</span><span class="o">&gt;</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">registerEnabledSignalProducer</span><span class="p">:</span> <span class="kt">SignalProducer</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="p">,</span> <span class="kt">NoError</span><span class="o">&gt;</span>
+    <span class="k">let</span> <span class="nv">isRegistering</span> <span class="o">=</span> <span class="kt">MutableProperty</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
 
-    init() {
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
 
-        self.registerEnabledSignalProducer = combineLatest(self.username.producer, self.password.producer, self.isRegistering.producer)
-            .map { (username, password, isRegistering) -&gt; Bool in
+        <span class="k">self</span><span class="o">.</span><span class="n">registerEnabledSignalProducer</span> <span class="o">=</span> <span class="nf">combineLatest</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">producer</span><span class="p">,</span> <span class="k">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">producer</span><span class="p">,</span> <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">producer</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">isRegistering</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">in</span>
 
-              return username?.characters.count &gt;= 8 &amp;&amp;
-                      password?.characters.count &gt;= 8 &amp;&amp;
-                      isRegistering == false
-            }
-    }
-}
+              <span class="k">return</span> <span class="n">username</span><span class="p">?</span><span class="o">.</span><span class="n">characters</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="o">&amp;&amp;</span>
+                      <span class="n">password</span><span class="p">?</span><span class="o">.</span><span class="n">characters</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="o">&amp;&amp;</span>
+                      <span class="n">isRegistering</span> <span class="o">==</span> <span class="kc">false</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -106,27 +106,27 @@
 
 <h1 id="simple-service">Simple Service</h1>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>struct RegisterService {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">RegisterService</span> <span class="p">{</span>
     
-    private let urlSession: NSURLSession
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span>
     
-    init(urlSession: NSURLSession) {
+    <span class="nf">init</span><span class="p">(</span><span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span><span class="p">)</span> <span class="p">{</span>
         
-        self.urlSession = urlSession
-    }
+        <span class="k">self</span><span class="o">.</span><span class="n">urlSession</span> <span class="o">=</span> <span class="n">urlSession</span>
+    <span class="p">}</span>
     
-    func register(username username: String, password: String) -&gt; SignalProducer&lt;(NSData, NSURLResponse), NSError&gt; {
+    <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="n">username</span> <span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">SignalProducer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">NSData</span><span class="p">,</span> <span class="kt">NSURLResponse</span><span class="p">),</span> <span class="kt">NSError</span><span class="o">&gt;</span> <span class="p">{</span>
 
-        // Let's assume we are inserting username and password to the request.
-        guard let url = NSURL(string: "http://zerously.com/misc/register.json") else {
+        <span class="c1">// Let's assume we are inserting username and password to the request.</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">url</span> <span class="o">=</span> <span class="kt">NSURL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"http://zerously.com/misc/register.json"</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
             
-            return SignalProducer&lt;(NSData, NSURLResponse), NSError&gt;(error: NSError(domain: "RegisterService", code: -1, userInfo: ["Reason": "Invalid URL."]))
-        }
+            <span class="k">return</span> <span class="kt">SignalProducer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">NSData</span><span class="p">,</span> <span class="kt">NSURLResponse</span><span class="p">),</span> <span class="kt">NSError</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">(</span><span class="nv">domain</span><span class="p">:</span> <span class="s">"RegisterService"</span><span class="p">,</span> <span class="nv">code</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="s">"Reason"</span><span class="p">:</span> <span class="s">"Invalid URL."</span><span class="p">]))</span>
+        <span class="p">}</span>
         
-        let request = NSURLRequest(URL: url)
-        return self.urlSession.rac_dataWithRequest(request)
-    }
-}
+        <span class="k">let</span> <span class="nv">request</span> <span class="o">=</span> <span class="kt">NSURLRequest</span><span class="p">(</span><span class="kt">URL</span><span class="p">:</span> <span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="n">urlSession</span><span class="o">.</span><span class="nf">rac_dataWithRequest</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -138,34 +138,34 @@
 
 <p>Here’s how a rough call to this would look like from the ViewModel:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>struct RegisterViewModel {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">RegisterViewModel</span> <span class="p">{</span>
 
-    let registerService: RegisterService
+    <span class="k">let</span> <span class="nv">registerService</span><span class="p">:</span> <span class="kt">RegisterService</span>
 
-    init(registerService: RegisterService) {
+    <span class="nf">init</span><span class="p">(</span><span class="nv">registerService</span><span class="p">:</span> <span class="kt">RegisterService</span><span class="p">)</span> <span class="p">{</span>
 
-        self.registerService = registerService
-        ...
-    }
+        <span class="k">self</span><span class="o">.</span><span class="n">registerService</span> <span class="o">=</span> <span class="n">registerService</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
 
-    func register() {
+    <span class="kd">func</span> <span class="nf">register</span><span class="p">()</span> <span class="p">{</span>
 
-        guard let username = self.username.value,
-                    password = self.password.value else {
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">username</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                    <span class="n">password</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">value</span> <span class="k">else</span> <span class="p">{</span>
 
-                return
-        }
+                <span class="k">return</span>
+        <span class="p">}</span>
 
-        self.isRegistering.value = true
+        <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">true</span>
 
-        self.registerService.register(username: username, password: password)
-            .observeOn(UIScheduler())
-            .startWithNext {
+        <span class="k">self</span><span class="o">.</span><span class="n">registerService</span><span class="o">.</span><span class="nf">register</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="n">password</span><span class="p">)</span>
+            <span class="o">.</span><span class="nf">observeOn</span><span class="p">(</span><span class="kt">UIScheduler</span><span class="p">())</span>
+            <span class="o">.</span><span class="n">startWithNext</span> <span class="p">{</span>
 
-                self.isRegistering.value = false
-            }
-    }
-}
+                <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">false</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -179,10 +179,10 @@
 
 <p>Seems like we are forgetting something? We aren’t doing anything with the result of the API call! We need to inform the ViewController that we finished registering the user successfully, so…</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>func register() -&gt; Bool {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">register</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
 
-	...
-}
+	<span class="o">...</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -190,27 +190,27 @@
 
 <p>By now, we know much more expresive and rective ways of doing this… It’ll require us not to consume, but to create a <code class="highlighter-rouge">Signal</code>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>func register() -&gt; Signal&lt;Void, NoError&gt; {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">register</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Signal</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">NoError</span><span class="o">&gt;</span> <span class="p">{</span>
 
-    var didRegisterSink: Observer&lt;Void, NoError&gt;?
-    let didRegisterSignal = Signal&lt;Void, NoError&gt; { (sink) -&gt; Disposable? in
+    <span class="k">var</span> <span class="nv">didRegisterSink</span><span class="p">:</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">NoError</span><span class="o">&gt;</span><span class="p">?</span>
+    <span class="k">let</span> <span class="nv">didRegisterSignal</span> <span class="o">=</span> <span class="kt">Signal</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">NoError</span><span class="o">&gt;</span> <span class="p">{</span> <span class="p">(</span><span class="n">sink</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Disposable</span><span class="p">?</span> <span class="k">in</span>
         
-        didRegisterSink = sink
-        return nil
-    }
+        <span class="n">didRegisterSink</span> <span class="o">=</span> <span class="n">sink</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
     
-    self.isRegistering.value = true
+    <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">true</span>
 
-    self.registerService.register(username: username, password: password)
-        .observeOn(UIScheduler())
-        .startWithNext {
+    <span class="k">self</span><span class="o">.</span><span class="n">registerService</span><span class="o">.</span><span class="nf">register</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="n">password</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">observeOn</span><span class="p">(</span><span class="kt">UIScheduler</span><span class="p">())</span>
+        <span class="o">.</span><span class="n">startWithNext</span> <span class="p">{</span>
 
-            self.isRegistering.value = false
-            didRegisterSink?.sendCompleted()
-    	}
+            <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">false</span>
+            <span class="n">didRegisterSink</span><span class="p">?</span><span class="o">.</span><span class="nf">sendCompleted</span><span class="p">()</span>
+    	<span class="p">}</span>
     
-    return didRegisterSignal
-}
+    <span class="k">return</span> <span class="n">didRegisterSignal</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -220,49 +220,49 @@
 
 <p>We can now bind this to our test.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>func testAPICall() {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">testAPICall</span><span class="p">()</span> <span class="p">{</span>
     
-    let registerService = RegisterService(urlSession: NSURLSession.sharedSession())
-    let registerViewModel = RegisterViewModel(registerService: registerService)
-    let registerButton = UIButton()
-    let usernameTextField = UITextField()
-    let passwordTextField = UITextField()
+    <span class="k">let</span> <span class="nv">registerService</span> <span class="o">=</span> <span class="kt">RegisterService</span><span class="p">(</span><span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span><span class="o">.</span><span class="nf">sharedSession</span><span class="p">())</span>
+    <span class="k">let</span> <span class="nv">registerViewModel</span> <span class="o">=</span> <span class="kt">RegisterViewModel</span><span class="p">(</span><span class="nv">registerService</span><span class="p">:</span> <span class="n">registerService</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">registerButton</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">usernameTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">passwordTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
     
-    registerViewModel.username &lt;~ usernameTextField.rac_text
-    registerViewModel.password &lt;~ passwordTextField.rac_text
-    registerButton.rac_enabled &lt;~ registerViewModel.registerEnabledSignalProducer
+    <span class="n">registerViewModel</span><span class="o">.</span><span class="n">username</span> <span class="o">&lt;~</span> <span class="n">usernameTextField</span><span class="o">.</span><span class="n">rac_text</span>
+    <span class="n">registerViewModel</span><span class="o">.</span><span class="n">password</span> <span class="o">&lt;~</span> <span class="n">passwordTextField</span><span class="o">.</span><span class="n">rac_text</span>
+    <span class="n">registerButton</span><span class="o">.</span><span class="n">rac_enabled</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">registerEnabledSignalProducer</span>
 
-    XCTAssertFalse(registerButton.enabled)
+    <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
     
-    usernameTextField.inputText("mariano@zerously.com")
+    <span class="n">usernameTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"mariano@zerously.com"</span><span class="p">)</span>
     
-    XCTAssertFalse(registerButton.enabled)
+    <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
     
-    passwordTextField.inputText("pa55worD")
+    <span class="n">passwordTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"pa55worD"</span><span class="p">)</span>
     
-    XCTAssertTrue(registerButton.enabled)
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
     
-    let expectation = expectationWithDescription("Wait for register to return")
+    <span class="k">let</span> <span class="nv">expectation</span> <span class="o">=</span> <span class="nf">expectationWithDescription</span><span class="p">(</span><span class="s">"Wait for register to return"</span><span class="p">)</span>
 
-    registerViewModel.register().observeCompleted {
+    <span class="n">registerViewModel</span><span class="o">.</span><span class="nf">register</span><span class="p">()</span><span class="o">.</span><span class="n">observeCompleted</span> <span class="p">{</span>
 
-        XCTAssertTrue(registerButton.enabled)
+        <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
 
-        // On a View Controller, we'd probably move to the onboarding screen.
-        // Since this is a test, we'll simply mark the expectation as fulfilled.
-        expectation.fulfill()
-    }
+        <span class="c1">// On a View Controller, we'd probably move to the onboarding screen.</span>
+        <span class="c1">// Since this is a test, we'll simply mark the expectation as fulfilled.</span>
+        <span class="n">expectation</span><span class="o">.</span><span class="nf">fulfill</span><span class="p">()</span>
+    <span class="p">}</span>
     
-    XCTAssertFalse(registerButton.enabled)
+    <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
     
-    waitForExpectationsWithTimeout(10) { (error) in
+    <span class="nf">waitForExpectationsWithTimeout</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="k">in</span>
         
-        if error != nil {
+        <span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 
-            XCTFail()
-        }
-    }
- }
+            <span class="kt">XCTFail</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -272,134 +272,134 @@
 
 <p>To achieve bindablity on a <code class="highlighter-rouge">UIActivityIndicatorView</code> we need to add the following to the <code class="highlighter-rouge">Util.swift</code> file:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>extension UIActivityIndicatorView {
-    public var rac_animating: MutableProperty&lt;Bool&gt; {
-        return lazyMutableProperty(self, key: &amp;AssociationKey.animated, setter: { if $0 { self.startAnimating() } else { self.stopAnimating() } }, getter: { self.isAnimating() })
-    }
-}
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">extension</span> <span class="kt">UIActivityIndicatorView</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">rac_animating</span><span class="p">:</span> <span class="kt">MutableProperty</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">lazyMutableProperty</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="o">&amp;</span><span class="kt">AssociationKey</span><span class="o">.</span><span class="n">animated</span><span class="p">,</span> <span class="nv">setter</span><span class="p">:</span> <span class="p">{</span> <span class="k">if</span> <span class="nv">$0</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="nf">startAnimating</span><span class="p">()</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="nf">stopAnimating</span><span class="p">()</span> <span class="p">}</span> <span class="p">},</span> <span class="nv">getter</span><span class="p">:</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="nf">isAnimating</span><span class="p">()</span> <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>Expanding the test would look like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>func testAPICall() {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">testAPICall</span><span class="p">()</span> <span class="p">{</span>
     
-    let registerService = RegisterService(urlSession: NSURLSession.sharedSession())
-    let registerViewModel = RegisterViewModel(registerService: registerService)
-    let registerButton = UIButton()
-    let usernameTextField = UITextField()
-    let passwordTextField = UITextField()
+    <span class="k">let</span> <span class="nv">registerService</span> <span class="o">=</span> <span class="kt">RegisterService</span><span class="p">(</span><span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span><span class="o">.</span><span class="nf">sharedSession</span><span class="p">())</span>
+    <span class="k">let</span> <span class="nv">registerViewModel</span> <span class="o">=</span> <span class="kt">RegisterViewModel</span><span class="p">(</span><span class="nv">registerService</span><span class="p">:</span> <span class="n">registerService</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">registerButton</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">usernameTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">passwordTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
     
-    registerViewModel.username &lt;~ usernameTextField.rac_text
-    registerViewModel.password &lt;~ passwordTextField.rac_text
-    registerButton.rac_enabled &lt;~ registerViewModel.registerEnabledSignalProducer
+    <span class="n">registerViewModel</span><span class="o">.</span><span class="n">username</span> <span class="o">&lt;~</span> <span class="n">usernameTextField</span><span class="o">.</span><span class="n">rac_text</span>
+    <span class="n">registerViewModel</span><span class="o">.</span><span class="n">password</span> <span class="o">&lt;~</span> <span class="n">passwordTextField</span><span class="o">.</span><span class="n">rac_text</span>
+    <span class="n">registerButton</span><span class="o">.</span><span class="n">rac_enabled</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">registerEnabledSignalProducer</span>
 
-    XCTAssertFalse(registerButton.enabled)
+    <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
     
-    usernameTextField.inputText("mariano@zerously.com")
+    <span class="n">usernameTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"mariano@zerously.com"</span><span class="p">)</span>
     
-    XCTAssertFalse(registerButton.enabled)
+    <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
     
-    passwordTextField.inputText("pa55worD")
+    <span class="n">passwordTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"pa55worD"</span><span class="p">)</span>
     
-    XCTAssertTrue(registerButton.enabled)
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
     
-    let activityIndicatorView = UIActivityIndicatorView()
-    let errorLabel = UILabel()
+    <span class="k">let</span> <span class="nv">activityIndicatorView</span> <span class="o">=</span> <span class="kt">UIActivityIndicatorView</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">errorLabel</span> <span class="o">=</span> <span class="kt">UILabel</span><span class="p">()</span>
     
-    errorLabel.rac_text &lt;~ registerViewModel.registryError
-    activityIndicatorView.rac_animating &lt;~ registerViewModel.isRegistering
+    <span class="n">errorLabel</span><span class="o">.</span><span class="n">rac_text</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">registryError</span>
+    <span class="n">activityIndicatorView</span><span class="o">.</span><span class="n">rac_animating</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">isRegistering</span>
     
-    let expectation = expectationWithDescription("Wait for register to return")
+    <span class="k">let</span> <span class="nv">expectation</span> <span class="o">=</span> <span class="nf">expectationWithDescription</span><span class="p">(</span><span class="s">"Wait for register to return"</span><span class="p">)</span>
 
-    registerViewModel.register().observeCompleted {
+    <span class="n">registerViewModel</span><span class="o">.</span><span class="nf">register</span><span class="p">()</span><span class="o">.</span><span class="n">observeCompleted</span> <span class="p">{</span>
 
-        XCTAssertTrue(registerButton.enabled)
-        XCTAssertFalse(activityIndicatorView.isAnimating())
+        <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+        <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">activityIndicatorView</span><span class="o">.</span><span class="nf">isAnimating</span><span class="p">())</span>
 
-        // On a View Controller, we'd probably move to the onboarding screen.
-        // Since this is a test, we'll simply mark the expectation as fulfilled.
-        expectation.fulfill()
-    }
+        <span class="c1">// On a View Controller, we'd probably move to the onboarding screen.</span>
+        <span class="c1">// Since this is a test, we'll simply mark the expectation as fulfilled.</span>
+        <span class="n">expectation</span><span class="o">.</span><span class="nf">fulfill</span><span class="p">()</span>
+    <span class="p">}</span>
     
-    XCTAssertFalse(registerButton.enabled)
-    XCTAssertTrue(activityIndicatorView.isAnimating())
+    <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">activityIndicatorView</span><span class="o">.</span><span class="nf">isAnimating</span><span class="p">())</span>
     
-    waitForExpectationsWithTimeout(10) { (error) in
+    <span class="nf">waitForExpectationsWithTimeout</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="k">in</span>
         
-        if error != nil {
+        <span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 
-            XCTFail()
-        }
-    }
- }
+            <span class="kt">XCTFail</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>And this is how the expanded <code class="highlighter-rouge">register</code> fuction would look like:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>func register() -&gt; Signal&lt;Void, NoError&gt; {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">register</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Signal</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">NoError</span><span class="o">&gt;</span> <span class="p">{</span>
 
-    var didRegisterSink: Observer&lt;Void, NoError&gt;?
-    let didRegisterSignal = Signal&lt;Void, NoError&gt; { (sink) -&gt; Disposable? in
+    <span class="k">var</span> <span class="nv">didRegisterSink</span><span class="p">:</span> <span class="kt">Observer</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">NoError</span><span class="o">&gt;</span><span class="p">?</span>
+    <span class="k">let</span> <span class="nv">didRegisterSignal</span> <span class="o">=</span> <span class="kt">Signal</span><span class="o">&lt;</span><span class="kt">Void</span><span class="p">,</span> <span class="kt">NoError</span><span class="o">&gt;</span> <span class="p">{</span> <span class="p">(</span><span class="n">sink</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Disposable</span><span class="p">?</span> <span class="k">in</span>
         
-        didRegisterSink = sink
-        return nil
-    }
+        <span class="n">didRegisterSink</span> <span class="o">=</span> <span class="n">sink</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
     
-    guard let username = self.username.value,
-                password = self.password.value else {
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">username</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="n">password</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">value</span> <span class="k">else</span> <span class="p">{</span>
 
-            self.registryError.value = "Invalid username or password"
-            self.isRegistering.value = false
+            <span class="k">self</span><span class="o">.</span><span class="n">registryError</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">"Invalid username or password"</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">false</span>
             
-            return didRegisterSignal
-    }
+            <span class="k">return</span> <span class="n">didRegisterSignal</span>
+    <span class="p">}</span>
 
-    self.isRegistering.value = true
+    <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">true</span>
 
-    self.registerService.register(username: username, password: password)
-        .map { (data, urlResponse) -&gt; String? in
+    <span class="k">self</span><span class="o">.</span><span class="n">registerService</span><span class="o">.</span><span class="nf">register</span><span class="p">(</span><span class="nv">username</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="n">password</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">urlResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span> <span class="k">in</span>
     
-            self.isRegistering.value = false
+            <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">false</span>
             
-            if let responseDictionary = try? NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves) as! [String: AnyObject] {
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">responseDictionary</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">NSJSONSerialization</span><span class="o">.</span><span class="kt">JSONObjectWithData</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="kt">MutableLeaves</span><span class="p">)</span> <span class="k">as!</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]</span> <span class="p">{</span>
                 
-                return responseDictionary["token"] as? String
+                <span class="k">return</span> <span class="n">responseDictionary</span><span class="p">[</span><span class="s">"token"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span>
                 
-            } else {
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
                 
-                return nil
-            }
-        }
-        .mapError { (error) -&gt; NSError in
+                <span class="k">return</span> <span class="kc">nil</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="o">.</span><span class="n">mapError</span> <span class="p">{</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSError</span> <span class="k">in</span>
 
-            self.registryError.value = error.userInfo["Reason"] as? String
-            self.isRegistering.value = false
+            <span class="k">self</span><span class="o">.</span><span class="n">registryError</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">error</span><span class="o">.</span><span class="n">userInfo</span><span class="p">[</span><span class="s">"Reason"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">String</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">false</span>
 
-            return error
-        }
-        .observeOn(UIScheduler())
-        .startWithNext { (token) in
+            <span class="k">return</span> <span class="n">error</span>
+        <span class="p">}</span>
+        <span class="o">.</span><span class="nf">observeOn</span><span class="p">(</span><span class="kt">UIScheduler</span><span class="p">())</span>
+        <span class="o">.</span><span class="n">startWithNext</span> <span class="p">{</span> <span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="k">in</span>
 
-            if let token = token {
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">token</span> <span class="o">=</span> <span class="n">token</span> <span class="p">{</span>
                 
-                // Let's assume that the token should go into some sort of
-                // local authentication store for later use.
-                print(token)
+                <span class="c1">// Let's assume that the token should go into some sort of</span>
+                <span class="c1">// local authentication store for later use.</span>
+                <span class="nf">print</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
                 
-                self.isRegistering.value = false
-                didRegisterSink?.sendCompleted()
+                <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">false</span>
+                <span class="n">didRegisterSink</span><span class="p">?</span><span class="o">.</span><span class="nf">sendCompleted</span><span class="p">()</span>
                 
-            } else {
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
                 
-                self.registryError.value = "Invalid token"
-                self.isRegistering.value = false
-            }
-    }
+                <span class="k">self</span><span class="o">.</span><span class="n">registryError</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">"Invalid token"</span>
+                <span class="k">self</span><span class="o">.</span><span class="n">isRegistering</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">false</span>
+            <span class="p">}</span>
+    <span class="p">}</span>
     
-    return didRegisterSignal
-}
+    <span class="k">return</span> <span class="n">didRegisterSignal</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -413,149 +413,149 @@
 
 <p>To achieve that, we’ll need to standardize the <code class="highlighter-rouge">RegisterService</code> the ViewModel uses into a protocol:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>protocol RegisterServiceProtocol {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">protocol</span> <span class="kt">RegisterServiceProtocol</span> <span class="p">{</span>
     
-    func register(username username: String, password: String) -&gt; SignalProducer&lt;(NSData, NSURLResponse), NSError&gt;
-}
+    <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="n">username</span> <span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">SignalProducer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">NSData</span><span class="p">,</span> <span class="kt">NSURLResponse</span><span class="p">),</span> <span class="kt">NSError</span><span class="o">&gt;</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>Have <code class="highlighter-rouge">RegisterService</code> inherite from it:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>struct RegisterService: RegisterServiceProtocol {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">RegisterService</span><span class="p">:</span> <span class="kt">RegisterServiceProtocol</span> <span class="p">{</span>
 
-	...
-}
+	<span class="o">...</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>And have the <code class="highlighter-rouge">RegisterViewModel</code> taking that as a valid initializer:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>struct RegisterViewModel {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">RegisterViewModel</span> <span class="p">{</span>
     
-    let registerService: RegisterServiceProtocol
+    <span class="k">let</span> <span class="nv">registerService</span><span class="p">:</span> <span class="kt">RegisterServiceProtocol</span>
 
-    init(registerService: RegisterServiceProtocol) {
+    <span class="nf">init</span><span class="p">(</span><span class="nv">registerService</span><span class="p">:</span> <span class="kt">RegisterServiceProtocol</span><span class="p">)</span> <span class="p">{</span>
 
-        self.registerService = registerService
-        ...
-    }
-}
+        <span class="k">self</span><span class="o">.</span><span class="n">registerService</span> <span class="o">=</span> <span class="n">registerService</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>Our tests should still be passing, but they aren’t considering any failure. Let’s create a new test that will address that. Notice that we are using the <code class="highlighter-rouge">NoTokenRegisterService</code> this time, to force an issue and test how we handle it.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>func testAPICallDataFailure() {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">testAPICallDataFailure</span><span class="p">()</span> <span class="p">{</span>
     
-    let registerService = NoTokenRegisterService(urlSession: NSURLSession.sharedSession())
-    let registerViewModel = RegisterViewModel(registerService: registerService)
-    let registerButton = UIButton()
-    let usernameTextField = UITextField()
-    let passwordTextField = UITextField()
+    <span class="k">let</span> <span class="nv">registerService</span> <span class="o">=</span> <span class="kt">NoTokenRegisterService</span><span class="p">(</span><span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span><span class="o">.</span><span class="nf">sharedSession</span><span class="p">())</span>
+    <span class="k">let</span> <span class="nv">registerViewModel</span> <span class="o">=</span> <span class="kt">RegisterViewModel</span><span class="p">(</span><span class="nv">registerService</span><span class="p">:</span> <span class="n">registerService</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">registerButton</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">usernameTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">passwordTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
     
-    registerViewModel.username &lt;~ usernameTextField.rac_text
-    registerViewModel.password &lt;~ passwordTextField.rac_text
-    registerButton.rac_enabled &lt;~ registerViewModel.registerEnabledSignalProducer
+    <span class="n">registerViewModel</span><span class="o">.</span><span class="n">username</span> <span class="o">&lt;~</span> <span class="n">usernameTextField</span><span class="o">.</span><span class="n">rac_text</span>
+    <span class="n">registerViewModel</span><span class="o">.</span><span class="n">password</span> <span class="o">&lt;~</span> <span class="n">passwordTextField</span><span class="o">.</span><span class="n">rac_text</span>
+    <span class="n">registerButton</span><span class="o">.</span><span class="n">rac_enabled</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">registerEnabledSignalProducer</span>
 
-    usernameTextField.inputText("mariano@zerously.com")
-    passwordTextField.inputText("pa55worD")
+    <span class="n">usernameTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"mariano@zerously.com"</span><span class="p">)</span>
+    <span class="n">passwordTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"pa55worD"</span><span class="p">)</span>
 
-    let activityIndicatorView = UIActivityIndicatorView()
-    let errorLabel = UILabel()
+    <span class="k">let</span> <span class="nv">activityIndicatorView</span> <span class="o">=</span> <span class="kt">UIActivityIndicatorView</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">errorLabel</span> <span class="o">=</span> <span class="kt">UILabel</span><span class="p">()</span>
     
-    errorLabel.rac_text &lt;~ registerViewModel.registryError
-    activityIndicatorView.rac_animating &lt;~ registerViewModel.isRegistering
+    <span class="n">errorLabel</span><span class="o">.</span><span class="n">rac_text</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">registryError</span>
+    <span class="n">activityIndicatorView</span><span class="o">.</span><span class="n">rac_animating</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">isRegistering</span>
     
-    registerViewModel.register().observeCompleted {
+    <span class="n">registerViewModel</span><span class="o">.</span><span class="nf">register</span><span class="p">()</span><span class="o">.</span><span class="n">observeCompleted</span> <span class="p">{</span>
 
-        XCTFail("Should fail and not call sendCompleted")
-    }
+        <span class="kt">XCTFail</span><span class="p">(</span><span class="s">"Should fail and not call sendCompleted"</span><span class="p">)</span>
+    <span class="p">}</span>
     
-    XCTAssertTrue(registerButton.enabled)
-    XCTAssertFalse(activityIndicatorView.isAnimating())
-    XCTAssertEqual(errorLabel.text, "Invalid token")
-}
+    <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+    <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">activityIndicatorView</span><span class="o">.</span><span class="nf">isAnimating</span><span class="p">())</span>
+    <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">errorLabel</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"Invalid token"</span><span class="p">)</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>Here’s the NoTokenRegisterService code:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>struct NoTokenRegisterService: RegisterServiceProtocol {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NoTokenRegisterService</span><span class="p">:</span> <span class="kt">RegisterServiceProtocol</span> <span class="p">{</span>
 
-    private let urlSession: NSURLSession
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span>
     
-    init(urlSession: NSURLSession) {
+    <span class="nf">init</span><span class="p">(</span><span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span><span class="p">)</span> <span class="p">{</span>
         
-        self.urlSession = urlSession
-    }
+        <span class="k">self</span><span class="o">.</span><span class="n">urlSession</span> <span class="o">=</span> <span class="n">urlSession</span>
+    <span class="p">}</span>
 
-    func register(username username: String, password: String) -&gt; SignalProducer&lt;(NSData, NSURLResponse), NSError&gt; {
+    <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="n">username</span> <span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">SignalProducer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">NSData</span><span class="p">,</span> <span class="kt">NSURLResponse</span><span class="p">),</span> <span class="kt">NSError</span><span class="o">&gt;</span> <span class="p">{</span>
         
-        let signalProducer = SignalProducer&lt;(NSData, NSURLResponse), NSError&gt; { (sink, compositeDisposable) in
+        <span class="k">let</span> <span class="nv">signalProducer</span> <span class="o">=</span> <span class="kt">SignalProducer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">NSData</span><span class="p">,</span> <span class="kt">NSURLResponse</span><span class="p">),</span> <span class="kt">NSError</span><span class="o">&gt;</span> <span class="p">{</span> <span class="p">(</span><span class="n">sink</span><span class="p">,</span> <span class="n">compositeDisposable</span><span class="p">)</span> <span class="k">in</span>
             
-            let data = try! NSJSONSerialization.dataWithJSONObject(["Hello": "No Token Here"], options: .PrettyPrinted)
-            let urlResponse = NSURLResponse()
+            <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="k">try!</span> <span class="kt">NSJSONSerialization</span><span class="o">.</span><span class="nf">dataWithJSONObject</span><span class="p">([</span><span class="s">"Hello"</span><span class="p">:</span> <span class="s">"No Token Here"</span><span class="p">],</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="kt">PrettyPrinted</span><span class="p">)</span>
+            <span class="k">let</span> <span class="nv">urlResponse</span> <span class="o">=</span> <span class="kt">NSURLResponse</span><span class="p">()</span>
             
-            sink.sendNext((data, urlResponse))
-        }
+            <span class="n">sink</span><span class="o">.</span><span class="nf">sendNext</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">urlResponse</span><span class="p">))</span>
+        <span class="p">}</span>
         
-        return signalProducer
-    }
-}
+        <span class="k">return</span> <span class="n">signalProducer</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
 <p>And here’s the <code class="highlighter-rouge">ErrorRegisterService</code> and its test:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>struct ErrorRegisterService: RegisterServiceProtocol {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">ErrorRegisterService</span><span class="p">:</span> <span class="kt">RegisterServiceProtocol</span> <span class="p">{</span>
     
-    private let urlSession: NSURLSession
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span>
     
-    init(urlSession: NSURLSession) {
+    <span class="nf">init</span><span class="p">(</span><span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span><span class="p">)</span> <span class="p">{</span>
         
-        self.urlSession = urlSession
-    }
+        <span class="k">self</span><span class="o">.</span><span class="n">urlSession</span> <span class="o">=</span> <span class="n">urlSession</span>
+    <span class="p">}</span>
     
-    func register(username username: String, password: String) -&gt; SignalProducer&lt;(NSData, NSURLResponse), NSError&gt; {
+    <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="n">username</span> <span class="nv">username</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">SignalProducer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">NSData</span><span class="p">,</span> <span class="kt">NSURLResponse</span><span class="p">),</span> <span class="kt">NSError</span><span class="o">&gt;</span> <span class="p">{</span>
         
-        return SignalProducer&lt;(NSData, NSURLResponse), NSError&gt;(error: NSError(domain: "RegisterService", code: -1, userInfo: ["Reason": "Dunno."]))
-    }
-}
+        <span class="k">return</span> <span class="kt">SignalProducer</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">NSData</span><span class="p">,</span> <span class="kt">NSURLResponse</span><span class="p">),</span> <span class="kt">NSError</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">error</span><span class="p">:</span> <span class="kt">NSError</span><span class="p">(</span><span class="nv">domain</span><span class="p">:</span> <span class="s">"RegisterService"</span><span class="p">,</span> <span class="nv">code</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="s">"Reason"</span><span class="p">:</span> <span class="s">"Dunno."</span><span class="p">]))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-class ReactiveTests: XCTestCase {
+<span class="kd">class</span> <span class="kt">ReactiveTests</span><span class="p">:</span> <span class="kt">XCTestCase</span> <span class="p">{</span>
     
-    func testAPICallError() {
+    <span class="kd">func</span> <span class="nf">testAPICallError</span><span class="p">()</span> <span class="p">{</span>
         
-        let registerService = ErrorRegisterService(urlSession: NSURLSession.sharedSession())
-        let registerViewModel = RegisterViewModel(registerService: registerService)
-        let registerButton = UIButton()
-        let usernameTextField = UITextField()
-        let passwordTextField = UITextField()
+        <span class="k">let</span> <span class="nv">registerService</span> <span class="o">=</span> <span class="kt">ErrorRegisterService</span><span class="p">(</span><span class="nv">urlSession</span><span class="p">:</span> <span class="kt">NSURLSession</span><span class="o">.</span><span class="nf">sharedSession</span><span class="p">())</span>
+        <span class="k">let</span> <span class="nv">registerViewModel</span> <span class="o">=</span> <span class="kt">RegisterViewModel</span><span class="p">(</span><span class="nv">registerService</span><span class="p">:</span> <span class="n">registerService</span><span class="p">)</span>
+        <span class="k">let</span> <span class="nv">registerButton</span> <span class="o">=</span> <span class="kt">UIButton</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">usernameTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">passwordTextField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
         
-        registerViewModel.username &lt;~ usernameTextField.rac_text
-        registerViewModel.password &lt;~ passwordTextField.rac_text
-        registerButton.rac_enabled &lt;~ registerViewModel.registerEnabledSignalProducer
+        <span class="n">registerViewModel</span><span class="o">.</span><span class="n">username</span> <span class="o">&lt;~</span> <span class="n">usernameTextField</span><span class="o">.</span><span class="n">rac_text</span>
+        <span class="n">registerViewModel</span><span class="o">.</span><span class="n">password</span> <span class="o">&lt;~</span> <span class="n">passwordTextField</span><span class="o">.</span><span class="n">rac_text</span>
+        <span class="n">registerButton</span><span class="o">.</span><span class="n">rac_enabled</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">registerEnabledSignalProducer</span>
         
-        usernameTextField.inputText("mariano@zerously.com")
-        passwordTextField.inputText("pa55worD")
+        <span class="n">usernameTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"mariano@zerously.com"</span><span class="p">)</span>
+        <span class="n">passwordTextField</span><span class="o">.</span><span class="nf">inputText</span><span class="p">(</span><span class="s">"pa55worD"</span><span class="p">)</span>
         
-        let activityIndicatorView = UIActivityIndicatorView()
-        let errorLabel = UILabel()
+        <span class="k">let</span> <span class="nv">activityIndicatorView</span> <span class="o">=</span> <span class="kt">UIActivityIndicatorView</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">errorLabel</span> <span class="o">=</span> <span class="kt">UILabel</span><span class="p">()</span>
         
-        errorLabel.rac_text &lt;~ registerViewModel.registryError
-        activityIndicatorView.rac_animating &lt;~ registerViewModel.isRegistering
+        <span class="n">errorLabel</span><span class="o">.</span><span class="n">rac_text</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">registryError</span>
+        <span class="n">activityIndicatorView</span><span class="o">.</span><span class="n">rac_animating</span> <span class="o">&lt;~</span> <span class="n">registerViewModel</span><span class="o">.</span><span class="n">isRegistering</span>
         
-        registerViewModel.register().observeCompleted {
+        <span class="n">registerViewModel</span><span class="o">.</span><span class="nf">register</span><span class="p">()</span><span class="o">.</span><span class="n">observeCompleted</span> <span class="p">{</span>
             
-            XCTFail("Should fail and not call sendCompleted")
-        }
+            <span class="kt">XCTFail</span><span class="p">(</span><span class="s">"Should fail and not call sendCompleted"</span><span class="p">)</span>
+        <span class="p">}</span>
         
-        XCTAssertTrue(registerButton.enabled)
-        XCTAssertFalse(activityIndicatorView.isAnimating())
-        XCTAssertEqual(errorLabel.text, "Dunno.")
-    }
-}
+        <span class="kt">XCTAssertTrue</span><span class="p">(</span><span class="n">registerButton</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
+        <span class="kt">XCTAssertFalse</span><span class="p">(</span><span class="n">activityIndicatorView</span><span class="o">.</span><span class="nf">isAnimating</span><span class="p">())</span>
+        <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="n">errorLabel</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s">"Dunno."</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 

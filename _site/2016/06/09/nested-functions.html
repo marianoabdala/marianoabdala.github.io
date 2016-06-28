@@ -74,14 +74,14 @@
 <h4 id="the-comment-approach">The comment approach</h4>
 <p>One aproach is to have comments signaling the beginning of each section, like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>// Username label
-self.usernameLabel.accessibilityHint = "User name"
-self.usernameLabel.shadowColor = UIColor.cyanColor()
-self.usernameLabel.textAlignment = .Justified
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">// Username label</span>
+<span class="k">self</span><span class="o">.</span><span class="n">usernameLabel</span><span class="o">.</span><span class="n">accessibilityHint</span> <span class="o">=</span> <span class="s">"User name"</span>
+<span class="k">self</span><span class="o">.</span><span class="n">usernameLabel</span><span class="o">.</span><span class="n">shadowColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="nf">cyanColor</span><span class="p">()</span>
+<span class="k">self</span><span class="o">.</span><span class="n">usernameLabel</span><span class="o">.</span><span class="n">textAlignment</span> <span class="o">=</span> <span class="o">.</span><span class="kt">Justified</span>
 
-// Next button
-self.nextButton.layer.cornerRadius = 4
-...
+<span class="c1">// Next button</span>
+<span class="k">self</span><span class="o">.</span><span class="n">nextButton</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">cornerRadius</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="o">...</span>
 </code></pre>
 </div>
 
@@ -90,17 +90,17 @@ self.nextButton.layer.cornerRadius = 4
 <h4 id="the-private-function-approach">The private function approach</h4>
 <p>A different approach (the one I used up until now) was to wrap those little sections into functions and call them one at a time, so that my function would like somewhat like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>private func configureViews() {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">configureViews</span><span class="p">()</span> <span class="p">{</span>
     
-  self.configureAvatarImageView()
-  self.configureUsernameLabel()
-  self.configureNextButton()
-}
+  <span class="k">self</span><span class="o">.</span><span class="nf">configureAvatarImageView</span><span class="p">()</span>
+  <span class="k">self</span><span class="o">.</span><span class="nf">configureUsernameLabel</span><span class="p">()</span>
+  <span class="k">self</span><span class="o">.</span><span class="nf">configureNextButton</span><span class="p">()</span>
+<span class="p">}</span>
 
-private func configureAvatarImageView() {
+<span class="kd">private</span> <span class="kd">func</span> <span class="nf">configureAvatarImageView</span><span class="p">()</span> <span class="p">{</span>
 
-  ...
-}
+  <span class="o">...</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -112,27 +112,27 @@ private func configureAvatarImageView() {
 
 <p>Let’s see how our <code class="highlighter-rouge">configureViews</code> would look like using nested functions:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>private func configureViews() {
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">configureViews</span><span class="p">()</span> <span class="p">{</span>
 	
-  func configureAvatarImageView() {
+  <span class="kd">func</span> <span class="nf">configureAvatarImageView</span><span class="p">()</span> <span class="p">{</span>
 
-    ...
-  }
+    <span class="o">...</span>
+  <span class="p">}</span>
 
-  func configureUsernameLabel() {
+  <span class="kd">func</span> <span class="nf">configureUsernameLabel</span><span class="p">()</span> <span class="p">{</span>
 
-    ...
-  }
+    <span class="o">...</span>
+  <span class="p">}</span>
 
-  func configureNextButton() {
+  <span class="kd">func</span> <span class="nf">configureNextButton</span><span class="p">()</span> <span class="p">{</span>
   
-    ...
-  }
+    <span class="o">...</span>
+  <span class="p">}</span>
 
-  configureAvatarImageView()
-  configureUsernameLabel()
-  configureNextButton()
-}
+  <span class="nf">configureAvatarImageView</span><span class="p">()</span>
+  <span class="nf">configureUsernameLabel</span><span class="p">()</span>
+  <span class="nf">configureNextButton</span><span class="p">()</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 

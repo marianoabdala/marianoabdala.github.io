@@ -6,9 +6,220 @@
 </description>
     <link>http://zerously.com/</link>
     <atom:link href="http://zerously.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 09 Jun 2016 18:51:32 -0300</pubDate>
-    <lastBuildDate>Thu, 09 Jun 2016 18:51:32 -0300</lastBuildDate>
+    <pubDate>Tue, 28 Jun 2016 12:35:27 -0300</pubDate>
+    <lastBuildDate>Tue, 28 Jun 2016 12:35:27 -0300</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>Restricting Access with Protocols</title>
+        <description>&lt;p&gt;One very common pattern to drive communications with a backend server in iOS is to have a huge &lt;em&gt;Client&lt;/em&gt; class. That client usually consists of some sort of initialization, configuration, some shared state –like a queue of operations– and a large collection of functions to either fetch something from the server or reflect on it some change in the app’s internal data state. Each of those functions normally have complex parameters and return values.&lt;/p&gt;
+
+&lt;p&gt;You may have also observed a protocol with &lt;em&gt;each and every&lt;/em&gt; communication option with the server being passed around to view controllers, view models, a sync engine or any other communication orchestrator.&lt;/p&gt;
+
+&lt;p&gt;Ever found something of this sort?&lt;/p&gt;
+
+&lt;p&gt;This makes the client hard to test because mocking a test class means replicating a huge protocol, unsecure because everyone with a reference to the client can call any function, even if by accident, and hard to understand because of the access to said great amount of functions provides with little context.&lt;/p&gt;
+
+&lt;p&gt;One approach, that may not always be applicable, is to extract common behaviour somewhere else and turn those functions into well defined operations that you dispatch into said place. The main problem with this is that it must be done all at once.&lt;/p&gt;
+
+&lt;p&gt;A middle-ground solution, and one that may be implemented &lt;strong&gt;gradually&lt;/strong&gt;, is to restrict access with protocols.&lt;/p&gt;
+
+&lt;h4 id=&quot;how-do-you-do-that&quot;&gt;How do you do that?&lt;/h4&gt;
+
+&lt;p&gt;By the use of protocols you can define and group functionallity together. For instance, instead of having one huge &lt;code class=&quot;highlighter-rouge&quot;&gt;Client&lt;/code&gt; protocol, start by spliting it into smaller chuncks.&lt;/p&gt;
+
+&lt;p&gt;You can use your view models as a guide. The &lt;code class=&quot;highlighter-rouge&quot;&gt;FollowedUsersListViewModel&lt;/code&gt; may use &lt;code class=&quot;highlighter-rouge&quot;&gt;fecth&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;follow&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;unfollow&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Create a protocol for such purpose:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;protocol UserListingClient {
+
+    func fetchUsers() -&amp;gt; [UserModel]
+    func follow(_ user: UserModel)
+    func unfollow(_ user: UserModel)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And change the view model to initialize with such a client, as opposed to giving it access to the whole &lt;em&gt;Client&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class FollowedUsersListViewModel {
+
+    init(withClient client: UserListingClient) {
+
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, your view model will only be able to access the right functions on your client.&lt;/p&gt;
+
+&lt;h4 id=&quot;next-step&quot;&gt;Next step&lt;/h4&gt;
+&lt;p&gt;Let’s see how the &lt;code class=&quot;highlighter-rouge&quot;&gt;UserDetailViewModel&lt;/code&gt;’s client may look like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;protocol UserDetailsClient {
+
+    func fetchUserDetails(for user: UserModel) -&amp;gt; UserDetailsModel
+    func follow(_ user: UserModel)
+    func unfollow(_ user: UserModel)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And change the view model to initialize with such a client.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class UserDetailsViewModel {
+
+    init(withUser user: UserModel, client: UserDetailsClient) {
+
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Have you noticied that both &lt;code class=&quot;highlighter-rouge&quot;&gt;UserListingClient&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;UserDetailsClient&lt;/code&gt; use &lt;code class=&quot;highlighter-rouge&quot;&gt;follow&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;unfollow&lt;/code&gt;?&lt;/p&gt;
+
+&lt;p&gt;Let’s extract those into a &lt;code class=&quot;highlighter-rouge&quot;&gt;UserFollowingClient&lt;/code&gt; and add that protocol to the &lt;code class=&quot;highlighter-rouge&quot;&gt;UserListingClient&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;UserDetailsClient&lt;/code&gt; protocols.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;protocol UserFollowingClient {
+    
+    func follow(_ user: UserModel)
+    func unfollow(_ user: UserModel)
+}
+
+protocol UserListingClient: UserFollowingClient {
+ 
+    func fetchUsers() -&amp;gt; [UserModel]
+}
+
+protocol UserDetailsClient: UserFollowingClient {
+    
+    func fetchUserDetails(for user: UserModel) -&amp;gt; UserDetailsModel
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;a-bit-deeper&quot;&gt;A bit deeper&lt;/h4&gt;
+&lt;p&gt;Let’s say we add a the ability to report a user from both the list and the user details for misbheaviour. We can simply define the &lt;code class=&quot;highlighter-rouge&quot;&gt;UserReportingClient&lt;/code&gt; protocol and add it to the &lt;code class=&quot;highlighter-rouge&quot;&gt;UserListingClient&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;UserDetailsClient&lt;/code&gt;, like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;enum UserReportingReason {
+    
+    case ...
+}
+
+protocol UserReportingClient {
+    
+    func report(_ user: UserModel, for reason: UserReportingReason)
+}
+
+protocol UserListingClient: UserFollowingClient, UserReportingClient {
+    
+    func fetchUsers() -&amp;gt; [UserModel]
+}
+
+protocol UserDetailsClient: UserFollowingClient, UserReportingClient {
+    
+    func fetchUserDetails(for user: UserModel) -&amp;gt; UserDetailsModel
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There! No need to change the view models.&lt;/p&gt;
+
+&lt;h4 id=&quot;free-feature-set-mapping&quot;&gt;Free feature set mapping&lt;/h4&gt;
+&lt;p&gt;By doing this you not only restrict the functions that each of your view models will be able to access, but also start to design a map of how your client may be divided into smaller chuncks.&lt;/p&gt;
+
+&lt;p&gt;One way of doing this is moving the functions into independent extensions of their smaller grouping.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;extension Client: UserFollowingClient {
+    
+    func follow(_ user: UserModel) {
+        
+        ...
+    }
+    
+    func unfollow(_ user: UserModel) {
+        
+        ...    
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This alone will help in extracting operation specific code out of the main class, making it easier in the future to identify the client’s core feature set and operations.&lt;/p&gt;
+
+&lt;h4 id=&quot;easier-mocking&quot;&gt;Easier mocking&lt;/h4&gt;
+&lt;p&gt;Good unit testing is key in assuring the stability of an app’s codebase, but sometimes testing is just too hard.&lt;/p&gt;
+
+&lt;p&gt;By exposing smaller units of behaviour, your tests should be easier to write. Specially when trying to mock the client.&lt;/p&gt;
+
+&lt;p&gt;Say we want to test the &lt;code class=&quot;highlighter-rouge&quot;&gt;FollowedUsersListViewModel&lt;/code&gt; and we want to test error handling. We don’t need to mock the whole client, we can just create a mock class that only implements &lt;code class=&quot;highlighter-rouge&quot;&gt;UserListingClient&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s modify &lt;code class=&quot;highlighter-rouge&quot;&gt;UserListingClient&lt;/code&gt; and its protocols to have all methods &lt;code class=&quot;highlighter-rouge&quot;&gt;throw&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;protocol UserFollowingClient {
+    
+    func follow(_ user: UserModel) throws
+    func unfollow(_ user: UserModel) throws
+}
+
+protocol UserReportingClient {
+    
+    func report(_ user: UserModel, for reason: UserReportingReason) throws
+}
+
+protocol UserListingClient: UserFollowingClient, UserReportingClient {
+    
+    func fetchUsers() throws -&amp;gt; [UserModel]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And make a simple mock class to test exactly that.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;enum MyError: ErrorProtocol {
+    
+    case SomeError
+}
+
+class ThrowingUserListingClient: UserListingClient {
+    
+    func follow(_ user: UserModel) throws {
+        
+        throw MyError.SomeError
+    }
+    
+    func unfollow(_ user: UserModel) throws {
+        
+        throw MyError.SomeError
+    }
+    
+    func report(_ user: UserModel, for reason: UserReportingReason) throws {
+        
+        throw MyError.SomeError
+    }
+    
+    func fetchUsers() throws -&amp;gt; [UserModel] {
+        
+        throw MyError.SomeError
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Pass that to &lt;code class=&quot;highlighter-rouge&quot;&gt;FollowedUsersListViewModel&lt;/code&gt; and test away!&lt;/p&gt;
+
+&lt;h4 id=&quot;done&quot;&gt;Done&lt;/h4&gt;
+&lt;p&gt;Smaller chuncks of code, more control, more context, easier to mock clients, one step closer to being able to split a huge class into smaller classes.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 28 Jun 2016 12:33:23 -0300</pubDate>
+        <link>http://zerously.com/2016/06/28/restricting-access-with-protocols.html</link>
+        <guid isPermaLink="true">http://zerously.com/2016/06/28/restricting-access-with-protocols.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Nested Functions</title>

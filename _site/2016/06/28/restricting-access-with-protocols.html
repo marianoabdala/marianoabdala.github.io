@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Restricting Access with Protocols</title>
+  <meta name="description" content="One very common pattern to drive communications with a backend server in iOS is to have a huge Client class. That client usually consists of some sort of ini...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://zerously.com/2016/06/28/restricting-access-with-protocols.html">
+  <link rel="alternate" type="application/rss+xml" title="Mariano Abdala" href="http://zerously.com/feed.xml">
+
+  <link rel="icon" type="image/png" href="/images/favicon_32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/images/favicon_16.png" sizes="16x16" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Mariano Abdala</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Restricting Access with Protocols</h1>
+    <p class="post-meta"><time datetime="2016-06-28T12:33:23-03:00" itemprop="datePublished">Jun 28, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>One very common pattern to drive communications with a backend server in iOS is to have a huge <em>Client</em> class. That client usually consists of some sort of initialization, configuration, some shared state –like a queue of operations– and a large collection of functions to either fetch something from the server or reflect on it some change in the app’s internal data state. Each of those functions normally have complex parameters and return values.</p>
+
+<p>You may have also observed a protocol with <em>each and every</em> communication option with the server being passed around to view controllers, view models, a sync engine or any other communication orchestrator.</p>
+
+<p>Ever found something of this sort?</p>
+
+<p>This makes the client hard to test because mocking a test class means replicating a huge protocol, unsecure because everyone with a reference to the client can call any function, even if by accident, and hard to understand because of the access to said great amount of functions provides with little context.</p>
+
+<p>One approach, that may not always be applicable, is to extract common behaviour somewhere else and turn those functions into well defined operations that you dispatch into said place. The main problem with this is that it must be done all at once.</p>
+
+<p>A middle-ground solution, and one that may be implemented <strong>gradually</strong>, is to restrict access with protocols.</p>
+
+<h4 id="how-do-you-do-that">How do you do that?</h4>
+
+<p>By the use of protocols you can define and group functionallity together. For instance, instead of having one huge <code class="highlighter-rouge">Client</code> protocol, start by spliting it into smaller chuncks.</p>
+
+<p>You can use your view models as a guide. The <code class="highlighter-rouge">FollowedUsersListViewModel</code> may use <code class="highlighter-rouge">fecth</code>, <code class="highlighter-rouge">follow</code> and <code class="highlighter-rouge">unfollow</code>.</p>
+
+<p>Create a protocol for such purpose:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>protocol UserListingClient {
+
+    func fetchUsers() -&gt; [UserModel]
+    func follow(_ user: UserModel)
+    func unfollow(_ user: UserModel)
+}
+</code></pre>
+</div>
+
+<p>And change the view model to initialize with such a client, as opposed to giving it access to the whole <em>Client</em>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class FollowedUsersListViewModel {
+
+    init(withClient client: UserListingClient) {
+
+        ...
+    }
+}
+</code></pre>
+</div>
+
+<p>Now, your view model will only be able to access the right functions on your client.</p>
+
+<h4 id="next-step">Next step</h4>
+<p>Let’s see how the <code class="highlighter-rouge">UserDetailViewModel</code>’s client may look like:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>protocol UserDetailsClient {
+
+    func fetchUserDetails(for user: UserModel) -&gt; UserDetailsModel
+    func follow(_ user: UserModel)
+    func unfollow(_ user: UserModel)
+}
+</code></pre>
+</div>
+
+<p>And change the view model to initialize with such a client.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class UserDetailsViewModel {
+
+    init(withUser user: UserModel, client: UserDetailsClient) {
+
+        ...
+    }
+}
+</code></pre>
+</div>
+
+<p>Have you noticied that both <code class="highlighter-rouge">UserListingClient</code> and <code class="highlighter-rouge">UserDetailsClient</code> use <code class="highlighter-rouge">follow</code> and <code class="highlighter-rouge">unfollow</code>?</p>
+
+<p>Let’s extract those into a <code class="highlighter-rouge">UserFollowingClient</code> and add that protocol to the <code class="highlighter-rouge">UserListingClient</code> and <code class="highlighter-rouge">UserDetailsClient</code> protocols.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>protocol UserFollowingClient {
+    
+    func follow(_ user: UserModel)
+    func unfollow(_ user: UserModel)
+}
+
+protocol UserListingClient: UserFollowingClient {
+ 
+    func fetchUsers() -&gt; [UserModel]
+}
+
+protocol UserDetailsClient: UserFollowingClient {
+    
+    func fetchUserDetails(for user: UserModel) -&gt; UserDetailsModel
+}
+</code></pre>
+</div>
+
+<h4 id="a-bit-deeper">A bit deeper</h4>
+<p>Let’s say we add a the ability to report a user from both the list and the user details for misbheaviour. We can simply define the <code class="highlighter-rouge">UserReportingClient</code> protocol and add it to the <code class="highlighter-rouge">UserListingClient</code> and the <code class="highlighter-rouge">UserDetailsClient</code>, like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>enum UserReportingReason {
+    
+    case ...
+}
+
+protocol UserReportingClient {
+    
+    func report(_ user: UserModel, for reason: UserReportingReason)
+}
+
+protocol UserListingClient: UserFollowingClient, UserReportingClient {
+    
+    func fetchUsers() -&gt; [UserModel]
+}
+
+protocol UserDetailsClient: UserFollowingClient, UserReportingClient {
+    
+    func fetchUserDetails(for user: UserModel) -&gt; UserDetailsModel
+}
+</code></pre>
+</div>
+
+<p>There! No need to change the view models.</p>
+
+<h4 id="free-feature-set-mapping">Free feature set mapping</h4>
+<p>By doing this you not only restrict the functions that each of your view models will be able to access, but also start to design a map of how your client may be divided into smaller chuncks.</p>
+
+<p>One way of doing this is moving the functions into independent extensions of their smaller grouping.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>extension Client: UserFollowingClient {
+    
+    func follow(_ user: UserModel) {
+        
+        ...
+    }
+    
+    func unfollow(_ user: UserModel) {
+        
+        ...    
+    }
+}
+</code></pre>
+</div>
+
+<p>This alone will help in extracting operation specific code out of the main class, making it easier in the future to identify the client’s core feature set and operations.</p>
+
+<h4 id="easier-mocking">Easier mocking</h4>
+<p>Good unit testing is key in assuring the stability of an app’s codebase, but sometimes testing is just too hard.</p>
+
+<p>By exposing smaller units of behaviour, your tests should be easier to write. Specially when trying to mock the client.</p>
+
+<p>Say we want to test the <code class="highlighter-rouge">FollowedUsersListViewModel</code> and we want to test error handling. We don’t need to mock the whole client, we can just create a mock class that only implements <code class="highlighter-rouge">UserListingClient</code>.</p>
+
+<p>Let’s modify <code class="highlighter-rouge">UserListingClient</code> and its protocols to have all methods <code class="highlighter-rouge">throw</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>protocol UserFollowingClient {
+    
+    func follow(_ user: UserModel) throws
+    func unfollow(_ user: UserModel) throws
+}
+
+protocol UserReportingClient {
+    
+    func report(_ user: UserModel, for reason: UserReportingReason) throws
+}
+
+protocol UserListingClient: UserFollowingClient, UserReportingClient {
+    
+    func fetchUsers() throws -&gt; [UserModel]
+}
+</code></pre>
+</div>
+
+<p>And make a simple mock class to test exactly that.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>enum MyError: ErrorProtocol {
+    
+    case SomeError
+}
+
+class ThrowingUserListingClient: UserListingClient {
+    
+    func follow(_ user: UserModel) throws {
+        
+        throw MyError.SomeError
+    }
+    
+    func unfollow(_ user: UserModel) throws {
+        
+        throw MyError.SomeError
+    }
+    
+    func report(_ user: UserModel, for reason: UserReportingReason) throws {
+        
+        throw MyError.SomeError
+    }
+    
+    func fetchUsers() throws -&gt; [UserModel] {
+        
+        throw MyError.SomeError
+    }
+}
+</code></pre>
+</div>
+
+<p>Pass that to <code class="highlighter-rouge">FollowedUsersListViewModel</code> and test away!</p>
+
+<h4 id="done">Done</h4>
+<p>Smaller chuncks of code, more control, more context, easier to mock clients, one step closer to being able to split a huge class into smaller classes.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>Mariano Abdala</li>
+          <li><a href="mailto:mariano@zerously.com">mariano@zerously.com</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/marianoabdala"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">marianoabdala</span></a>
+
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/marianoabdala"><span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username">marianoabdala</span></a>
+
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Writings of Mariano Abdala. iOS Developer, host at <a href="https://twitter.com/nscoderba">@NSCoderBA</a> and organizer at <a href="https://twitter.com/nsconfarg">@NSConfArg</a>.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-17657932-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+
+</html>

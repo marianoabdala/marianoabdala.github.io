@@ -19,6 +19,7 @@ I'll save you some time, here are my **favorite posts** from my past blogs:
 [iOS push notifications sends user-untraceable sounds](http://mariano.zerously.com/post/18906826372/ios-push-notifications-sends-user-untraceable)  
 [Keeping badges updated](http://mariano.zerously.com/post/20670689934/keeping-badges-updated)  
 [Just this](http://mariano.zerously.com/post/31202489835/just-this)  
+[Fixed Quotes](http://mariano.zerously.com/post/28497816299/fixed-quotes)  
 [A proposed technique for offering users assistance in the event of a crash](http://mariano.zerously.com/post/57244969720/a-proposed-technique-for-offering-users-assistance)  
 [Best tool for making difficult decisions](http://mariano.zerously.com/post/57612023714/best-tool-for-making-difficult-decisions)  
 [Hosting an NSCoder](http://mariano.zerously.com/post/66670579060/hosting-an-nscoder)  

@@ -10,3 +10,4 @@ github_username:  marianoabdala
 
 # Build settings
 markdown: kramdown
+future: false

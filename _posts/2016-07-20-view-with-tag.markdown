@@ -6,12 +6,17 @@ date:   2016-07-20 21:03:42 -0300
 
 There's been lots of debate on whether you should use a `UIView`'s `tag` or not. The truth is you don't always have the chance to decice and you've got to use it.
 
-One good example of not being able to make a choice would be when using an extension. Extensions can't hold stored properties, so you can't really have a reference to the view like this:
+One good example of not being able to make a choice would be when using an extension, specially a protocol extension. Extensions can't hold stored properties, so you can't really have a reference to the view like this:
 
 ```swift
-extension LoadingViewController {
+protocol LoadingViewController {
+    
+    var isLoading: Bool { get set }
+}
 
-    let activityIndicatorView: UIActivityIndicatorView    
+extension LoadingViewController where Self: UIViewController {
+    
+    let activityIndicatorView: UIActivityIndicatorView
 }
 ```
 

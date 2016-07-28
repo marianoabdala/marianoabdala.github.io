@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Back to the Office"
-date:   2016-08-01 10:53:42 -0300
+date:   2016-07-28 10:53:42 -0300
 ---
 
 I've been a software developer for nearly 15 years, the last 10 of which were working _mostly_ independently, from home. During that time, I've worked on fixed budged projects, freelance projects, did some consulting and also worked as a contractor, all without setting foot on an office, at least for more than a few hours a month. This is a small recollection of notes and thoughts on the experience I had of working from a client's office, on-site, as part of a short contract for the last full month.

@@ -102,7 +102,7 @@ Still _kinda_ works and your coworkers or future self will hate you for doing th
 
 You probably see where this is going. All this math is error prone, hard to maintain and hard to understand. There is a better way.
 
-What we are going to do is add three different constraints, one that will cover each state and bind them to the `LeftPositionConstraint`, `CenterPositionConstraint` and `RightPositionConstraint` properties.
+What we are going to do is add three different constraints, one that will cover each state and bind them to the `leftPositionConstraint`, `centerPositionConstraint` and `rightPositionConstraint` properties.
 
 The left constraint will have a leading horizontal space to container view with a constant of 8px.  
 The center constraint will center horizontally in container.  

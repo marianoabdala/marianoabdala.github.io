@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Dynamic Autolayout"
-date:   2016-08-13 14:43:15 -0300
+date:   2016-08-15 14:43:15 -0300
 ---
 
 Autolayout is here to stay. It's the best tool we have for dealing with wanting to configure just one interface and present it in different real estates, orientations and size classes. I believe most of us will agree to that simple statement.

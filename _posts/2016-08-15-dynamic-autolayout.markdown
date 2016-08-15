@@ -20,7 +20,7 @@ Let's say you want to have a label that has a leading of either 8 or 40 pixels t
 
 Once you have a label setup with the default autolayout constraints laid down, select the label to display its constraints, control + drag from the leading constraint into your class to create an outlet. You can also do so by expanding the label's container view's constraints and locating the leading one in the document outline.
 
-![Outlet](/images/posts/2016-08-14-dynamic-autolayout/Outlet.gif)
+![Outlet](/images/posts/2016-08-15-dynamic-autolayout/Outlet.gif)
 
 All you need to do now is to change that property's constant from 8 to 40, and back depending on the value of the `position` property.
 
@@ -41,7 +41,7 @@ extension LeadingViewController {
 
 A full example of this behaviour can be found on the project's [LeadingViewController](https://github.com/marianoabdala/Constraints/blob/master/Constraints/Constraints/LeadingViewController.swift).
 
-![LeadingViewController](/images/posts/2016-08-14-dynamic-autolayout/Leading.gif)
+![LeadingViewController](/images/posts/2016-08-15-dynamic-autolayout/Leading.gif)
 
 #### More Complex Changes
 
@@ -62,7 +62,7 @@ let changes = {
 
 It's not as clear but it still does the job. A full example of this behaviour can be found on the project's [BorderViewController](https://github.com/marianoabdala/Constraints/blob/master/Constraints/Constraints/BorderViewController.swift).
 
-![BorderViewController](/images/posts/2016-08-14-dynamic-autolayout/Border.gif)
+![BorderViewController](/images/posts/2016-08-15-dynamic-autolayout/Border.gif)
 
 #### Even More Complex Changes
 
@@ -96,7 +96,7 @@ let changes = {
 
 Still _kinda_ works and your coworkers or future self will hate you for doing this. A full example of this behaviour can be found on the project's [FullViewController](https://github.com/marianoabdala/Constraints/blob/master/Constraints/Constraints/FullViewController.swift).
 
-![FullViewController](/images/posts/2016-08-14-dynamic-autolayout/Full.gif)
+![FullViewController](/images/posts/2016-08-15-dynamic-autolayout/Full.gif)
 
 #### A Different Approach
 
@@ -114,7 +114,7 @@ So what we will do is set the left constraint priority (initial state) to `UILay
 
 You should end up with something like this (note that non-required constraints are displayed as dashed lines):
 
-![Constraints](/images/posts/2016-08-14-dynamic-autolayout/Constraints.gif)
+![Constraints](/images/posts/2016-08-15-dynamic-autolayout/Constraints.gif)
 
 To set a constant priority to high or low, simply select the option from the constants priority dropdown in Interface Builder.
 

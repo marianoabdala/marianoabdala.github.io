@@ -165,3 +165,6 @@ You passed priority 250 and the existing priority was 1000.'
 On a final note, `NSLayoutConstraint` provides us with API to `activate(_:)` and `deactivate(_:)` constraints, but this is sadly unavailable from Interface Builder, and thus, prevents us from having a working, warning free interface that holds multiple constraints.
 
 It should be the best approach **if** you are working with constraints in your code and not in Interface Builder.
+
+#### Next
+[Addendum]({% post_url 2016-08-20-dynamic-autolayout-rac %}): Dynamic Autolayout + ReactiveCocoa, making this _even_ simpler with [FRP and ReactiveCocoa]({% post_url 2016-03-20-introduction-to-frp-pt1 %}).

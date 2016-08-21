@@ -28,6 +28,9 @@ self.centerPositionConstraint.rac_priority <~
 self.rightPositionConstraint.rac_priority <~
   self.position.producer.map { priorityMap($0, .Right) }
 
+self.positionLabel.rac_text <~
+  self.position.producer.map { $0.rawValue }
+
 self.position.signal.observeNext { [weak self] _
   
   self?.view.layoutIfNeeded()

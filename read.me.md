@@ -8,7 +8,7 @@ If you are reading this it is very likely that we are or will be collaborating i
 
 If you have one like this or similar please let me know. I'd love to read it!
 
-> This piece has been greatly inspired by this [other one](https://randsinrepose.com/archives/how-to-rands/).
+_This piece has been greatly inspired by this [other one](https://randsinrepose.com/archives/how-to-rands/)._
 
 # About
 

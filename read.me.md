@@ -16,9 +16,18 @@ I've been building software professionally for the last couple decades. I had my
 
 I think mobile is where –due to the inherent restrictions of the environment– we need to push ourselves further. There's no room for 20 options in one screen, there's no room for system that requires a user manual, there's no room for just adding hardware to fix performance issues. Asking the user for an extra tap to achieve something can **make or break an entire business** when it comes to mobile.
 
-During this last half of my carrer, too, I worked _independently_ as a contractor for multiple companies, mostly startups located in the US, Canada and Europe. I'm only just now starting to work for a [well-stablished company](https://www.globant.com/) in my [home country](https://en.wikipedia.org/wiki/Argentina).
+During this last half of my career, too, I worked _independently_ as a contractor for multiple companies, mostly startups located in the US, Canada and Europe. I'm only just now starting to work for a [well-stablished company](https://www.globant.com/) in my [home country](https://en.wikipedia.org/wiki/Argentina).
 
 I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and the [NSConf Argentina](http://nsconfarg.com), at that time the most important and longer standing iOS meetup and conference in Argentina. I decided on passing on the [organisation of the NSCoder](https://mariano.zerously.com/post/66670579060/hosting-an-nscoder) to good friends and earliest members, and to [conclude the NSConf altogether](http://zerously.com/2019/10/13/nsconf-arg-end.html) after incredible runs.
 
 # How to
+
+# Things I value
+
+**Clear ownership.** If you hear me say that you are responsible for something, you are in its entirety. It's your project, your mission, and as such I expect you to keep me updated on its status. If I don't here from your I'll assume things are going great and on time. You can rely on me for advice and resources, but I'm counting on you to deliver. I may refer to you as the "[DRI](https://www.forbes.com/sites/quora/2012/10/02/how-well-does-apples-directly-responsible-individual-dri-model-work-in-practice/#c858327194c4)" of the task at hand.
+
+
+
+
+
 

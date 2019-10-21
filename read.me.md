@@ -18,7 +18,7 @@ I think mobile is where â€“due to the inherent restrictions of the environmentâ€
 
 During this last half of my carrer, too, I worked _independently_ as a contractor for multiple companies, mostly startups located in the US, Canada and Europe. I'm only just now starting to work for a [well-stablished company](https://www.globant.com/) in my [home country](https://en.wikipedia.org/wiki/Argentina).
 
-I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and the [NSConf Argentina](http://nsconfarg.com), at the time the most important and longer standing iOS meetup and conference in Argentina. I decided on passing on the [organisation of the NSCoder](https://mariano.zerously.com/post/66670579060/hosting-an-nscoder) to good friends and earliest members and to [conclude the NSConf altogether](http://zerously.com/2019/10/13/nsconf-arg-end.html) after incredible runs.
+I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and the [NSConf Argentina](http://nsconfarg.com), at that time the most important and longer standing iOS meetup and conference in Argentina. I decided on passing on the [organisation of the NSCoder](https://mariano.zerously.com/post/66670579060/hosting-an-nscoder) to good friends and earliest members, and to [conclude the NSConf altogether](http://zerously.com/2019/10/13/nsconf-arg-end.html) after incredible runs.
 
 # How to
 

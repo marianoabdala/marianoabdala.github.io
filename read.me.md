@@ -24,9 +24,9 @@ I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and t
 
 # Things I value
 
-**Clear ownership.** If you hear me say that you are responsible for something, you are in its entirety. It's your project, your mission, and as such I expect you to keep me updated on its status. If I don't here from your I'll assume things are going great and on time. You can rely on me for advice and resources, but I'm counting on you to deliver. I may refer to you as the "[DRI](https://www.forbes.com/sites/quora/2012/10/02/how-well-does-apples-directly-responsible-individual-dri-model-work-in-practice/#c858327194c4)" of the task at hand.
+**Clear ownership.** If you hear me say that you are responsible for something, you truly are. In its entirety. It's your project, your mission, and as such I expect you to keep me updated on its status. If I don't hear from your I'll assume things are going great and on time. You can rely on me for advice and resources, but I'm counting on you to deliver. I may refer to you as the "[DRI](https://www.forbes.com/sites/quora/2012/10/02/how-well-does-apples-directly-responsible-individual-dri-model-work-in-practice/#c858327194c4)" of the task at hand.
 
-
+**Honesty and openness.** No, seriously. I **will** give you [immediate and candid feedback](https://www.youtube.com/watch?v=f-Tcr0T9Tyw). I hope you will understand where this comes from and you will do the same for me.
 
 
 

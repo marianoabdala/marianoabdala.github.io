@@ -82,9 +82,11 @@ I've got a terrible memory and a ton of different issues that I need to follow u
 
 Oh, I love people who volunteer to fix _whatever stuff_ needs fixing! I aspire to be that way myself. Take on the ugly and the opaque tasks and you'll earn my favour. Volunteering screams team work, and leadership. Volunteering means fixing something that's just wrong or taking on a task or role to aliviate work from your teammates. Volunteering means you'd rather take on something ugly than having someone else have to do it themselves.
 
-Are you the QA lead who happens to have a Scrum Master Certificate? Are you volunteering to run the planning poker? Oh, yes, **thank you**.
+Are you the QA lead who happens to have a Scrum Master Certificate? Are you volunteering to run the planning poker? Oh, yes, [**thank you**](http://zerously.com/images/low-satisfaction.gif).
 
 Are you a Developer who happened to live for a couple years in Brazil? Are you volunteering for double checking on the Portuguese localization? Hell, yes! **Thank you**.
+
+Have you just joined the project and found an error on the onboarding documentation? Are you sending a PR so that whoever comes in next has a smother onboarding? **OMFG, THANK YOU!!!**
 
 #### Working towards self-dispensability [WIP]
 

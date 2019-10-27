@@ -59,7 +59,7 @@ Yeah, I'm probably in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-
 
 I'm pretty much always short on time and needing to cover a lot of ground.  
 
-> How many devs where involved on feature X?  
+> How many devs where involved on building feature X?  
 
 > Who found bug Y?  
 

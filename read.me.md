@@ -65,7 +65,7 @@ I'm pretty much always short on time and needing to cover a lot of ground.
 
 > How many criticals have we identify so far for release Z?  
 
-It's way easier for me to ask you to elaborate when needed on an answer than to ask you to be briefer in general.
+It's way easier for me to ask you to elaborate when needed than to ask you to be briefer in general.
 
 #### Being done in time
 

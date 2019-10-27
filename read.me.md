@@ -4,7 +4,9 @@ title: Read.me
 permalink: /read-me/
 ---
 
-If you are reading this it is very likely that we are or will be collaborating in one way or another in building **something awesome**. Maybe we are launching an app soon or taking an existing one to the next level. We may be putting together a talk about an app, a new programming language or framework, or more generally just how to work better. We may be discussing the software development processes, or how to better hire or coach developers. We may even be collaborating on going deep on a feature to make it super easy or pleasing to use. You may very well be a software developer or architect, an engineering manager, a product designer, a business analyst or a product owner. My hope is that this intro will help in speeding up how we communicate and thus help us in achieving our shared goals more effectively.
+If you are reading this it is very likely that we are or will be collaborating in one way or another in building **something awesome**. Maybe we are launching an app soon or taking an existing one to the next level. We may be putting together a talk about an app, a new programming language or framework, or more generally just how to work better. We may be discussing the software development processes, or how to better hire or coach developers. We may even be collaborating on going deep on a feature to make it super easy or pleasing to use.
+
+You may very well be a software developer or architect, an engineering manager, a product designer, a business analyst or a product owner. My hope is that this intro will help in speeding up how we communicate and thus help us in achieving our shared goals more effectively.
 
 If you have one like this or similar please let me know. **I'd love to read it!**
 

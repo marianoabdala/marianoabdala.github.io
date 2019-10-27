@@ -93,7 +93,7 @@ Have you just joined the project and found an error on the onboarding documentat
 
 #### Self-dispensability
 
-People who are great at what they do, who take responsibility for moving things forward and who volunteer to do the ugly tasks are scarse. You will be needed elsewhere. **We need to not need _you_**. Work towards self-dispensability. Take on the hard tasks but also make it easier for other people to take on them. Document the processes, coach others, share credentials to services used across the project.
+People who are great at what they do, who take responsibility for moving things forward and who volunteer to do the ugly tasks are scarse. You will be needed elsewhere. **We need to not need _you_**. Work towards self-dispensability. Take on the hard tasks but also make it easier for other people to take on them. Document the processes, coach others, share credentials to services used across the project. Make yourself dispensable.
 
 # Suggested reading
 

@@ -6,11 +6,11 @@
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
           <li>{{ site.title }}</li>
-          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
         </ul>
       </div>
 
       <div class="footer-col footer-col-2">
+        <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
         <ul class="social-media-list">
           {% if site.github_username %}
           <li>
@@ -27,7 +27,9 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>Writings of Mariano Abdala. iOS Developer, host at <a href="https://twitter.com/nscoderba">@NSCoderBA</a> and organizer at <a href="https://twitter.com/nsconfarg">@NSConfArg</a>.</p>
+          <li>
+            {% include icon-twitter.html username=site.twitter_username %}
+          </li>
       </div>
     </div>
 

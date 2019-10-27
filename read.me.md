@@ -78,9 +78,13 @@ I like getting out of the office by 6pm **sharp**(\*). I'll work on weekends onl
 
 I've got a terrible memory and a ton of different issues that I need to follow up. This is not going into your _permanent record_. I'm not going to quote you later. Just trying to keep my facts straight. Sometimes, I'll be even just writing down questions to ask later in an effort to avoid interrupting you.
 
-#### Volunteers [WIP]
+#### Volunteers
 
-I like volunteers. I like people who fix stuff.
+Oh, I love people who volunteer to fix _whatever stuff_ needs fixing! I aspire to be that way myself. Take on the ugly and the opaque tasks and you'll earn my favour. Volunteering screams team work, and leadership. Volunteering means fixing something that's just wrong or taking on a task or role to aliviate work from your teammates. Volunteering means you'd rather take on something ugly than having someone else have to do it themselves.
+
+Are you the QA lead who happens to have a Scrum Master Certificate? Are you volunteering to run the planning poker? Oh, yes, **thank you**.
+
+Are you a Developer who happened to live for a couple years in Brazil? Are you volunteering for double checking on the Portuguese localization? Hell, yes! **Thank you**.
 
 #### Working towards self-dispensability [WIP]
 
@@ -92,7 +96,7 @@ Document the process, teach it.
 
 # Suggested reading
 
-A lot of how I work was influenced by my reading. If you want to better understand why I do what I do you may want to take a look at the following:
+A lot of how I work was influenced by [my reading. If you want to better understand why I do what I do you may want to take a look at the following:
 - [Extreme Ownership](https://www.amazon.com/gp/product/B0739PYQSS/)
 - [Radical Candor](https://www.amazon.com/gp/product/B01LW1LESC/)
 - [Managing Humans](https://www.amazon.com/gp/product/B01J53IE1O/)

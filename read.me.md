@@ -47,7 +47,7 @@ I'll typically respond to:
 Am I wearing headphones?  
 Am I sketching on my notepad at full speed?  
 Am I typing _furiously_?  
-Am I staring at the blank while frounding?
+Am I staring at the blank while frowning?
 
 Yeah, I'm probably in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-cave/).
 

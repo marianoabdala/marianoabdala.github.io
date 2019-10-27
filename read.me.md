@@ -54,9 +54,11 @@ Yeah, I'm probably in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-
 #### Brief answers
 
 I'll normally be short on time and will need to cover a lot of ground.  
-How many devs where involved on feature X?  
-Who found bug Y?  
-How many criticals have we identify so far for release Z?  
+> How many devs where involved on feature X?  
+
+> Who found bug Y?  
+
+> How many criticals have we identify so far for release Z?  
 
 It's way easier for me to ask you to elaborate when needed on an answer than to ask you to be briefer in general.
 

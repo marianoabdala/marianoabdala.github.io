@@ -46,9 +46,26 @@ I'll typically respond to:
 
 Typically, wearing headphones, sketching on my notepad or typing furiously means I'm in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-cave/).
 
+#### Brief answers
+
+I'll normally be short on time and will need to cover a lot of ground.  
+How many devs where involved on feature X?  
+Who found bug Y?  
+How many criticals have we identify so far for release Z?  
+
+It's way easier for me to ask you to elaborate when needed on an answer than to ask you to be briefer in general.
+
+#### Being done in time
+
+
 #### Taking notes
 
 I've got a terrible memory and a ton of different issues that I need to follow up. This is not going into your _permanent record_. I'm not going to quote you later. Just trying to keep my facts straight. Sometimes, I'll be even just writing down questions to ask later in an effort to avoid interrupting you.
+
+#### Volunteers
+
+I like volunteers. I like people who fix stuff.
+
 
 # Recommended reading
 A lot of how I work was influenced by my reading. If you want to better understand why I do what I do you may want to take a look at the following:

@@ -38,7 +38,7 @@ Be it an app, a demo, a process documentation, a JIRA board. I like to be able t
 
 #### Async communication
 
-I've spent some of the 2000's and most of the 2010's working remotely. I managed to go all that time without tapping anyone on the shoulder. Please ask yourself, may I be interrupting a long thought process that may take a while to put together? Do I really need this _right now_ or can it wait a few minutes or even hours?
+I've spent some of the 2000's and most of the 2010's [working remotely](http://zerously.com/2016/07/28/back-to-the-office.html). I managed to go all that time without tapping anyone on the shoulder. Please ask yourself, may I be interrupting a long thought process that may take a while to put together? Do I really need this _right now_ or can it wait a few minutes or even hours?
 
 I'll typically respond to:  
 **Emails within 2 to 4 hours.** If you tag it as Important or if you give me a clear deadline, I'll likely be able to make it happen.  
@@ -66,6 +66,13 @@ It's way easier for me to ask you to elaborate when needed on an answer than to 
 
 #### Being done in time
 
+Being done in time means the work was carefully planned and executed. It's a great symptom that the process is solid and everyone –including myself– is perfoming as **expected**. It means we are ready to take on the next one (feature, bug, sprint, project), as opposed to being burnt out.
+
+Brag about being done on time. Working late or on weekends is something to be concerned about, not proud of. Let me know if you are falling behind schedule. Pushing code at 3am or on a Sunday is not gonna impress me.
+
+I like getting out of the office by 6 **o'clock**(\*), and I'll work on weekends only under the most daring circumstances. I've got friends I want to meet, I've got a family I want to spend time with.
+
+(\*) I don't always do, and I do get fairly early in the morning, but it's my choice.
 
 #### Taking notes
 

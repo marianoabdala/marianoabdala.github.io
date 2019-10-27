@@ -66,11 +66,11 @@ It's way easier for me to ask you to elaborate when needed on an answer than to 
 
 #### Being done in time
 
-Being done in time means the work was carefully planned and executed. It's a great symptom that the process is solid and everyone –including myself– is perfoming as **expected**. It means we are ready to take on the next one (feature, bug, sprint, project), as opposed to being burnt out.
+Being done in time means the work was carefully planned and executed. It's a great symptom that the process is solid and that everyone –including myself– is perfoming as **expected**. It means we are ready to take on the next one (feature, bug, sprint, project), as opposed to being burnt out.
 
 Brag about being done on time. Working late or on weekends is something to be concerned about, not proud of. Let me know if you are falling behind schedule. Pushing code at 3am or on a Sunday is not gonna impress me.
 
-I like getting out of the office by 6 **o'clock**(\*), and I'll work on weekends only under the most daring circumstances. I've got friends I want to meet, I've got a family I want to spend time with.
+I like getting out of the office by 6 **o'clock**(\*). I'll work on weekends only under the most daring circumstances. I've got friends I want to meet, I've got a family I want to spend time with.
 
 (\*) I don't always do, and I do get fairly early in the morning, but it's my choice.
 

@@ -24,7 +24,7 @@ I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and t
 
 # Things I value
 
-### Clear ownership
+#### Clear ownership
 If you hear me say that you are responsible for something, you truly are. In its entirety. It's your project, your mission, and as such I expect you to keep me updated on its status. If I don't hear from your I'll assume things are going great and on time. You can rely on me for advice and resources, but I'm counting on you to deliver. I may refer to you as the "[DRI](https://www.forbes.com/sites/quora/2012/10/02/how-well-does-apples-directly-responsible-individual-dri-model-work-in-practice/#c858327194c4)" of the task at hand.
 
 ## Honesty and openness
@@ -36,10 +36,10 @@ Be it an app, a demo, a process documentation, a JIRA board. I like to be able t
 ## Async communication
 I've spent some of the 2000's and most of the 2010's working remotely. I managed to go all that time without tapping anyone on the shoulder. Please ask yourself, may I be interrupting a long thought process that may take a while to put together? Do I really need this _right now_ or can it wait a few minutes or even hours?
 
-I'll typically respond to:
-**Emails in 2 to 4 hours.** If you tag it as Important or if you give me a clear deadline, I'll likely be able to make it happen.
-**IMs in 10 minutes to 1 hour.** I prefer Slack, Hangouts is OK, Whatsapp is kinda personal, so please make it your last option.
-**Phone calls immediately...** but rudely if I realise an email or an IM would've done it.
+I'll typically respond to:  
+**Emails in 2 to 4 hours.** If you tag it as Important or if you give me a clear deadline, I'll likely be able to make it happen.  
+**IMs in 10 minutes to 1 hour.** I prefer Slack, Hangouts is OK, Whatsapp is kinda personal, so please make it your last option.  
+**Phone calls immediately...** but rudely if I realise an email or an IM would've done it.  
 **Taps on the shoulder immediately...** but rudely if I realise an email or an IM would've done it.
 
 Typically, wearing headphones, sketching on my notepad or typing furiously means I'm in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-cave/).

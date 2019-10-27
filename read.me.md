@@ -56,4 +56,5 @@ A lot of how I work was influenced by my reading. If you want to better understa
 - [Radical Candor](https://www.amazon.com/gp/product/B01LW1LESC/)
 - [Managing Humans](https://www.amazon.com/gp/product/B01J53IE1O/)
 - [Design is a Job](https://www.amazon.com/Design-Job-Mike-Monteiro/dp/1937557049)
+
 And basically anything by the folks at Basecamp ([Getting Real](https://www.amazon.com/Getting-Real-Smarter-Successful-Application/dp/0578012812/), [Rework](https://www.amazon.com/Rework-Jason-Fried-ebook/dp/B002MUAJ2A/), [Remote](https://www.amazon.com/Remote-Office-Required-Jason-Fried-ebook/dp/B00C0ALZ0W/), [It doesn't have to be crazy at work](https://www.amazon.com/gp/product/B079WV79TK/)).

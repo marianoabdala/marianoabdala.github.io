@@ -24,7 +24,7 @@ I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and t
 
 # Things I value
 
-## Clear ownership
+### Clear ownership
 If you hear me say that you are responsible for something, you truly are. In its entirety. It's your project, your mission, and as such I expect you to keep me updated on its status. If I don't hear from your I'll assume things are going great and on time. You can rely on me for advice and resources, but I'm counting on you to deliver. I may refer to you as the "[DRI](https://www.forbes.com/sites/quora/2012/10/02/how-well-does-apples-directly-responsible-individual-dri-model-work-in-practice/#c858327194c4)" of the task at hand.
 
 ## Honesty and openness
@@ -45,3 +45,7 @@ I'll typically respond to:
 Typically, wearing headphones, sketching on my notepad or typing furiously means I'm in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-cave/).
 
 **Taking notes.** I've got a terrible memory and a ton of different issues that I need to follow up. This is not going into your _permanent record_. I'm not going to quote you later. Just trying to keep my facts straight. Sometimes, I'll be even just writing down questions to ask later in an effort to avoid interrupting you.
+
+
+# Recommended reading
+A lot of how I work was influenced by my experience and some reading. While my experience isn't _linkable_, some of my reading is! If you want to better understand why I do what I do you may want to take a look at the following:

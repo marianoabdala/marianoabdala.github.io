@@ -84,9 +84,9 @@ Oh, I love people who volunteer to fix _whatever stuff_ needs fixing! I aspire t
 
 Are you the QA lead who happens to have a Scrum Master Certificate? Are you volunteering to run the planning poker? Oh, yes, [**thank you**](http://zerously.com/images/low-satisfaction.gif).
 
-Are you a Developer who happened to live for a couple years in Brazil? Are you volunteering for double checking on the Portuguese localization? Hell, yes! **Thank you**.
+Are you a Developer who happened to live for a couple years in Brazil? Are you volunteering for double checking on the Portuguese localization? Hell, yes! [**Thank you**](http://zerously.com/images/mid-satisfaction.gif).
 
-Have you just joined the project and found an error on the onboarding documentation? Are you sending a PR so that whoever comes in next has a smother onboarding? **OMFG, THANK YOU!!!**
+Have you just joined the project and found an error on the onboarding documentation? Are you sending a PR so that whoever comes in next has a smother onboarding? [**Oh, sweet lord, THANK YOU!!!**](http://zerously.com/images/high-satisfaction.gif)
 
 #### Working towards self-dispensability [WIP]
 

@@ -41,10 +41,15 @@ I've spent some of the 2000's and most of the 2010's working remotely. I managed
 I'll typically respond to:  
 **Emails within 2 to 4 hours.** If you tag it as Important or if you give me a clear deadline, I'll likely be able to make it happen.  
 **IMs within 10 minutes to 1 hour.** I prefer Slack, Hangouts is OK, Whatsapp is kinda personal, so please make it your last option.  
-**Phone calls immediately...** but rudely if I'm in the zone and I realise an email or an IM would've done it.  
-**Taps on the shoulder immediately...** but rudely if I'm in the zone and I realise an email or an IM would've done it.
+**Phone calls immediately...** but rudely if I'm in _the zone_ and I realise an email or an IM would've done it.  
+**Taps on the shoulder immediately...** but rudely if I'm in _the zone_ and I realise an email or an IM would've done it.
 
-Typically, wearing headphones, sketching on my notepad or typing furiously means I'm in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-cave/).
+Am I wearing headphones?  
+Am I sketching on my notepad at full speed?  
+Am I typing _furiously_?  
+Am I staring at the blank while frounding?
+
+Yeah, I'm probably in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-cave/).
 
 #### Brief answers
 

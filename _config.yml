@@ -1,12 +1,12 @@
 # Site settings
 title: Mariano Abdala
 email: mariano@zerously.com
-#description: >
-  #Writings of Mariano Abdala.
+description: >
+  Writings of Mariano Abdala.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://zerously.com" # the base hostname & protocol for your site
 twitter_username: marianoabdala
-#github_username:  marianoabdala
+github_username:  marianoabdala
 
 # Build settings
 markdown: kramdown

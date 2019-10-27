@@ -78,12 +78,20 @@ I like getting out of the office by 6 **o'clock**(\*). I'll work on weekends onl
 
 I've got a terrible memory and a ton of different issues that I need to follow up. This is not going into your _permanent record_. I'm not going to quote you later. Just trying to keep my facts straight. Sometimes, I'll be even just writing down questions to ask later in an effort to avoid interrupting you.
 
-#### Volunteers
+#### Volunteers [WIP]
 
 I like volunteers. I like people who fix stuff.
 
+#### Working towards self-dispensability [WIP]
 
-# Recommended reading
+Don't make the team or the project depend on you.
+Don't use your personal email for signing up to services.
+Document the process, teach it.
+
+
+
+# Suggested reading
+
 A lot of how I work was influenced by my reading. If you want to better understand why I do what I do you may want to take a look at the following:
 - [Extreme Ownership](https://www.amazon.com/gp/product/B0739PYQSS/)
 - [Radical Candor](https://www.amazon.com/gp/product/B01LW1LESC/)
@@ -91,3 +99,7 @@ A lot of how I work was influenced by my reading. If you want to better understa
 - [Design is a Job](https://www.amazon.com/Design-Job-Mike-Monteiro/dp/1937557049)
 
 And basically anything by the folks at Basecamp ([Getting Real](https://www.amazon.com/Getting-Real-Smarter-Successful-Application/dp/0578012812/), [Rework](https://www.amazon.com/Rework-Jason-Fried-ebook/dp/B002MUAJ2A/), [Remote](https://www.amazon.com/Remote-Office-Required-Jason-Fried-ebook/dp/B00C0ALZ0W/), [It doesn't have to be crazy at work](https://www.amazon.com/gp/product/B079WV79TK/)).
+
+Reached this far down?! Aww, thanks. 😊
+
+Why not [follow me](https://twitter.com/marianoabdala) on Twitter and letting me know your opinion on these matters?

@@ -79,11 +79,11 @@ I like getting out of the office by 6pm sharp(\*). I'll work on weekends only un
 
 #### Taking notes
 
-I've got a terrible memory and a ton of different issues that I need to follow up. This is not going into your _permanent record_. I'm not going to quote you later. Just trying to keep my facts straight. Sometimes, I'll be even just writing down questions to ask later in an effort to avoid interrupting you.
+I've got a terrible memory and a ton of different issues that I need to follow up. This is not going into your _permanent record_. I'm not going to quote you later. I'm just trying to keep my facts straight. Sometimes, I'll be even just writing down questions to ask later in an effort to avoid interrupting you.
 
 #### Volunteers
 
-Oh, I love people who volunteer to fix _whatever stuff_ needs fixing! I aspire to be that way myself. Take on the ugly and the opaque tasks and you'll earn my favour. Volunteering screams team work, and leadership. Volunteering means fixing something that's just wrong or taking on a task or role to aliviate work from your teammates. Volunteering means you'd rather take on something ugly than having someone else have to do it themselves.
+Oh, I love people who volunteer to fix _whatever stuff_ needs fixing! I aspire to be that way myself. Take on the ugly and the opaque tasks and you'll earn my favour. Volunteering screams team work, and leadership. Volunteering means fixing something that's just wrong or taking on a task or role to aliviate work from your teammates. Volunteering means you'd rather take on something unpleasent than having someone else have to do it themselves.
 
 Are you the QA lead who happens to have a Scrum Master Certificate? Are you volunteering to run the planning poker? Oh, yes, [**thank you**](http://zerously.com/images/low-satisfaction.gif).
 
@@ -93,7 +93,7 @@ Have you just joined the project and found an error on the onboarding documentat
 
 #### Self-dispensability
 
-People who are great at what they do, who take responsibility for moving things forward and who volunteer to do the ugly tasks are scarse. You will be needed elsewhere. We need to not need _you_. Work towards self-dispensability. Take on the hard tasks but also make it easier for other people to take on them. Document the processes, coach others, share credentials to services used across the project.
+People who are great at what they do, who take responsibility for moving things forward and who volunteer to do the ugly tasks are scarse. You will be needed elsewhere. **We need to not need _you_**. Work towards self-dispensability. Take on the hard tasks but also make it easier for other people to take on them. Document the processes, coach others, share credentials to services used across the project.
 
 # Suggested reading
 

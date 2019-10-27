@@ -88,13 +88,9 @@ Are you a Developer who happened to live for a couple years in Brazil? Are you v
 
 Have you just joined the project and found an error on the onboarding documentation? Are you sending a PR so that whoever comes in next has a smother onboarding? [**Oh, sweet lord, THANK YOU!!1!**](http://zerously.com/images/high-satisfaction.gif)
 
-#### Working towards self-dispensability [WIP]
+#### Self-dispensability
 
-Don't make the team or the project depend on you.
-Don't use your personal email for signing up to services.
-Document the process, teach it.
-
-
+People who are great at what they do, who take responsibility for moving things forward and who volunteer to do the ugly tasks are scarse. You will be needed elsewhere. We need to not need _you_. Work towards self-dispensability. Take on the hard tasks but also make it easier for other people to take on them. Document the processes, coach others, share credentials to services used across the project.
 
 # Suggested reading
 

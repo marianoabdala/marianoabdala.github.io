@@ -27,13 +27,13 @@ I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and t
 #### Clear ownership
 If you hear me say that you are responsible for something, you truly are. In its entirety. It's your project, your mission, and as such I expect you to keep me updated on its status. If I don't hear from your I'll assume things are going great and on time. You can rely on me for advice and resources, but I'm counting on you to deliver. I may refer to you as the "[DRI](https://www.forbes.com/sites/quora/2012/10/02/how-well-does-apples-directly-responsible-individual-dri-model-work-in-practice/#c858327194c4)" of the task at hand.
 
-## Honesty and openness
+#### Honesty and openness
 No, seriously. I **will** give you [immediate and candid feedback](https://www.youtube.com/watch?v=f-Tcr0T9Tyw). I hope you will understand where this comes from –I'm trying to **help you**– and that you will do the same for me.
 
-## Care for whatever we are building
+#### Care for whatever we are building
 Be it an app, a demo, a process documentation, a JIRA board. I like to be able to tell there was care poured into it.
 
-## Async communication
+#### Async communication
 I've spent some of the 2000's and most of the 2010's working remotely. I managed to go all that time without tapping anyone on the shoulder. Please ask yourself, may I be interrupting a long thought process that may take a while to put together? Do I really need this _right now_ or can it wait a few minutes or even hours?
 
 I'll typically respond to:  
@@ -44,7 +44,8 @@ I'll typically respond to:
 
 Typically, wearing headphones, sketching on my notepad or typing furiously means I'm in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-cave/).
 
-**Taking notes.** I've got a terrible memory and a ton of different issues that I need to follow up. This is not going into your _permanent record_. I'm not going to quote you later. Just trying to keep my facts straight. Sometimes, I'll be even just writing down questions to ask later in an effort to avoid interrupting you.
+#### Taking notes.
+I've got a terrible memory and a ton of different issues that I need to follow up. This is not going into your _permanent record_. I'm not going to quote you later. Just trying to keep my facts straight. Sometimes, I'll be even just writing down questions to ask later in an effort to avoid interrupting you.
 
 
 # Recommended reading

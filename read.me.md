@@ -57,7 +57,8 @@ Yeah, I'm probably in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-
 
 #### Brief answers
 
-I'll normally be short on time and will need to cover a lot of ground.  
+I'm pretty much always short on time and will needing to cover a lot of ground.  
+
 > How many devs where involved on feature X?  
 
 > Who found bug Y?  

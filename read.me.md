@@ -8,6 +8,8 @@ If you are reading this it is very likely that we are or will be collaborating i
 
 If you have one like this or similar please let me know. **I'd love to read it!**
 
+Lastly, stuff I bring up here has happened to me many, many times. I wouldn't bother mentioning otherwise. I'm just trying to get us to get on track faster and better. **I'm not writing about you**.
+
 _This piece has been greatly inspired by this [other one](https://randsinrepose.com/archives/how-to-rands/)._
 
 # About

@@ -22,7 +22,7 @@ I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and t
 
 # Things I value
 
-###### Clear ownership
+#### Clear ownership
 If you hear me say that you are responsible for something, you truly are. In its entirety. It's your project, your mission, and as such I expect you to keep me updated on its status. If I don't hear from your I'll assume things are going great and on time. You can rely on me for advice and resources, but I'm counting on you to deliver. I may refer to you as the "[DRI](https://www.forbes.com/sites/quora/2012/10/02/how-well-does-apples-directly-responsible-individual-dri-model-work-in-practice/#c858327194c4)" of the task at hand.
 
 #### Honesty and openness
@@ -46,5 +46,9 @@ Typically, wearing headphones, sketching on my notepad or typing furiously means
 I've got a terrible memory and a ton of different issues that I need to follow up. This is not going into your _permanent record_. I'm not going to quote you later. Just trying to keep my facts straight. Sometimes, I'll be even just writing down questions to ask later in an effort to avoid interrupting you.
 
 # Recommended reading
-
-A lot of how I work was influenced by my experience and some reading. While my experience isn't _linkable_, some of my reading is! If you want to better understand why I do what I do you may want to take a look at the following:
+A lot of how I work was influenced by my reading. If you want to better understand why I do what I do you may want to take a look at the following:
+- [Extreme Ownership](https://www.amazon.com/gp/product/B0739PYQSS/)
+- [Radical Candor](https://www.amazon.com/gp/product/B01LW1LESC/)
+- [Managing Humans](https://www.amazon.com/gp/product/B01J53IE1O/)
+- [Design is a Job](https://www.amazon.com/Design-Job-Mike-Monteiro/dp/1937557049)
+And basically anything by the folks at Basecamp ([Getting Real](https://www.amazon.com/Getting-Real-Smarter-Successful-Application/dp/0578012812/), [Rework](https://www.amazon.com/Rework-Jason-Fried-ebook/dp/B002MUAJ2A/), [Remote](https://www.amazon.com/Remote-Office-Required-Jason-Fried-ebook/dp/B00C0ALZ0W/), [It doesn't have to be crazy at work](https://www.amazon.com/gp/product/B079WV79TK/)).

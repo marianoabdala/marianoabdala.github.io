@@ -70,7 +70,7 @@ Being done in time means the work was carefully planned and executed. It's a gre
 
 Brag about being done on time. Working late or on weekends is something to be concerned about, not proud of. Let me know if you are falling behind schedule. Pushing code at 3am or on a Sunday is not gonna impress me.
 
-I like getting out of the office by 6 **o'clock**(\*). I'll work on weekends only under the most daring circumstances. I've got friends I want to meet, I've got a family I want to spend time with.
+I like getting out of the office by 6pm **sharp**(\*). I'll work on weekends only under the most daring circumstances. I've got friends I want to meet, I've got a family I want to spend time with.
 
 (\*) I don't always do, and I do get fairly early in the morning, but it's my choice.
 
@@ -102,6 +102,4 @@ And basically anything by the folks at Basecamp ([Getting Real](https://www.amaz
 
 # Thanks for reading!
 
-Reached this far down?! Aww, thanks. 😊
-
-Why not [follow me](https://twitter.com/marianoabdala) on Twitter and letting me know your opinion on these matters?
+Reached this far down? Why not [follow me](https://twitter.com/marianoabdala) on Twitter and letting me know your opinion on these matters?

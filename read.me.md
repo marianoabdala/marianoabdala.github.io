@@ -18,7 +18,7 @@ _This piece has been greatly inspired by this [other one](https://randsinrepose.
 
 I've been building software professionally for the last couple decades. I had my share of success and my share of failure too, I'd like to think I've learnt from both. Thought I consider myself a generalist, having spent time helping in most roles you can think of when it comes to building software, I specialised in _mobile_ development for the last half of my career.
 
-I think mobile is where –due to the inherent restrictions of the environment– we need to push ourselves further. There's no room for 20 options in one screen, there's no room for system that requires a user manual, there's no room for just adding hardware to fix performance issues. Asking the user for an extra tap to achieve something can **make or break an entire business** when it comes to mobile.
+I think mobile is where –due to the inherent restrictions of the environment– we need to push ourselves further. There's no room for 20 options in one screen, there's no room for systems that require a user manual, there's no room for just adding hardware to fix performance issues. Asking the user for an extra tap to achieve something can **make or break an entire business** when it comes to mobile.
 
 During this last half of my career, too, I worked _independently_ as a contractor for multiple companies, mostly startups located in the US, Canada and Europe. I'm only just now starting to work for a [well-stablished company](https://www.globant.com/) in my [home country](https://en.wikipedia.org/wiki/Argentina).
 

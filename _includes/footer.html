@@ -10,11 +10,15 @@
       </div>
 
       <div class="footer-col footer-col-2">
-        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        <ul class="contact-list">
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        </ul>
       </div>
 
       <div class="footer-col footer-col-3">
+        <ul class="social-media-list">
           {% include icon-twitter.html username=site.twitter_username %}
+        </ul>
       </div>
     </div>
 

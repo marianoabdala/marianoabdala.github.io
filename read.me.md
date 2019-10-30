@@ -10,15 +10,15 @@ You may very well be a software developer or architect, an engineering manager, 
 
 If you have one like this or similar please let me know. **I'd love to read it!**
 
-Lastly, stuff I bring up here has happened to me many, many times. I wouldn't bother mentioning otherwise. I'm just trying to get us to get on track faster and better. **I'm not writing about you**.
+Lastly, stuff I bring up here has happened to me many, many times. I wouldn't bother mentioning it otherwise. I'm just trying to get us to get on track faster and better. **I'm not writing about you**.
 
 _This piece has been greatly inspired by this [other one](https://randsinrepose.com/archives/how-to-rands/)._
 
 # About
 
-I've been building software professionally for the last couple decades. I had my share of success and my share of failure too, I'd like to think I've learnt from both. Thought I consider myself a generalist, having spent time helping in most roles you can think of when it comes to building software, I specialised in _mobile_ development for the last half of my career.
+I've been building software professionally for the last couple decades. I had my share of success and my share of failure too, I'd like to think I've learnt from both. Though I consider myself a generalist, having spent time helping in most roles you can think of when it comes to building software, I specialised in _mobile_ development for the last half of my career.
 
-I think mobile is where –due to the inherent restrictions of the environment– we need to push ourselves further. There's no room for 20 options in one screen, there's no room for systems that require a user manual, there's no room for just adding hardware to fix performance issues. Asking the user for an extra tap to achieve something can **make or break an entire business** when it comes to mobile.
+I think mobile is where –due to the inherent restrictions of the environment– we need to push ourselves further, especially when it comes to user experience. There's no room for 20 options in one screen, there's no room for systems that require a user manual, there's no room for just adding hardware to fix performance issues. Asking the user for an extra tap to achieve something can **make or break an entire business** when it comes to mobile. I’m positive your field of expertise has many, many exciting points of interest that demand thorough thinking and expert advice.
 
 During this last half of my career, too, I worked _independently_ as a contractor for multiple companies, mostly startups located in the US, Canada and Europe. I'm only just now starting to work for a [well-stablished company](https://www.globant.com/) in my [home country](https://en.wikipedia.org/wiki/Argentina).
 

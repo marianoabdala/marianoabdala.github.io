@@ -71,11 +71,12 @@ It's way easier for me to ask you to elaborate when needed than to ask you to be
 
 Being done in time means the work was carefully planned and executed. It's a great symptom that the process is solid and that everyone –including myself– is perfoming as **expected**. It means we are ready to take on the next one (feature, bug, sprint, project), as opposed to being burnt out.
 
-Brag about being done on time. Working late or on weekends is something to be concerned about, not proud of. Let me know if you are falling behind schedule. Pushing code at 3am or on a Sunday is not gonna impress me.
+Brag about being done on time. Working late or on weekends is something to be concerned about, not proud of. Let me know if you are falling behind schedule. Pushing code at 3am or on a Sunday is not going to impress me(\*).
 
-I like getting out of the office by 6pm sharp(\*). I'll work on weekends only under the most daring circumstances. I've got friends I want to meet, I've got a family I want to spend time with.
+I like getting out of the office by 6pm sharp(\*\*). I'll work on weekends only under the most daring circumstances. I've got friends I want to meet, I've got a family I want to spend time with.
 
-(\*) I don't always do, and I do get fairly early in the morning, but it's my choice.
+(\*) I may have to ask you to do it though.  
+(\*\*) I don't always do, and I do get fairly early in the morning, but it's **my choice**.
 
 #### Taking notes
 
@@ -85,11 +86,11 @@ I've got a terrible memory and a ton of different issues that I need to follow u
 
 Oh, I love people who volunteer to fix _whatever stuff_ needs fixing! I aspire to be that way myself. Take on the ugly and the opaque tasks and you'll earn my favour. Volunteering screams team work, and leadership. Volunteering means fixing something that's just wrong or taking on a task or role to aliviate work from your teammates. Volunteering means you'd rather take on something unpleasent than having someone else have to do it themselves.
 
-Are you the QA lead who happens to have a Scrum Master Certificate? Are you volunteering to run the planning poker? Oh, yes, [**thank you**](http://zerously.com/images/low-satisfaction.gif).
+Are you a QA lead who happens to have a Scrum Master Certificate? Are you volunteering to run the planning poker? Oh, yes, [**thank you**](http://zerously.com/images/low-satisfaction.gif).
 
-Are you a Developer who happened to live for a couple years in Brazil? Are you volunteering for double checking on the Portuguese localization? Hell, yes! [**Thank you**](http://zerously.com/images/mid-satisfaction.gif).
+Are you a Developer who happens to have lived for a couple years in Brazil? Are you volunteering for double checking on the Portuguese localization? Hell, yes! [**Thank you**](http://zerously.com/images/mid-satisfaction.gif).
 
-Have you just joined the project and found an error on the onboarding documentation? Are you sending a PR so that whoever comes in next has a smother onboarding? [**Oh, sweet lord, THANK YOU!!1!**](http://zerously.com/images/high-satisfaction.gif)
+Have you just joined the project and found an error on the onboarding documentation? Are you sending a PR so that whoever comes in next has a smoother onboarding? [**Oh, sweet lord, THANK YOU!!1!**](http://zerously.com/images/high-satisfaction.gif)
 
 #### Self-dispensability
 
@@ -97,7 +98,7 @@ People who are great at what they do, who take responsibility for moving things 
 
 # Suggested reading
 
-A lot of how I work was influenced by [my reading. If you want to better understand why I do what I do you may want to take a look at the following:
+A lot of how I work was influenced by [my reading](https://www.goodreads.com/user/show/80337218-mariano-abdala). If you want to better understand why I do what I do you may want to take a look at the following:
 - [Extreme Ownership](https://www.amazon.com/gp/product/B0739PYQSS/)
 - [Radical Candor](https://www.amazon.com/gp/product/B01LW1LESC/)
 - [Managing Humans](https://www.amazon.com/gp/product/B01J53IE1O/)

@@ -55,6 +55,10 @@ Am I staring at the blank while frowning?
 
 Yeah, I'm probably in [the zone](https://randsinrepose.com/archives/a-nerd-in-a-cave/).
 
+#### Sync communication
+
+If it'll take more than 5 minutes, please setup a call or a meeting. My calendar is always updated. If you find an open spot take it. There are much better chances of me accepting if you add a clear description and agenda.
+
 #### Brief answers
 
 I'm pretty much always short on time and needing to cover a lot of ground.  

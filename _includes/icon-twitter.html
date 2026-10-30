@@ -1,1 +1,1 @@
-<a href="https://twitter.com/{{ include.username }}"><span class="icon icon--twitter">{% include icon-twitter.svg %}</span><span class="username">{{ include.username }}</span></a>
+<a aria-label="{{ include.username | escape }} on Twitter" href="https://twitter.com/{{ include.username }}"><span aria-hidden="true" class="icon icon--twitter">{% include icon-twitter.svg %}</span><span class="username">{{ include.username }}</span></a>

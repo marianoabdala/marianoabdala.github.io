@@ -1,21 +1,22 @@
 ---
 layout: default
 ---
-
 <div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
+  <header class="home-intro">
+    <p class="eyebrow">Zerously · Mariano Abdala</p>
+    <h1>On software &amp;<br>working together.</h1>
+    <p>Notes on building software, sharing what I learn, and the people behind the work.</p>
+  </header>
+  <h2 class="section-heading">All posts <span>{{ site.posts | size }}</span></h2>
   <ul class="post-list">
     {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
+    <li>
+      <article aria-labelledby="post-{{ forloop.index }}">
+        <time class="post-meta" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+        <h3 id="post-{{ forloop.index }}"><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+        <p class="post-excerpt">{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncatewords: 45 | escape }}</p>
+      </article>
+    </li>
     {% endfor %}
   </ul>
-
 </div>

@@ -22,7 +22,7 @@ I think mobile is where â€“due to the inherent restrictions of the environmentâ€
 
 During this last half of my career, too, I worked _independently_ as a contractor for multiple companies, mostly startups located in the US, Canada and Europe. I'm only just now starting to work for a [well-stablished company](https://www.globant.com/) in my [home country](https://en.wikipedia.org/wiki/Argentina).
 
-I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and the [NSConf Argentina](http://nsconfarg.com), at that time the most important and longer standing iOS meetup and conference in Argentina. I decided on passing on the [organisation of the NSCoder](https://mariano.zerously.com/post/66670579060/hosting-an-nscoder) to good friends and earliest members, and to [conclude the NSConf altogether](http://zerously.com/2019/10/13/nsconf-arg-end.html) after incredible runs.
+I've founded both the [NSCoder Buenos Aires](https://nscoderba.tumblr.com) and the [NSConf Argentina](http://nsconfarg.com), at that time the most important and longer standing iOS meetup and conference in Argentina. I decided on passing on the [organisation of the NSCoder](https://mariano.zerously.com/post/66670579060/hosting-an-nscoder) to good friends and earliest members, and to [conclude the NSConf altogether](https://zerously.com/2019/10/13/nsconf-arg-end.html) after incredible runs.
 
 # Things I value
 
@@ -40,7 +40,7 @@ Be it an app, a demo, a process documentation, a JIRA board. I like to be able t
 
 #### Async communication
 
-I've spent part of the 2000's and most of the 2010's [working remotely](http://zerously.com/2016/07/28/back-to-the-office.html). I managed to go all that time without tapping anyone on the shoulder. Please ask yourself, may I be interrupting a long thought process that may take a while to put back together? Do I really need this _right now_ or can it wait a few minutes or even hours?
+I've spent part of the 2000's and most of the 2010's [working remotely](https://zerously.com/2016/07/28/back-to-the-office.html). I managed to go all that time without tapping anyone on the shoulder. Please ask yourself, may I be interrupting a long thought process that may take a while to put back together? Do I really need this _right now_ or can it wait a few minutes or even hours?
 
 I'll typically respond to:  
 **Emails within 2 to 4 hours.** If you tag it as Important or if you give me a clear deadline, I'll likely be able to make it happen.  
@@ -90,11 +90,11 @@ I've got a terrible memory and a ton of different issues that I need to follow u
 
 Oh, I love people who volunteer to fix _whatever stuff_ needs fixing! I aspire to be that way myself. Take on the ugly and the opaque tasks and you'll earn my favour. Volunteering screams team work, and leadership. Volunteering means fixing something that's just wrong or taking on a task or role to aliviate work from your teammates. Volunteering means you'd rather take on something unpleasent than having someone else have to do it themselves.
 
-Are you a QA lead who happens to have a Scrum Master Certificate? Are you volunteering to run the planning poker? Oh, yes, [**thank you**](http://zerously.com/images/low-satisfaction.gif).
+Are you a QA lead who happens to have a Scrum Master Certificate? Are you volunteering to run the planning poker? Oh, yes, [**thank you**](https://zerously.com/images/low-satisfaction.gif).
 
-Are you a Developer who happens to have lived for a couple years in Brazil? Are you volunteering for double checking on the Portuguese localization? Hell, yes! [**Thank you**](http://zerously.com/images/mid-satisfaction.gif).
+Are you a Developer who happens to have lived for a couple years in Brazil? Are you volunteering for double checking on the Portuguese localization? Hell, yes! [**Thank you**](https://zerously.com/images/mid-satisfaction.gif).
 
-Have you just joined the project and found an error on the onboarding documentation? Are you sending a PR so that whoever comes in next has a smoother onboarding? [**Oh, sweet lord, THANK YOU!!1!**](http://zerously.com/images/high-satisfaction.gif)
+Have you just joined the project and found an error on the onboarding documentation? Are you sending a PR so that whoever comes in next has a smoother onboarding? [**Oh, sweet lord, THANK YOU!!1!**](https://zerously.com/images/high-satisfaction.gif)
 
 #### Self-dispensability
 

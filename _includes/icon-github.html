@@ -1,1 +1,1 @@
-<a href="https://github.com/{{ include.username }}"><span class="icon icon--github">{% include icon-github.svg %}</span><span class="username">{{ include.username }}</span></a>
+<a aria-label="{{ include.username | escape }} on GitHub" href="https://github.com/{{ include.username }}"><span aria-hidden="true" class="icon icon--github">{% include icon-github.svg %}</span><span class="username">{{ include.username }}</span></a>

@@ -4,10 +4,27 @@ email: mariano@zerously.com
 description: >
   Writings of Mariano Abdala.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://zerously.com" # the base hostname & protocol for your site
+url: "https://zerously.com"
+lang: en
+author: Mariano Abdala
+timezone: Etc/UTC # Preserve the dates in the URLs already published by Pages.
+permalink: /:year/:month/:day/:title.html
 twitter_username: marianoabdala
 github_username:  marianoabdala
 
 # Build settings
 markdown: kramdown
 future: false
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - README.md
+  - docs
+  - templates
+  - script
+  - Gemfile
+  - Gemfile.lock
+  - vendor
